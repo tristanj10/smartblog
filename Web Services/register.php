@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include_once('./head/https.php');
     include_once('./head/bdd.php');
     
     $token = '';
