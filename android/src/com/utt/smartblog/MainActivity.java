@@ -50,6 +50,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		
 	}
+    
+    @Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putString(KEY_FRAGMENT, mFragment != null ? mFragment : "");
+		super.onSaveInstanceState(outState);
+	}
 
 	   private void showFragment(final Fragment fragment) {
 			if (fragment == null)
