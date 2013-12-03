@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 03 Décembre 2013 à 16:46
+-- Généré le: Mar 03 Décembre 2013 à 16:58
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -70,20 +70,20 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `date_tentative` datetime NOT NULL,
-  `nb_tentatives` int(11) NOT NULL,
+  `nb_tentatives` int(11) DEFAULT '0',
   `last_article` datetime DEFAULT NULL,
   `last_commentaire` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`id`, `nom`, `prenom`, `login`, `password`, `date_tentative`, `nb_tentatives`, `last_article`, `last_commentaire`) VALUES
-(1, 'Super', 'Admin', 'test@test.fr', 'efd302a1f125f0b107975d2f1f87ce0ae59beaadff', '2013-12-03 13:27:31', 0, NULL, NULL);
-
+(1, 'Super', 'Admin', 'test@test.fr', 'efd302a1f125f0b107975d2f1f87ce0ae59beaadff', '2013-12-03 13:27:31', 0, NULL, NULL),
+(3, 'MARTIN', 'Roger', 'lol@lol.fr', '87e4da2bb08cddc0659b1132c7dd7a367ca45397e7', '2013-12-03 16:53:24', 0, NULL, NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -26,15 +26,6 @@
     }
     
     /**
-     * Vérification du login
-     */
-    if(isset($_GET['login']) && is_string($_GET['login']) && filter_var($_GET['login'], FILTER_VALIDATE_EMAIL)) {
-    	$login = $_GET['login'];
-    } else {
-    	$error .= ' - login : mauvais format';
-    }
-    
-    /**
      * Vérification du mot de passe & repeat
      */
     if(isset($_GET['password']) && is_string($_GET['password']) && strlen($_GET['password']) >= 8) {
@@ -52,6 +43,31 @@
     	} else { $error .= ' - mot de passe : mauvais format'; }
     } else { $error .= ' - mot de passe : mauvais format'; }
     
+    /**
+     * Vérification du login
+     */
+    if(isset($_GET['login']) && is_string($_GET['login']) && filter_var($_GET['login'], FILTER_VALIDATE_EMAIL)) {
+    	 
+    	// Login déjà utilisé ?
+    	$stmt = $dbh->prepare("SELECT * FROM utilisateurs where login = ?");
+    	$stmt->bindValue(1, $_GET['login'],PDO::PARAM_STR);
+    	$stmt->execute();
+    	 
+    	$row = $stmt->fetch();
+    	if($stmt->rowCount() != 0)
+    	{
+    		$error .= ' - login : déjà utilisé';
+    	}
+    	else
+    	{
+    		$login = $_GET['login'];
+    	}
+    	 
+    	 
+    } else {
+    	$error .= ' - login : mauvais format';
+    }
+    
     if($error == '') {
     	// Pas d'erreur 
     	
@@ -59,14 +75,12 @@
     	 * Enregistrement de l'utilisateur
     	 */
     	try {
-    		$stmt = $dbh->prepare("INSERT INTO utilisateurs(`nom`,`prenom`,`login`,`password`, `date_tentative`, `nb_tentatives`) VALUES ('?', '?', '?', '?', ?, 0) ");
+    		$stmt = $dbh->prepare("INSERT INTO utilisateurs(`nom`,`prenom`,`login`,`password`, `date_tentative`) VALUES (?, ?, ?, ?, ?) ");
     		$stmt->bindValue(1, $nom,PDO::PARAM_STR);
     		$stmt->bindValue(2, $prenom,PDO::PARAM_STR);
     		$stmt->bindValue(3, $login,PDO::PARAM_STR);
     		$stmt->bindValue(4, $password, PDO::PARAM_STR);
     		$stmt->bindValue(5, date("Y-m-d H:i:s"));
-    		var_dump($stmt);
-    		var_dump($nom);
     		$stmt->execute();
     		
     		// Génération d'un token et connexion
