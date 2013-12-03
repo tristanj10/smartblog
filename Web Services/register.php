@@ -10,7 +10,7 @@
     /**
      * Vérification du nom
      */
-    if(isset($_GET['nom']) && is_string($_GET['nom']) && preg_match("/[^A-Za-z -]/", $_GET['nom'])) {
+    if(isset($_GET['nom']) && is_string($_GET['nom']) && !preg_match("/[^A-Za-z -]+/", $_GET['nom'])) {
     	$nom = $_GET['nom'];
     } else {
     	$error .= ' - nom : mauvais format';
@@ -19,7 +19,7 @@
     /**
      * Vérification du prénom
      */
-    if(isset($_GET['prenom']) && is_string($_GET['prenom']) && preg_match("/[^A-Za-z -]/", $_GET['prenom'])) {
+    if(isset($_GET['prenom']) && is_string($_GET['prenom']) && !preg_match("/[^A-Za-z -]+/", $_GET['prenom'])) {
     	$prenom = $_GET['prenom'];
     } else {
     	$error .= ' - prenom : mauvais format';
@@ -65,6 +65,8 @@
     		$stmt->bindValue(3, $login,PDO::PARAM_STR);
     		$stmt->bindValue(4, $password, PDO::PARAM_STR);
     		$stmt->bindValue(5, date("Y-m-d H:i:s"));
+    		var_dump($stmt);
+    		var_dump($nom);
     		$stmt->execute();
     		
     		// Génération d'un token et connexion

@@ -53,11 +53,6 @@ public class LoginController extends Fragment implements OnClickListener
 			String l = login.getText().toString();
 			String p = password.getText().toString();
 			
-			//Toast.makeText(getActivity(), l, Toast.LENGTH_SHORT).show();
-			
-			// HTTPS 
-			//String str = connexion(l, p);
-			//Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
 			connexion(l, p);
 
 		}

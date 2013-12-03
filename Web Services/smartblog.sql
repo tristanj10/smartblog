@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 03 Décembre 2013 à 14:53
+-- Généré le: Mar 03 Décembre 2013 à 16:46
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -73,7 +73,8 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `nb_tentatives` int(11) NOT NULL,
   `last_article` datetime DEFAULT NULL,
   `last_commentaire` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `login` (`login`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -82,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `nom`, `prenom`, `login`, `password`, `date_tentative`, `nb_tentatives`, `last_article`, `last_commentaire`) VALUES
 (1, 'Super', 'Admin', 'test@test.fr', 'efd302a1f125f0b107975d2f1f87ce0ae59beaadff', '2013-12-03 13:27:31', 0, NULL, NULL);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
