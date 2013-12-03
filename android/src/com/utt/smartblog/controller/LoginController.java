@@ -2,30 +2,27 @@ package com.utt.smartblog.controller;
 
 
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.utt.smartblog.R;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginController extends Fragment implements OnClickListener 
+import com.utt.smartblog.R;
+import com.utt.smartblog.network.JSONParser;
+
+
+public class LoginController extends Fragment implements OnClickListener
 {
 
 	Button buttonSend = null;
@@ -54,34 +51,45 @@ public class LoginController extends Fragment implements OnClickListener
 			password = (EditText) getView().findViewById(R.id.editText2);
 			
 			String l = login.getText().toString();
-			String p = login.getText().toString();
+			String p = password.getText().toString();
 			
 			//Toast.makeText(getActivity(), l, Toast.LENGTH_SHORT).show();
 			
 			// HTTPS 
-			System.out.println(connexion(l,p));
+			//String str = connexion(l, p);
+			//Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+			connexion(l, p);
 
 		}
 	}
 	
-	public HttpResponse connexion(String login, String password) {
-		HttpResponse response = null;
-		try {        
-		        HttpClient client = new DefaultHttpClient();
-		        HttpGet request = new HttpGet();
-		        request.setURI(new URI("https://smartblog.local/auth.php?login=" + login + "&password=" + password));
-		        response = client.execute(request);
-		    } catch (URISyntaxException e) {
-		        e.printStackTrace();
-		    } catch (ClientProtocolException e) {
-		        // TODO Auto-generated catch block
-		        e.printStackTrace();
-		    } catch (IOException e) {
-		        // TODO Auto-generated catch block
-		        e.printStackTrace();
-		    }   
-		 return response;
+	public void connexion(String login, String password)
+	{
+		//getting JSON string from URL
+		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+login+"&password="+password);
+		
+		try {
+	        // Storing each json item in variable
+	        String token = json.getString("token");
+	        String error = json.getString("error");
+
+	        if(!token.isEmpty()) 
+	        {
+	        	// Pas d'erreur
+	        	Toast.makeText(getActivity(), "Vous êtes connecté ! Token : " + token, Toast.LENGTH_SHORT).show();
+	        }
+	        else
+	        {
+	        	// Erreur(s)
+	        	Toast.makeText(getActivity(), "Erreur : " + error, Toast.LENGTH_SHORT).show();
+	        }
+	        
+		} catch (JSONException e) {
+		    e.printStackTrace();
+		}//*/
 	}
+
+	
 
 
 }
