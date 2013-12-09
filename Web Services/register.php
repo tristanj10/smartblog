@@ -60,7 +60,7 @@
     	
     	if($user->existeDeja($_GET['login']))
     	{
-    		$error .= ' - login : déjà utilisé';
+    		$error .= '\r\n - login : déjà utilisé';
     	}
     	else 
     	{
