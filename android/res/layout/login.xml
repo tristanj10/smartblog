@@ -8,12 +8,13 @@
     <!-- Login -->
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/loginLField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:ems="10" >
+        android:ems="10"
+        android:hint="Email" >
 
         <requestFocus />
     </EditText>
@@ -23,13 +24,15 @@
     <!-- Password -->
     
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/passwordLField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:ems="10" 
-        android:inputType="textPassword">
+        android:ems="10"
+        android:hint="********"
+        android:inputType="textPassword" >
+
     </EditText>
     
     
@@ -43,6 +46,12 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:text="Send" />
+        android:text="Connexion" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nouveau compte" />
  
 </LinearLayout>

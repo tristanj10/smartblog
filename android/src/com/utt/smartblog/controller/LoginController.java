@@ -1,12 +1,9 @@
 package com.utt.smartblog.controller;
 
-
-
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utt.smartblog.R;
+import com.utt.smartblog.RegisterActivity;
 import com.utt.smartblog.network.JSONParser;
 
 
@@ -26,6 +24,7 @@ public class LoginController extends Fragment implements OnClickListener
 {
 
 	Button buttonSend = null;
+	Button buttonRegister = null;
 	TextView login;
 	TextView password;
 	
@@ -36,19 +35,23 @@ public class LoginController extends Fragment implements OnClickListener
         
         buttonSend = (Button)view.findViewById(R.id.buttonSend);
         buttonSend.setOnClickListener(this);
-
+        
+        buttonRegister = (Button)view.findViewById(R.id.buttonRegister);
+        buttonRegister.setOnClickListener(this);
         return view;
     }
 
 	
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v) 
+	{
 		// TODO Auto-generated method stub
 		
 		// Envoi des données de connexion 
-		if(v == buttonSend) {
-			login = (EditText) getView().findViewById(R.id.editText1);
-			password = (EditText) getView().findViewById(R.id.editText2);
+		if(v == buttonSend) 
+		{
+			login = (EditText) getView().findViewById(R.id.loginLField);
+			password = (EditText) getView().findViewById(R.id.passwordLField);
 			
 			String l = login.getText().toString();
 			String p = password.getText().toString();
@@ -56,6 +59,12 @@ public class LoginController extends Fragment implements OnClickListener
 			connexion(l, p);
 
 		}
+		else if(v == buttonRegister)
+		{
+			Intent intent = new Intent(this.getActivity(), RegisterActivity.class);
+			startActivity(intent);
+		}
+		
 	}
 	
 	public void connexion(String login, String password)
@@ -63,7 +72,8 @@ public class LoginController extends Fragment implements OnClickListener
 		//getting JSON string from URL
 		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+login+"&password="+password);
 		
-		try {
+		try 
+		{
 	        // Storing each json item in variable
 	        String token = json.getString("token");
 	        String error = json.getString("error");
@@ -76,10 +86,11 @@ public class LoginController extends Fragment implements OnClickListener
 	        else
 	        {
 	        	// Erreur(s)
-	        	Toast.makeText(getActivity(), "Erreur : " + error, Toast.LENGTH_SHORT).show();
+	        	Toast.makeText(getActivity(), "Erreur : " + error, Toast.LENGTH_LONG).show();
 	        }
 	        
-		} catch (JSONException e) {
+		} catch (JSONException e) 
+		{
 		    e.printStackTrace();
 		}//*/
 	}

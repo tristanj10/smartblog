@@ -6,30 +6,30 @@
     $token = '';
     $error = '';
 
-    $user = new Utilisateurs();
+    $user = new Utilisateur();
     
     /**
      * Vérification du nom
      */
-    if(isset($_GET['nom']) && is_string($_GET['nom']) && !preg_match("/[^A-Za-z -]+/", $_GET['nom'])) 
+    if(isset($_GET['nom']) && is_string($_GET['nom']) && !preg_match("/[^A-Za-z -]+/", $_GET['nom']) && $_GET['nom'] != '') 
     {
     	$nom = $_GET['nom'];
     } 
     else 
     {
-    	$error .= ' - nom : mauvais format';
+    	$error .= '\r\n - nom : mauvais format';
     }
     
     /**
      * Vérification du prénom
      */
-    if(isset($_GET['prenom']) && is_string($_GET['prenom']) && !preg_match("/[^A-Za-z -]+/", $_GET['prenom'])) 
+    if(isset($_GET['prenom']) && is_string($_GET['prenom']) && !preg_match("/[^A-Za-z -]+/", $_GET['prenom']) && $_GET['prenom'] != '') 
     {
     	$prenom = $_GET['prenom'];
     } 
     else 
     {
-    	$error .= ' - prenom : mauvais format';
+    	$error .= '\r\n - prenom : mauvais format';
     }
     
     /**
@@ -44,13 +44,13 @@
     		 	$password = $_GET['password'];
     		 } 
     		 else 
-    		 { $error .= ' - mots de passe différents'; }
+    		 { $error .= '\r\n - mots de passe différents'; }
     	}
     	else 
-    	{ $error .= ' - mot de passe : mauvais format'; }
+    	{ $error .= '\r\n - mot de passe : mauvais format'; }
     }
     else 
-    { $error .= ' - mot de passe : mauvais format'; }
+    { $error .= '\r\n - mot de passe : mauvais format'; }
     
     /**
      * Vérification du login
@@ -71,7 +71,7 @@
     } 
     else 
     {
-    	$error .= ' - login : mauvais format';
+    	$error .= '\r\n - login : mauvais format';
     }
     
     if($error == '') {

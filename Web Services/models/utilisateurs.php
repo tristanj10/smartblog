@@ -1,7 +1,7 @@
 <?php
 //require_once('../head/bdd.php');
 
-class Utilisateurs 
+class Utilisateur
 {
 	private $id;
 	private $nom;
@@ -27,8 +27,7 @@ class Utilisateurs
 		} catch (PDOException $e) {
 			//echo 'Connexion échouée : ';// . $e->getMessage();
 		}
-		
-		if(!$this->dbh) {
+				if(!$this->dbh) {
 			return false;
 		}
 	}
@@ -152,7 +151,7 @@ class Utilisateurs
 				$this->setNom($row['nom']);
 				$this->setPrenom($row['prenom']);
 				$this->setLogin($row['login']);
-				$this->setPassword($row['password']);
+				$this->password = $row['password'];
 				$this->setDateTentative($row['date_tentative']);
 				$this->setNbTentatives($row['nb_tentatives']);
 				$this->setLastArticle($row['last_article']);

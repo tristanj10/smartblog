@@ -9,4 +9,6 @@ $salt = substr($rand, -10);
 echo md5($password.$salt).$salt;
 
 
+//echo htmlspecialchars_decode("&amp;amp;gt");
+
 ?>

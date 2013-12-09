@@ -17,7 +17,7 @@
     	$login = $_GET['login'];
     	$password = $_GET['password'];
 
-    	$user = new Utilisateurs();
+    	$user = new Utilisateur();
     	if($user->existeDeja($login))
     	{ // Existe déjà ?
     		$user->charger($login);
@@ -56,8 +56,8 @@
     		else 
     		{ // Mauvaise authentification
     			$tentatives = intval($user->getNbTentatives());
-    			$tentatives++; // Incrémentation tentatives
-    		
+    			//$tentatives++; // Incrémentation tentatives
+    			
     			if($tentatives < 4)
     			{
     				$error = "Erreur de connexion";
