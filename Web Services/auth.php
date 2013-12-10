@@ -14,8 +14,8 @@
     if(isset($_GET['login']) && isset($_GET['password'])) 
     {
     	
-    	$login = $_GET['login'];
-    	$password = $_GET['password'];
+    	$login = htmlspecialchars($_GET['login']);
+    	$password = htmlspecialchars($_GET['password']);
 
     	$user = new Utilisateur();
     	if($user->existeDeja($login))

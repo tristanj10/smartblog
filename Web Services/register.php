@@ -12,7 +12,7 @@
      * Vérification du nom
      */
     if(isset($_GET['nom']) && is_string($_GET['nom']) && !preg_match("/[^A-Za-z -]+/", $_GET['nom']) && $_GET['nom'] != '') 
-    {
+    { 
     	$nom = $_GET['nom'];
     } 
     else 
@@ -37,6 +37,8 @@
      */
     if(isset($_GET['password']) && is_string($_GET['password']) && strlen($_GET['password']) >= 8) 
     {
+    	$_GET['password'] = htmlspecialchars($_GET['password']);
+    	$_GET['repeat'] = htmlspecialchars($_GET['repeat']);
     	if(isset($_GET['repeat']) && is_string($_GET['repeat'])) 
     	{
     		 if($_GET['password'] == $_GET['repeat']) 
