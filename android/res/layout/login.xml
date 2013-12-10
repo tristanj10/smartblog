@@ -8,7 +8,7 @@
     <!-- Login -->
 
     <EditText
-        android:id="@+id/loginLField"
+        android:id="@+id/loginL_Field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -24,7 +24,7 @@
     <!-- Password -->
     
     <EditText
-        android:id="@+id/passwordLField"
+        android:id="@+id/passwordL_Field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

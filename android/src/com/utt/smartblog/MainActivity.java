@@ -5,6 +5,7 @@ import com.utt.smartblog.controller.LoginController;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
@@ -30,13 +31,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+		
+		/*
 		 if (savedInstanceState != null)
 	            mFragment = savedInstanceState.getString(KEY_FRAGMENT);
 	     else
 	            mFragment = getIntent().getStringExtra(KEY_FRAGMENT);
 		 
 		 showFragment(this.loginFragment);
-
+		*/
 	}
 
 	@Override

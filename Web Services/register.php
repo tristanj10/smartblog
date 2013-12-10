@@ -11,7 +11,7 @@
     /**
      * Vérification du nom
      */
-    if(isset($_GET['nom']) && is_string($_GET['nom']) && !preg_match("/[^A-Za-z -]+/", $_GET['nom']) && $_GET['nom'] != '') 
+    if(isset($_GET['nom']) && is_string($_GET['nom']) && !preg_match("/[^A-Za-z-]+/", $_GET['nom']) && $_GET['nom'] != '') 
     { 
     	$nom = $_GET['nom'];
     } 
@@ -23,7 +23,7 @@
     /**
      * Vérification du prénom
      */
-    if(isset($_GET['prenom']) && is_string($_GET['prenom']) && !preg_match("/[^A-Za-z -]+/", $_GET['prenom']) && $_GET['prenom'] != '') 
+    if(isset($_GET['prenom']) && is_string($_GET['prenom']) && !preg_match("/[^A-Za-z-]+/", $_GET['prenom']) && $_GET['prenom'] != '') 
     {
     	$prenom = $_GET['prenom'];
     } 
@@ -35,7 +35,8 @@
     /**
      * Vérification du mot de passe & repeat
      */
-    if(isset($_GET['password']) && is_string($_GET['password']) && strlen($_GET['password']) >= 8) 
+    if(isset($_GET['password']) && is_string($_GET['password']) && strlen($_GET['password']) >= 8 && 
+    preg_match("/[ ]+/", $_GET['password']) && preg_match("/[ ]+/", $_GET['repeat'])) 
     {
     	$_GET['password'] = htmlspecialchars($_GET['password']);
     	$_GET['repeat'] = htmlspecialchars($_GET['repeat']);

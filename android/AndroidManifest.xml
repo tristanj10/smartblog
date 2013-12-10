@@ -26,6 +26,10 @@
             android:name="com.utt.smartblog.RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name="com.utt.smartblog.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" >
