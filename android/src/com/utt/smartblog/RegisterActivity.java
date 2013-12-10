@@ -1,5 +1,9 @@
 package com.utt.smartblog;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +44,9 @@ public class RegisterActivity extends Activity
 		
 		EditText et = null;
 		
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		
+		
 		et = (EditText) getWindow().getDecorView().findViewById(R.id.nomField);
 		user.setNom(et.getText().toString());
 		et = (EditText) getWindow().getDecorView().findViewById(R.id.prenomField);
@@ -50,9 +57,15 @@ public class RegisterActivity extends Activity
 		user.setPassword(et.getText().toString());
 		et = (EditText) getWindow().getDecorView().findViewById(R.id.repeatField);
 		
-		//getting JSON string from URL
-		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/register.php?nom="+user.getNom()+"&prenom="+user.getPrenom()+"&login="+user.getLogin()+"&password="+user.getPassword()+"&repeat="+et.getText().toString());
+		postParameters.add(new BasicNameValuePair("nom", user.getNom()));
+		postParameters.add(new BasicNameValuePair("prenom", user.getPrenom()));
+		postParameters.add(new BasicNameValuePair("login", user.getLogin()));
+		postParameters.add(new BasicNameValuePair("password", user.getPassword()));
+		postParameters.add(new BasicNameValuePair("repeat", et.getText().toString()));
 		
+		//getting JSON string from URL
+		//JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/register.php?nom="+user.getNom()+"&prenom="+user.getPrenom()+"&login="+user.getLogin()+"&password="+user.getPassword()+"&repeat="+et.getText().toString().trim());
+		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/register.php", postParameters);
 		
 		try 
 		{

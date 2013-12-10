@@ -69,14 +69,14 @@ public class LoginController extends Fragment implements OnClickListener
 	
 	public void connexion(String login, String password)
 	{
-		//getting JSON string from URL
-		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+login+"&password="+password);
+		/*//getting JSON string from URL
+		//JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+login+"&password="+password);
 		
 		try 
 		{
 	        // Storing each json item in variable
-	        String token = json.getString("token");
-	        String error = json.getString("error");
+	        //String token = json.getString("token");
+	        //String error = json.getString("error");
 
 	        if(!token.isEmpty()) 
 	        {

@@ -1,5 +1,9 @@
 package com.utt.smartblog;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,15 +46,19 @@ public class LoginActivity extends Activity
 		
 		EditText et = null;
 
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		
 		et = (EditText) getWindow().getDecorView().findViewById(R.id.loginLField);
 		user.setLogin(et.getText().toString());
 		et = (EditText) getWindow().getDecorView().findViewById(R.id.passwordLField);
 		user.setPassword(et.getText().toString());
 		
-		//getting JSON string from URL
-		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+user.getLogin()+"&password="+user.getPassword());
+		postParameters.add(new BasicNameValuePair("login", user.getLogin()));
+		postParameters.add(new BasicNameValuePair("password", user.getPassword()));
 		
+		//getting JSON string from URL
+		//JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+user.getLogin()+"&password="+user.getPassword());
+		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php", postParameters);
 		try 
 		{
 	        // Storing each json item in variable
@@ -60,7 +68,8 @@ public class LoginActivity extends Activity
 	        if(!token.isEmpty()) 
 	        {
 	        	// Pas d'erreur
-	        	Toast.makeText(this, "Vous êtes connecté ! Token : " + token, Toast.LENGTH_SHORT).show();
+	        	//Toast.makeText(this, "Vous êtes connecté ! Token : " + token, Toast.LENGTH_SHORT).show();
+	        	Toast.makeText(this, "Compte créé avec succès", Toast.LENGTH_SHORT).show();
 	        }
 	        else
 	        {

@@ -11,11 +11,11 @@
     /**
      * Vérification des entrées
      */
-    if(isset($_GET['login']) && isset($_GET['password'])) 
+    if(isset($_POST['login']) && isset($_POST['password'])) 
     {
     	
-    	$login = htmlspecialchars($_GET['login']);
-    	$password = htmlspecialchars($_GET['password']);
+    	$login = htmlspecialchars($_POST['login']);
+    	$password = htmlspecialchars($_POST['password']);
 
     	$user = new Utilisateur();
     	if($user->existeDeja($login))

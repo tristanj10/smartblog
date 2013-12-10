@@ -11,9 +11,9 @@
     /**
      * Vérification du nom
      */
-    if(isset($_GET['nom']) && is_string($_GET['nom']) && !preg_match("/[^A-Za-z-]+/", $_GET['nom']) && $_GET['nom'] != '') 
+    if(isset($_POST['nom']) && is_string($_POST['nom']) && !preg_match("/[^A-Za-z- ]+/", $_POST['nom']) && $_POST['nom'] != '') 
     { 
-    	$nom = $_GET['nom'];
+    	$nom = $_POST['nom'];
     } 
     else 
     {
@@ -23,9 +23,9 @@
     /**
      * Vérification du prénom
      */
-    if(isset($_GET['prenom']) && is_string($_GET['prenom']) && !preg_match("/[^A-Za-z-]+/", $_GET['prenom']) && $_GET['prenom'] != '') 
+    if(isset($_POST['prenom']) && is_string($_POST['prenom']) && !preg_match("/[^A-Za-z- ]+/", $_POST['prenom']) && $_POST['prenom'] != '') 
     {
-    	$prenom = $_GET['prenom'];
+    	$prenom = $_POST['prenom'];
     } 
     else 
     {
@@ -35,16 +35,15 @@
     /**
      * Vérification du mot de passe & repeat
      */
-    if(isset($_GET['password']) && is_string($_GET['password']) && strlen($_GET['password']) >= 8 && 
-    preg_match("/[ ]+/", $_GET['password']) && preg_match("/[ ]+/", $_GET['repeat'])) 
+    if(isset($_POST['password']) && is_string($_POST['password']) && strlen($_POST['password']) >= 8) 
     {
-    	$_GET['password'] = htmlspecialchars($_GET['password']);
-    	$_GET['repeat'] = htmlspecialchars($_GET['repeat']);
-    	if(isset($_GET['repeat']) && is_string($_GET['repeat'])) 
+    	$_POST['password'] = htmlspecialchars($_POST['password']);
+    	$_POST['repeat'] = htmlspecialchars($_POST['repeat']);
+    	if(isset($_POST['repeat']) && is_string($_POST['repeat'])) 
     	{
-    		 if($_GET['password'] == $_GET['repeat']) 
+    		 if($_POST['password'] == $_POST['repeat']) 
     		 {
-    		 	$password = $_GET['password'];
+    		 	$password = $_POST['password'];
     		 } 
     		 else 
     		 { $error .= '\r\n - mots de passe différents'; }
@@ -58,16 +57,16 @@
     /**
      * Vérification du login
      */
-    if(isset($_GET['login']) && is_string($_GET['login']) && filter_var($_GET['login'], FILTER_VALIDATE_EMAIL)) 
+    if(isset($_POST['login']) && is_string($_POST['login']) && filter_var($_POST['login'], FILTER_VALIDATE_EMAIL)) 
     {
     	
-    	if($user->existeDeja($_GET['login']))
+    	if($user->existeDeja($_POST['login']))
     	{
     		$error .= '\r\n - login : déjà utilisé';
     	}
     	else 
     	{
-    		$login = $_GET['login'];
+    		$login = $_POST['login'];
     	}
     	 
     	 

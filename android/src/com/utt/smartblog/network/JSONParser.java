@@ -6,12 +6,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.security.KeyStore;
+import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -41,7 +44,7 @@ public class JSONParser {
  
     }
  
-    public static JSONObject getJSONFromUrl(String url) {
+    public static JSONObject getJSONFromUrl(String url, ArrayList<NameValuePair> postParameters) {
  
     	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
@@ -51,6 +54,13 @@ public class JSONParser {
         	HttpClient httpClient = getNewHttpClient();  
             HttpPost httpPost = new HttpPost(url);
  
+            
+            if(!postParameters.isEmpty())  
+            {
+            	httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+            }
+            	
+            
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();          
