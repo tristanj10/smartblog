@@ -3,6 +3,12 @@
     require_once('./head/https.php');
     require_once('./models/utilisateurs.php');
     
+    if(empty($_POST))
+    {
+    	exit;
+    }
+    	
+    
     $token = '';
     $error = '';
 	$ok = false;
