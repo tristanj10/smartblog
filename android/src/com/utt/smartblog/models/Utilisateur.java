@@ -12,6 +12,7 @@ public class Utilisateur {
 	private String last_article;
 	private String last_commentaire;
 	
+	private String token;
 	
 	public int getId() {
 		return id;
@@ -66,6 +67,16 @@ public class Utilisateur {
 	}
 	public void setLast_commentaire(String last_commentaire) {
 		this.last_commentaire = last_commentaire;
+	}
+	
+	public void setToken(String token)
+	{
+		this.token = token;
+	}
+	
+	public String getToken()
+	{
+		return token;
 	}
 
 	

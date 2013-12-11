@@ -7,6 +7,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import backup._LoginActivity;
+
 import com.utt.smartblog.models.Utilisateur;
 import com.utt.smartblog.network.JSONParser;
 
@@ -36,6 +38,12 @@ public class RegisterActivity extends Activity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.register, menu);
 		return true;
+	}
+	
+	public void retour(View view)
+	{
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
 	}
 	
 	public void envoyer(View view)
@@ -76,9 +84,10 @@ public class RegisterActivity extends Activity
 	        if(!token.isEmpty()) 
 	        {
 	        	// Pas d'erreur
-	        	Toast.makeText(this, "Vous êtes connecté ! Token : " + token, Toast.LENGTH_SHORT).show();
-	        	Intent intent = new Intent(this, LoginActivity.class);
+	        	Toast.makeText(this, "Compte créé avec succès", Toast.LENGTH_SHORT).show();
+	        	Intent intent = new Intent(this, MainActivity.class);
 	    		startActivity(intent);
+	    		finish();
 	        }
 	        else
 	        {

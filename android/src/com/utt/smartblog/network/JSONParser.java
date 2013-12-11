@@ -54,16 +54,23 @@ public class JSONParser {
         	HttpClient httpClient = getNewHttpClient();  
             HttpPost httpPost = new HttpPost(url);
  
+            // Pour le test
+            System.out.println(httpPost.getURI().toString());
+            
+            
             
             if(!postParameters.isEmpty())  
             {
+                System.out.println("SEND : " + postParameters.toString());
             	httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
             }
             	
             
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
-            is = httpEntity.getContent();          
+            is = httpEntity.getContent();        
+            
+          
  
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -80,6 +87,9 @@ public class JSONParser {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
+                
+                // Pour le test seulement
+                System.out.println("RETURN : " + line);
             }
             is.close();
             json = sb.toString();

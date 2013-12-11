@@ -1,7 +1,8 @@
 <?php
     session_start();
+    require_once('./head/connexion.php');
     require_once('./head/https.php');
-    require_once('./models/utilisateurs.php');
+    require_once('./models/utilisateur.php');
     
     if(empty($_POST))
     {
@@ -24,9 +25,9 @@
     	$password = htmlspecialchars($_POST['password']);
 
     	$user = new Utilisateur();
-    	if($user->existeDeja($login))
+    	if($user->existeDeja($dbh, $login))
     	{ // Existe déjà ?
-    		$user->charger($login);
+    		$user->charger($dbh, $login);
     		if($user->estBloque()) 
     		{ // Est bloqué ?
     			$error = "Compte bloqué";
@@ -36,7 +37,7 @@
     			if(($user->peutEtreDebloque()))
     			{ // Peut être débloqué ?
     				$user->setNbTentatives(0);
-    				$user->sauvegarder();
+    				$user->sauvegarder($dbh);
     				 
     				
     			}
@@ -51,11 +52,12 @@
     	
     	if($ok == true)
     	{
-    		if($user->login($login, $password))
+    		if($user->login($dbh, $login, $password))
     		{ // Authentification réussie
-    			$token = md5(uniqid(rand(), true));
-    			$_SESSION['token'] = $token;
-    			$_SESSION['login'] = $login;
+    			//$token = md5(uniqid(rand(), true));
+    			$_SESSION['token'] = session_id();
+    			$_SESSION['user'] = serialize($user);
+    			$token = $_SESSION['token'];
     			
     			$tentatives = 0; // RAZ tentatives
     		} 
@@ -77,7 +79,7 @@
     			$user->setDateTentative(date("Y-m-d H:i:s"));
     		}
     		$user->setNbTentatives($tentatives);
-    		$user->sauvegarder();
+    		$user->sauvegarder($dbh);
     	}
     } 
     else 

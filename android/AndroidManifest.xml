@@ -27,8 +27,12 @@
             android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name="com.utt.smartblog.LoginActivity"
+            android:name="backup._LoginActivity"
             android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="com.utt.smartblog.LoggedInActivity"
+            android:label="@string/title_activity_logged_in" >
         </activity>
     </application>
 

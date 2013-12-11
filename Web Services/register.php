@@ -1,7 +1,8 @@
 <?php
     session_start();
+    require_once('./head/connexion.php');
     require_once('./head/https.php');
-    require_once('./models/utilisateurs.php');
+    require_once('./models/utilisateur.php');
     
     
     if(empty($_POST))
@@ -67,7 +68,7 @@
     if(isset($_POST['login']) && is_string($_POST['login']) && filter_var($_POST['login'], FILTER_VALIDATE_EMAIL)) 
     {
     	
-    	if($user->existeDeja($_POST['login']))
+    	if($user->existeDeja($dbh, $_POST['login']))
     	{
     		$error .= '\r\n - login : déjà utilisé';
     	}
@@ -95,7 +96,7 @@
     	$user->setPassword($password);
     	$user->setDateTentative(date("Y-m-d H:i:s"));
     	
-    	$user->sauvegarder();
+    	$user->sauvegarder($dbh);
 
     	
     	// Génération d'un token et connexion
