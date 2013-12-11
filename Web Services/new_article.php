@@ -10,22 +10,19 @@ require_once('./models/utilisateur.php');
 //print_r($_SESSION);
 
 
-/*if(empty($_SESSION['token']) || empty($_SESSION['user']))
+if(empty($_SESSION['token']) || empty($_SESSION['user']))
 {
 	exit;
-}*/
+}
 
 $error = '';
 
 $article = new Article();
 
-//if($_SESSION['token'] == $_POST['token'])
-//{
-	//$user = unserialize($_SESSION['user']);
+if($_SESSION['token'] == $_POST['token'])
+{
+	$user = unserialize($_SESSION['user']);
 
-	// Que pour le test
-	$user = new Utilisateur();
-	$user->charger($dbh, "test@test.fr");
 	
 
 	/**
@@ -77,7 +74,7 @@ $article = new Article();
 	echo $str;
 	
 	
-//}
+}
 
 
 
