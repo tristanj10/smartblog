@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/articleBackButton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="60dp"
     android:orientation="vertical" >
 
     <EditText
         android:id="@+id/titreField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
-        android:hint="Titre" />
+        android:hint="Titre" >
+
+      <requestFocus />
+      </EditText>
 
     <EditText
         android:id="@+id/contenuField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="Contenu"
         android:inputType="textMultiLine" >
 
-        <requestFocus />
     </EditText>
 
     <Button
         android:id="@+id/articleButton"
-        android:layout_width="269dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="Envoyer" />
 
 </LinearLayout>

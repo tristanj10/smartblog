@@ -8,22 +8,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoggedInActivity" >
 
-     <!-- Barre de recherche -->
-
-    <EditText
-        android:id="@+id/prenomField"
+  
+    
+    
+    <ImageButton
+        android:id="@+id/newArticleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/fragmentContenaire"
-        android:layout_alignRight="@+id/fragmentContenaire"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Rechercher" >
+        android:layout_marginLeft="1dp"
+        android:padding="4dip"
+        android:onClick="nouvelArticleFragment"
+        android:src="@android:drawable/ic_input_add" />
 
-        <requestFocus />
-    </EditText>
+    <ImageButton
+        android:id="@+id/listeArticleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/newArticleButton"
+        android:layout_marginLeft="1dp"
+        android:padding="4dip"
+        android:layout_toRightOf="@+id/newArticleButton"
+        android:onClick="listeArticleFragment"
+        android:src="@android:drawable/stat_notify_sync_noanim" />
     
-    <!-- Contenaire -->
+    <EditText
+            android:id="@+id/rechercheField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:layout_toRightOf="@+id/listeArticleButton"
+            android:layout_alignTop="@+id/newArticleButton"
+            android:hint="Rechercher" />
+    
+	
+    <!-- 
+        <Button
+            android:id="@+id/newArticleButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:onClick="nouvelArticleFragment" /> -->
 
     <FrameLayout
         android:id="@+id/fragmentContenaire"

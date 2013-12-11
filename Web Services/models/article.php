@@ -241,34 +241,13 @@ class Article
 	{
 		try
 		{
-			$stmt = $dbh->prepare("SELECT a.*, u.id, u.nom, u.prenom, u.login FROM articles a, utilisateurs u WHERE a.id = ? AND a.id_auteur = u.id");
-			$stmt->bindValue(1, $id,PDO::PARAM_STR);
+			$stmt = $dbh->prepare("SELECT a.*, u.nom, u.prenom, u.login FROM articles a, utilisateurs u WHERE a.id_auteur = u.id ORDER BY a.id DESC");
 			$stmt->execute();
 		
-			$row = $stmt->fetchAll();
+			$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			
-		/*
-			if($stmt->rowCount() == 1)
-			{
-				$this->setId($row['a.id']);
-				$this->setTitre($row['a.titre']);
-				$this->setDate($row['a.date']);
-				$this->setImage($row['a.image']);
-				$this->setContenu($row['a.contenu']);
-				$this->setNbVues($row['a.nb_vues']);
-				$this->setLike($row['a.like']);
-				$this->setDislike($row['a.dislike']);
 		
-				$id_auteur = $row['id_auteur'];
-		
-				$this->auteur->setNom($row['u.nom']);
-				$this->auteur->setPrenom($row['u.prenom']);
-				$this->auteur->setLogin($row['u.login']);
-		
-				return true;
-			}*/
-		
-			return false;
+			return $res;
 		}
 		catch(Exception $e)
 		{

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import backup._LoginController;
 
 import com.utt.smartblog.controller.ArticleController;
+import com.utt.smartblog.controller.NewArticleController;
 import com.utt.smartblog.models.Utilisateur;
 
 public class LoggedInActivity extends FragmentActivity implements OnClickListener {
@@ -24,8 +25,8 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 	public Utilisateur user;
 
 	// Fragments
-	//private final LoginController loginFragment = new LoginController();
 	private final ArticleController articleFragment = new ArticleController();
+	private final NewArticleController newArticleFragment = new NewArticleController();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,16 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 		// bouton précédent
 		ft.addToBackStack(null);
 		ft.commit();
+	}
+	
+	public void listeArticleFragment(View v)
+	{
+		showFragment(this.articleFragment);
+	}
+	
+	public void nouvelArticleFragment(View v)
+	{	
+		showFragment(this.newArticleFragment);
 	}
 
 }

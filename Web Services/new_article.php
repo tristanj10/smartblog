@@ -1,6 +1,6 @@
 <?php
 
-session_id($_POST['token']);
+if(isset($_POST['token'])) session_id($_POST['token']);
 session_start();
 require_once('./head/connexion.php');
 require_once('./head/https.php');

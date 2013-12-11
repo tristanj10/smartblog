@@ -1,6 +1,7 @@
 package com.utt.smartblog.models;
 
-public class Utilisateur {
+public class Utilisateur 
+{
 
 	private int id;
 	private String nom;
