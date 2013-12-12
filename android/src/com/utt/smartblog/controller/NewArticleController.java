@@ -33,6 +33,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 
 	Button articleButton = null;
 	Utilisateur user = null;
+	LoggedInActivity monActivity = null;
 	
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 	    View view = inflater.inflate(R.layout.fragment_new_article, container, false);
 	    
 	    articleButton = (Button)view.findViewById(R.id.articleButton);
+	    monActivity = (LoggedInActivity) this.getActivity();
 	    
 	    this.user = ((LoggedInActivity)getActivity()).user;
 	    
@@ -66,7 +68,6 @@ public class NewArticleController extends Fragment implements OnClickListener
 			
 			nouvelArticle(strTitre, strContenu);
 			
-			LoggedInActivity monActivity = (LoggedInActivity) this.getActivity();
 			monActivity.showFragment(monActivity.articleFragment);
 			
 		}

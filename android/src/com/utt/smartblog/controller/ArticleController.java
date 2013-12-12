@@ -37,13 +37,15 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 
 	Utilisateur user = null;
 	ListView listView = null;
+	LoggedInActivity monActivity = null;
 	
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	 
 	    View view = inflater.inflate(R.layout.fragment_list_article, container, false);
+	   
 	    listView = (ListView)view.findViewById(R.id.listArticles);
-	    
+	    monActivity = (LoggedInActivity) this.getActivity();
 	    
 	    this.user = ((LoggedInActivity)getActivity()).user;
 	    
@@ -131,8 +133,12 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 		//On récupère l'article Selectionné
 		Article  item = (Article) listView.getItemAtPosition(position);
 		
-		//On lance l'activité ou fragment de lecture de l'article selectionné.
+		//On passe a l'activity l'article selectionné.
+		this.monActivity.setSelectedArticle(item);
+		
+		//On lance le fragment de lecture de l'article selectionné.
 		Toast.makeText(getActivity(), item.getTitre(), Toast.LENGTH_LONG).show();//a suppr
+		this.monActivity.showFragment(this.monActivity.lectureArticleFragment);
 	}
 	
 }

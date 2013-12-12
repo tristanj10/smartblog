@@ -16,6 +16,7 @@ import backup._LoginController;
 import com.utt.smartblog.controller.ArticleController;
 import com.utt.smartblog.controller.LectureArticleController;
 import com.utt.smartblog.controller.NewArticleController;
+import com.utt.smartblog.models.Article;
 import com.utt.smartblog.models.Utilisateur;
 
 public class LoggedInActivity extends FragmentActivity {
@@ -31,7 +32,8 @@ public class LoggedInActivity extends FragmentActivity {
 	public final LectureArticleController lectureArticleFragment = new LectureArticleController();//Controller de la création d'un nouvel article
 	
 	public Utilisateur user;
-
+	private Article selectedArticle = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -93,6 +95,14 @@ public class LoggedInActivity extends FragmentActivity {
         // Possibilité de retourner à l'écran précédent en appuyant sur le bouton précédent
         ft.addToBackStack(null);
         ft.commit();
+    }
+    
+    public Article getSelectedArticle(){
+    	return this.selectedArticle;
+    }
+    
+    public void setSelectedArticle(Article article){
+    	this.selectedArticle = article;
     }
 
 }
