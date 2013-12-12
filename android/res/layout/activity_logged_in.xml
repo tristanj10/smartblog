@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="1dp"
         android:padding="4dip"
-        android:onClick="nouvelArticleFragment"
         android:src="@android:drawable/ic_input_add" />
 
     <ImageButton
@@ -28,7 +27,6 @@
         android:layout_marginLeft="1dp"
         android:padding="4dip"
         android:layout_toRightOf="@+id/newArticleButton"
-        android:onClick="listeArticleFragment"
         android:src="@android:drawable/stat_notify_sync_noanim" />
     
     <EditText

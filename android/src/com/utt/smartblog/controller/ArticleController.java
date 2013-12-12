@@ -7,6 +7,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.ClipData.Item;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,9 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utt.smartblog.LoggedInActivity;
@@ -28,7 +32,7 @@ import com.utt.smartblog.models.Utilisateur;
 import com.utt.smartblog.network.JSONParser;
 
 
-public class ArticleController extends Fragment implements OnClickListener
+public class ArticleController extends Fragment implements OnClickListener, OnItemClickListener
 {
 
 	Utilisateur user = null;
@@ -40,7 +44,6 @@ public class ArticleController extends Fragment implements OnClickListener
 	    View view = inflater.inflate(R.layout.fragment_list_article, container, false);
 	    listView = (ListView)view.findViewById(R.id.listArticles);
 	    
-
 	    
 	    this.user = ((LoggedInActivity)getActivity()).user;
 	    
@@ -55,9 +58,6 @@ public class ArticleController extends Fragment implements OnClickListener
 	{
 		// TODO Auto-generated method stub
     	
-    	
-		
-		
 	}
     
     public void chargerListe()
@@ -112,6 +112,7 @@ public class ArticleController extends Fragment implements OnClickListener
 				
 				ArticleAdapter adapter = new ArticleAdapter(getActivity(), articles);
 				listView.setAdapter(adapter);
+				listView.setOnItemClickListener(this);
 			}
 			else 
 			{
@@ -122,5 +123,16 @@ public class ArticleController extends Fragment implements OnClickListener
 			e.printStackTrace();
 		}
     }
+
+    //Méthode pour gérer les click sur les items de la listView
+	@Override
+	public void onItemClick(AdapterView<?> parent, View  view, int position, long id) {
+		// TODO Auto-generated method stub
+		//On récupère l'article Selectionné
+		Article  item = (Article) listView.getItemAtPosition(position);
+		
+		//On lance l'activité ou fragment de lecture de l'article selectionné.
+		Toast.makeText(getActivity(), item.getTitre(), Toast.LENGTH_LONG).show();//a suppr
+	}
 	
 }

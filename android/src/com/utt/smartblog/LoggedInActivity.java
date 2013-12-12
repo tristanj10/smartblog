@@ -8,10 +8,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import backup._LoginController;
 
 import com.utt.smartblog.controller.ArticleController;
+import com.utt.smartblog.controller.LectureArticleController;
 import com.utt.smartblog.controller.NewArticleController;
 import com.utt.smartblog.models.Utilisateur;
 
@@ -20,12 +23,21 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 	private static final String KEY_FRAGMENT = "fragment_save";
 
 	// Fragment actif
-	private String mFragment;//Fragment courant
-	public Utilisateur user;
-
+	private String mFragment;
+	
 	// Fragments
 	private final ArticleController articleFragment = new ArticleController();//Controller de la liste des articles
 	private final NewArticleController newArticleFragment = new NewArticleController();//Controller de la création d'un nouvel article
+	private final LectureArticleController lectureArticleFragment = new LectureArticleController();//Controller de la création d'un nouvel article
+	
+	//Composants interactifs
+	ImageButton buttonNouvelArticle = null;
+	ImageButton buttonRetour = null;
+	Button buttonEnvoyé = null; //--> a continuer
+	
+	public Utilisateur user;
+
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +53,29 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
     	    user.setToken(this.getIntent().getExtras().getString("token"));
     	    Toast.makeText(this, "Ca y est, on est co token : " + user.getToken(), Toast.LENGTH_LONG).show();//a suppr
     	    
+    	    this.buttonNouvelArticle = (ImageButton) findViewById(R.id.newArticleButton);
+            this.buttonRetour = (ImageButton) findViewById(R.id.listeArticleButton);
+
+            
+    		// On spécifie que le listener est notre classe
+            this.buttonNouvelArticle.setOnClickListener(this);;
+            this.buttonRetour.setOnClickListener(this);
+    	    
     	    if (savedInstanceState != null)
-    	    {
-    	    	mFragment = savedInstanceState.getString(KEY_FRAGMENT);
-    	    }
-    	    else
-    	    {
-    	    	mFragment = getIntent().getStringExtra(KEY_FRAGMENT);
-    	    }
-	            
-		 
-    	    showFragment(this.articleFragment);
+                mFragment = savedInstanceState.getString(KEY_FRAGMENT);
+            else
+                mFragment = getIntent().getStringExtra(KEY_FRAGMENT);
+             
+            if (mFragment != null) {
+            	// Sélection d'un choix dans le menu
+                if (mFragment.equals(articleFragment.getClass().getSimpleName())) {
+                    showFragment(this.articleFragment);
+                } else if (mFragment.equals(newArticleFragment.getClass().getSimpleName())) {
+                    showFragment(this.newArticleFragment);
+                } 
+            } else {
+                showFragment(this.articleFragment);
+            }
         }
 		else
 		{
@@ -82,7 +106,12 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-
+		// Choix : Affichage du fragment + changement de couleurs
+				if(v == this.buttonNouvelArticle) {
+					showFragment(this.newArticleFragment); 
+				}else if(v == this.buttonRetour){
+					showFragment(this.articleFragment);
+				}
 	}
 
 	@Override
@@ -90,35 +119,25 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 		outState.putString(KEY_FRAGMENT, mFragment != null ? mFragment : "");
 		super.onSaveInstanceState(outState);
 	}
-
-	private void showFragment(final Fragment fragment) {
+    
+    private void showFragment(final Fragment fragment) {
 		if (fragment == null)
 			return;
 
-		final FragmentManager fm = getSupportFragmentManager();
-		final FragmentTransaction ft = fm.beginTransaction();
+        final FragmentManager fm = getSupportFragmentManager();
+        final FragmentTransaction ft = fm.beginTransaction();
 
-		// Animation
-		ft.setCustomAnimations(android.R.anim.slide_in_left,
-				android.R.anim.slide_out_right);
-
-		// Affecter le nouveau fragment auFrameLayout
-		ft.replace(R.id.fragmentContenaire, fragment);
-
-		// Possibilité de retourner à l'écran précédent en appuyant sur le
-		// bouton précédent
-		ft.addToBackStack(null);
-		ft.commit();
-	}
+        // Animation
+        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        
+        // Affecter le nouveau fragment auFrameLayout
+        ft.replace(R.id.fragmentContenaire, fragment);
+        
+        // Possibilité de retourner à l'écran précédent en appuyant sur le bouton précédent
+        ft.addToBackStack(null);
+        ft.commit();
+    }
 	
-	public void listeArticleFragment(View v)
-	{
-		showFragment(this.articleFragment);
-	}
 	
-	public void nouvelArticleFragment(View v)
-	{	
-		showFragment(this.newArticleFragment);
-	}
 
 }
