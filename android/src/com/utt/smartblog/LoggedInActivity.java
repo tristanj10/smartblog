@@ -18,7 +18,7 @@ import com.utt.smartblog.controller.LectureArticleController;
 import com.utt.smartblog.controller.NewArticleController;
 import com.utt.smartblog.models.Utilisateur;
 
-public class LoggedInActivity extends FragmentActivity implements OnClickListener {
+public class LoggedInActivity extends FragmentActivity {
 
 	private static final String KEY_FRAGMENT = "fragment_save";
 
@@ -27,17 +27,10 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 	
 	// Fragments
 	public final ArticleController articleFragment = new ArticleController();//Controller de la liste des articles
-	private final NewArticleController newArticleFragment = new NewArticleController();//Controller de la création d'un nouvel article
-	private final LectureArticleController lectureArticleFragment = new LectureArticleController();//Controller de la création d'un nouvel article
-
-	//Composants interactifs
-	ImageButton buttonNouvelArticle = null;
-	ImageButton buttonRetour = null;
-	Button buttonEnvoye = null;
+	public final NewArticleController newArticleFragment = new NewArticleController();//Controller de la création d'un nouvel article
+	public final LectureArticleController lectureArticleFragment = new LectureArticleController();//Controller de la création d'un nouvel article
 	
 	public Utilisateur user;
-
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,31 +46,8 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
     	    user.setToken(this.getIntent().getExtras().getString("token"));
     	    Toast.makeText(this, "Ca y est, on est co token : " + user.getToken(), Toast.LENGTH_LONG).show();//a suppr
     	    
-    	    this.buttonNouvelArticle = (ImageButton) findViewById(R.id.newArticleButton);
-            this.buttonRetour = (ImageButton) findViewById(R.id.listeArticleButton);
-            //this.buttonEnvoye = (Button) findViewById(R.id.articleButton);
-
+            showFragment(this.articleFragment);
             
-    		// On spécifie que le listener est notre classe
-            this.buttonNouvelArticle.setOnClickListener(this);
-            this.buttonRetour.setOnClickListener(this);
-            //this.buttonEnvoye.setOnClickListener(this);
-    	    
-    	    if (savedInstanceState != null)
-                mFragment = savedInstanceState.getString(KEY_FRAGMENT);
-            else
-                mFragment = getIntent().getStringExtra(KEY_FRAGMENT);
-             
-            if (mFragment != null) {
-            	// Sélection d'un choix dans le menu
-                if (mFragment.equals(articleFragment.getClass().getSimpleName())) {
-                    showFragment(this.articleFragment);
-                } else if (mFragment.equals(newArticleFragment.getClass().getSimpleName())) {
-                    showFragment(this.newArticleFragment);
-                } 
-            } else {
-                showFragment(this.articleFragment);
-            }
         }
 		else
 		{
@@ -91,11 +61,6 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 	@Override
 	public void onResume() {
 		super.onResume();
-
-		/*
-		 * final Intent callingIntent = getIntent(); token =
-		 * callingIntent.getStringExtra("token"); System.out.println(token);
-		 */
 	}
 
 	@Override
@@ -105,18 +70,6 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 		return true;
 	}
 
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		// Choix : Affichage du fragment + changement de couleurs
-				if(v == this.buttonNouvelArticle) {
-					showFragment(this.newArticleFragment); 
-				}else if(v == this.buttonRetour){
-					showFragment(this.articleFragment);
-				}else if(v == this.buttonEnvoye){
-					showFragment(this.articleFragment);
-				}
-	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

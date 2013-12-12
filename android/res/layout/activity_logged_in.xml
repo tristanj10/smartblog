@@ -9,38 +9,15 @@
     tools:context=".LoggedInActivity" >
 
   
-    
-    
-    <ImageButton
-        android:id="@+id/newArticleButton"
-        android:layout_width="wrap_content"
+    <fragment
+        android:id="@+id/barre_recherche"
+        android:name="com.utt.smartblog.controller.BarreRechercheController"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1dp"
-        android:padding="4dip"
-        android:onClick="nouvelArticleFragment"
-        android:src="@android:drawable/ic_input_add" />
-
-    <ImageButton
-        android:id="@+id/listeArticleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/newArticleButton"
-        android:layout_marginLeft="1dp"
-        android:padding="4dip"
-        android:layout_toRightOf="@+id/newArticleButton"
-        android:onClick="listeArticleFragment"
-        android:src="@android:drawable/stat_notify_sync_noanim" />
+        tools:layout="@layout/fragment_barre_recherche" />
     
-    <EditText
-            android:id="@+id/rechercheField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:layout_toRightOf="@+id/listeArticleButton"
-            android:layout_alignTop="@+id/newArticleButton"
-            android:hint="Rechercher" />
+    
+   
     
 	
     <!-- 
