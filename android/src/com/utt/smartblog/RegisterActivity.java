@@ -30,6 +30,7 @@ public class RegisterActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		
+		//Crée un utilisateur vierge
 		user = new Utilisateur();
 	}
 
@@ -42,6 +43,7 @@ public class RegisterActivity extends Activity
 	
 	public void retour(View view)
 	{
+		//retour au menu principal
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
@@ -50,11 +52,13 @@ public class RegisterActivity extends Activity
 	{
 		// Envoi des données sur la base
 		
+		//Crée un EditText pour récupérer les info renseignées.
 		EditText et = null;
 		
+		//tableau qui contiendra tous les parametres pour la requêtes HTTPS/POST
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		
-		
+		//On récup les infos et on les met dans notre user vierge qui ne l'est plus.
 		et = (EditText) getWindow().getDecorView().findViewById(R.id.nomField);
 		user.setNom(et.getText().toString());
 		et = (EditText) getWindow().getDecorView().findViewById(R.id.prenomField);
@@ -65,25 +69,25 @@ public class RegisterActivity extends Activity
 		user.setPassword(et.getText().toString());
 		et = (EditText) getWindow().getDecorView().findViewById(R.id.repeatField);
 		
+		//On renseigne les params à envoyer au web service
 		postParameters.add(new BasicNameValuePair("nom", user.getNom()));
 		postParameters.add(new BasicNameValuePair("prenom", user.getPrenom()));
 		postParameters.add(new BasicNameValuePair("login", user.getLogin()));
 		postParameters.add(new BasicNameValuePair("password", user.getPassword()));
 		postParameters.add(new BasicNameValuePair("repeat", et.getText().toString()));
 		
-		//getting JSON string from URL
-		//JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/register.php?nom="+user.getNom()+"&prenom="+user.getPrenom()+"&login="+user.getLogin()+"&password="+user.getPassword()+"&repeat="+et.getText().toString().trim());
+		//On envoie la requete au web service en HTTPS
 		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/register.php", postParameters);
 		
 		try 
 		{
-	        // Storing each json item in variable
+	        //on recup la params envoyé par le web service
 	        String token = json.getString("token");
 	        String error = json.getString("error");
 
 	        if(!token.isEmpty()) 
 	        {
-	        	// Pas d'erreur
+	        	// Pas d'erreur, on retourne au menu principal
 	        	Toast.makeText(this, "Compte créé avec succès", Toast.LENGTH_SHORT).show();
 	        	Intent intent = new Intent(this, MainActivity.class);
 	    		startActivity(intent);

@@ -20,25 +20,26 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 	private static final String KEY_FRAGMENT = "fragment_save";
 
 	// Fragment actif
-	private String mFragment;
+	private String mFragment;//Fragment courant
 	public Utilisateur user;
 
 	// Fragments
-	private final ArticleController articleFragment = new ArticleController();
-	private final NewArticleController newArticleFragment = new NewArticleController();
+	private final ArticleController articleFragment = new ArticleController();//Controller de la liste des articles
+	private final NewArticleController newArticleFragment = new NewArticleController();//Controller de la création d'un nouvel article
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logged_in);
 		
+		//User vierge
 		user = new Utilisateur();
 		
 		if(this.getIntent().getExtras() != null)
 		{
 			// Passage du token
     	    user.setToken(this.getIntent().getExtras().getString("token"));
-    	    Toast.makeText(this, "Ca y est, on est co token : " + user.getToken(), Toast.LENGTH_LONG).show();
+    	    Toast.makeText(this, "Ca y est, on est co token : " + user.getToken(), Toast.LENGTH_LONG).show();//a suppr
     	    
     	    if (savedInstanceState != null)
     	    {
