@@ -20,7 +20,6 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 	private static final String KEY_FRAGMENT = "fragment_save";
 
 	// Fragment actif
-	// test mon git
 	private String mFragment;
 	public Utilisateur user;
 

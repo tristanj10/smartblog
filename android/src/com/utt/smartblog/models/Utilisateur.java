@@ -15,6 +15,10 @@ public class Utilisateur
 	
 	private String token;
 	
+	public Utilisateur(){
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
