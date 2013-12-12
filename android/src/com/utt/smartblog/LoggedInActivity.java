@@ -26,14 +26,14 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 	private String mFragment;
 	
 	// Fragments
-	private final ArticleController articleFragment = new ArticleController();//Controller de la liste des articles
+	public final ArticleController articleFragment = new ArticleController();//Controller de la liste des articles
 	private final NewArticleController newArticleFragment = new NewArticleController();//Controller de la création d'un nouvel article
 	private final LectureArticleController lectureArticleFragment = new LectureArticleController();//Controller de la création d'un nouvel article
-	
+
 	//Composants interactifs
 	ImageButton buttonNouvelArticle = null;
 	ImageButton buttonRetour = null;
-	Button buttonEnvoyé = null; //--> a continuer
+	Button buttonEnvoye = null;
 	
 	public Utilisateur user;
 
@@ -55,11 +55,13 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
     	    
     	    this.buttonNouvelArticle = (ImageButton) findViewById(R.id.newArticleButton);
             this.buttonRetour = (ImageButton) findViewById(R.id.listeArticleButton);
+            //this.buttonEnvoye = (Button) findViewById(R.id.articleButton);
 
             
     		// On spécifie que le listener est notre classe
-            this.buttonNouvelArticle.setOnClickListener(this);;
+            this.buttonNouvelArticle.setOnClickListener(this);
             this.buttonRetour.setOnClickListener(this);
+            //this.buttonEnvoye.setOnClickListener(this);
     	    
     	    if (savedInstanceState != null)
                 mFragment = savedInstanceState.getString(KEY_FRAGMENT);
@@ -111,6 +113,8 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 					showFragment(this.newArticleFragment); 
 				}else if(v == this.buttonRetour){
 					showFragment(this.articleFragment);
+				}else if(v == this.buttonEnvoye){
+					showFragment(this.articleFragment);
 				}
 	}
 
@@ -120,7 +124,7 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
 		super.onSaveInstanceState(outState);
 	}
     
-    private void showFragment(final Fragment fragment) {
+    public void showFragment(final Fragment fragment) {
 		if (fragment == null)
 			return;
 
@@ -137,7 +141,5 @@ public class LoggedInActivity extends FragmentActivity implements OnClickListene
         ft.addToBackStack(null);
         ft.commit();
     }
-	
-	
 
 }

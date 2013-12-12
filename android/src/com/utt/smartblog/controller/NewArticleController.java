@@ -65,7 +65,10 @@ public class NewArticleController extends Fragment implements OnClickListener
 			String strContenu = contenu.getText().toString();
 			
 			nouvelArticle(strTitre, strContenu);
-
+			
+			LoggedInActivity monActivity = (LoggedInActivity) this.getActivity();
+			monActivity.showFragment(monActivity.articleFragment);
+			
 		}
 		
 		
