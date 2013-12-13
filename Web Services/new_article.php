@@ -55,6 +55,14 @@ if($_SESSION['token'] == $_POST['token'])
 	}
 	
 	
+	/**
+	 * Vérification date de dernier article
+	 */
+	if(!$user->peutEcrireUnArticle($dbh))
+	{
+		$error = '\r\nMerci d\'attendre 1 minute avant de poster un autre article';
+		
+	}
 	
 	
 	/**

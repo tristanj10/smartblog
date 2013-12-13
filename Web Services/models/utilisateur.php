@@ -9,8 +9,6 @@ class Utilisateur
 	private $password;
 	private $date_tentative;
 	private $nb_tentatives;
-	private $last_article;
-	private $last_commentaire;
 	
 	
 	public function __construct() 
@@ -96,25 +94,6 @@ class Utilisateur
 		$this->nb_tentatives = $nb;
 	}
 	
-	public function getLastArticle()
-	{
-		return $this->last_article;
-	}
-	
-	public function setLastArticle($date)
-	{
-		$this->last_article = $date;
-	}
-	
-	public function getLastCommentaire()
-	{
-		return $this->last_commentaire;
-	}
-	
-	public function setLastCommentaire($date)
-	{
-		$this->last_commentaire = $date;
-	}
 	
 	public function charger($dbh, $login = null)
 	{
@@ -140,8 +119,6 @@ class Utilisateur
 				$this->password = $row['password'];
 				$this->setDateTentative($row['date_tentative']);
 				$this->setNbTentatives($row['nb_tentatives']);
-				$this->setLastArticle($row['last_article']);
-				$this->setLastCommentaire($row['last_commentaire']);
 					
 				return true;
 			}
@@ -179,12 +156,10 @@ class Utilisateur
 		{
 			// UPDATE
 			try {
-				$stmt = $dbh->prepare("UPDATE utilisateurs SET nb_tentatives = ?, date_tentative = ?, last_article = ?, last_commentaire = ? WHERE id = ?");
+				$stmt = $dbh->prepare("UPDATE utilisateurs SET nb_tentatives = ?, date_tentative = ? WHERE id = ?");
 				$stmt->bindValue(1, $this->getNbTentatives(), PDO::PARAM_INT);
 				$stmt->bindValue(2, $this->getDateTentative());
-				$stmt->bindValue(3, $this->getLastArticle());
-				$stmt->bindValue(4, $this->getLastCommentaire());
-				$stmt->bindValue(5, $this->getId(), PDO::PARAM_INT);
+				$stmt->bindValue(3, $this->getId(), PDO::PARAM_INT);
 				$stmt->execute();
 			} 
 			catch(Exception $e)
@@ -237,12 +212,25 @@ class Utilisateur
 	
 	public function estBloque()
 	{
-		return (intval($this->getNbTentatives()) > 3 && (strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative()) < 900));
+		return (intval($this->getNbTentatives()) > 3 && ((strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative())) < 900));
 	}
 	
 	public function peutEtreDebloque()
 	{
-		return (intval($this->getNbTentatives()) > 3 && (strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative()) >= 900));
+		return (intval($this->getNbTentatives()) > 3 && ((strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative())) >= 900));
+	}
+	
+	public function peutEcrireUnArticle($dbh, $id = null)
+	{
+		if ($id == null)
+		{
+			$id = $this->id;
+		}
+
+		$date = Article::getDernierArticle($dbh, $id);
+		
+		return ((strtotime(date("Y-m-d H:i:s"))-strtotime($date)) >= 60);
+		
 	}
 	
 	

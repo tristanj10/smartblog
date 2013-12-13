@@ -111,9 +111,9 @@ class Article
 	
 	public function charger($dbh, $id = null)
 	{
-		if ($login == null)
+		if ($id == null)
 		{
-			$login = $this->login;
+			$id = $this->id;
 		}
 	
 		try
@@ -200,16 +200,17 @@ class Article
 			}
 			catch(Exception $e)
 			{
-				return "";
+				return 0;
 			}
 		}
 		else
 		{
+			$date = date("Y-m-d H:i:s");
 			// INSERT
 			try {
 				$stmt = $dbh->prepare("INSERT INTO articles(`titre`,`date`,`image`,`contenu`, `nb_vues`, `like`, `dislike`,`id_auteur`) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ");
 				$stmt->bindValue(1, $this->getTitre(), PDO::PARAM_STR);
-				$stmt->bindValue(2, date("Y-m-d H:i:s"));
+				$stmt->bindValue(2, $date);
 				$stmt->bindValue(3, $this->getImage(), PDO::PARAM_STR);
 				$stmt->bindValue(4, $this->getContenu(), PDO::PARAM_STR);
 				$stmt->bindValue(5, 0, PDO::PARAM_INT);
@@ -219,13 +220,10 @@ class Article
 				$stmt->execute();
 				
 				$id =  $dbh->lastInsertId();
-				
-				$this->getAuteur()->setLastArticle(date("Y-m-d H:i:s"));
-				$this->getAuteur()->sauvegarder($dbh);
 			}
 			catch(Exception $e)
 			{
-				return "";
+				return 0;
 			}
 		}
 		return $id;
@@ -248,6 +246,24 @@ class Article
 			
 		
 			return $res;
+		}
+		catch(Exception $e)
+		{
+			return false;
+		}
+	}
+	
+	public static function getDernierArticle($dbh, $id_user)
+	{
+		try
+		{
+			$stmt = $dbh->prepare("SELECT * FROM articles a1 WHERE a1.id_auteur = ? AND a1.date = (SELECT MAX(a2.date) FROM articles a2 WHERE a1.id_auteur = a2.id_auteur)");
+			$stmt->bindValue(1, $id_user,PDO::PARAM_STR);
+			$stmt->execute();
+				
+			$row = $stmt->fetch();
+				
+			return $row['date'];
 		}
 		catch(Exception $e)
 		{

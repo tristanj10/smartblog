@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utt.smartblog.LoggedInActivity;
@@ -66,16 +67,19 @@ public class NewArticleController extends Fragment implements OnClickListener
 			String strTitre = titre.getText().toString();
 			String strContenu = contenu.getText().toString();
 			
-			nouvelArticle(strTitre, strContenu);
+			if(nouvelArticle(strTitre, strContenu))
+			{
+				monActivity.showFragment(monActivity.articleFragment);
+			}
 			
-			monActivity.showFragment(monActivity.articleFragment);
+			
 			
 		}
 		
 		
 	}
 
-    public void nouvelArticle(String titre, String contenu) {
+    public boolean nouvelArticle(String titre, String contenu) {
 		// Envoi des données sur la base
 
     	ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -98,16 +102,19 @@ public class NewArticleController extends Fragment implements OnClickListener
 			{
 				// Pas d'erreur
 				Toast.makeText(getActivity(), "C'est bon ! " + id + " " + token, Toast.LENGTH_LONG).show();
+				return true;
 				
 			} else 
 			{
 				// Erreur(s)
 				Toast.makeText(getActivity(), "Erreur : " + error , Toast.LENGTH_LONG).show();
+				
 			}
 
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 }
