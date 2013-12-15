@@ -1,7 +1,12 @@
 package com.utt.smartblog;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import backup._LoginController;
 
@@ -35,11 +41,16 @@ public class LoggedInActivity extends FragmentActivity {
 	public Utilisateur user;
 	private Article selectedArticle = null;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
+	
+	private ImageView photo = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logged_in);
+		
+		this.photo = (ImageView)findViewById(R.id.photo);
 		
 		//User vierge
 		user = new Utilisateur();
@@ -112,12 +123,44 @@ public class LoggedInActivity extends FragmentActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
-                Toast.makeText(this, "Image saved to:\n" +
-                         data.getData(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Image sauvée", Toast.LENGTH_LONG).show();
+                
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                Cursor cursor = getContentResolver().query(
+                                   selectedImage, filePathColumn, null, null, null);
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String filePath = cursor.getString(columnIndex);
+                cursor.close();
+
+
+                Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
+                
+                this.photo.setImageBitmap(yourSelectedImage);
+            	
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
+            	Toast.makeText(this, "Image saved 2 to:\n" +
+                        data.getData(), Toast.LENGTH_LONG).show();
             } else {
                 // Image capture failed, advise user
+            	Toast.makeText(this, "Image saved 3 to:\n" +
+                        data.getData(), Toast.LENGTH_LONG).show();
+            }
+            
+            if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
+                if (resultCode == RESULT_OK) {
+                    // Video captured and saved to fileUri specified in the Intent
+                    Toast.makeText(this, "Video saved to:\n" +
+                             data.getData(), Toast.LENGTH_LONG).show();
+                } else if (resultCode == RESULT_CANCELED) {
+                    // User cancelled the video capture
+                } else {
+                    // Video capture failed, advise user
+                }
             }
         }
         }

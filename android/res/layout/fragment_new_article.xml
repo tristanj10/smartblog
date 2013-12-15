@@ -22,6 +22,12 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher" />
 
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher" />
+
     <EditText
         android:id="@+id/contenuField"
         android:layout_width="match_parent"

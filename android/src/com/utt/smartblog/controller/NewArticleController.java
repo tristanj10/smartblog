@@ -11,6 +11,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +48,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	public static final int MEDIA_TYPE_VIDEO = 2;
+	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 	private Uri fileUri;
 	private Button articleButton = null;
 	private Utilisateur user = null;
@@ -92,7 +97,6 @@ public class NewArticleController extends Fragment implements OnClickListener
 			
 		}else if(v == prendrePhoto){
 			
-			Toast.makeText(this.monActivity, "appli CAMERA", Toast.LENGTH_LONG).show();
 			 	
 				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -100,14 +104,16 @@ public class NewArticleController extends Fragment implements OnClickListener
 			    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 			    // start the image capture Intent
-			    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			    this.monActivity.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			    
 			    
 			    
 		}
 		
 		
 	}
-
+    
+  
     public boolean nouvelArticle(String titre, String contenu) {
 		// Envoi des données sur la base
 
