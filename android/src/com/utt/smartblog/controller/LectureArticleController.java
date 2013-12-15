@@ -50,9 +50,10 @@ public class LectureArticleController extends Fragment{
 	    this.nb_vues.setText( String.valueOf(this.article.getNb_vues()));
 	    this.like.setText(String.valueOf(this.article.getLike()));
 	    this.dislike.setText(String.valueOf(this.article.getDislike()));
-	    this.auteur.setText((this.article.getAuteur().getLogin()));
+	    this.auteur.setText((this.article.getAuteur().getNom() + this.article.getAuteur().getPrenom()));
 	    //this.image.setImageBitmap(this.article.getImage());
 	    
+	    //this.contenu.setText("Blabla de contznue");
 	    
 	    
 	    

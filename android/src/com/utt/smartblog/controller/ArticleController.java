@@ -87,6 +87,7 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 				// Prévoir plus de champs : Photo ? Début de contenu ?
 				article.setTitre(object.getString("titre"));
 				article.setDate(object.getString("date"));
+				article.setContenu(object.getString("contenu"));
 				article.getAuteur().setNom(object.getString("nom"));
 				article.getAuteur().setPrenom(object.getString("prenom"));
 				
