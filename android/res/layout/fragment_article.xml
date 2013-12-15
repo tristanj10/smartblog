@@ -2,7 +2,7 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:stretchColumns="1" >
+     >
 
     <TableRow>
 
@@ -11,8 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_column="0"
-            android:layout_gravity="center_horizontal|top"
             android:layout_span="3"
+            android:layout_weight="1"
             android:src="@drawable/ic_launcher" />
     </TableRow>
 
@@ -22,8 +22,8 @@
             android:id="@+id/titre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_column="0"
-            android:layout_gravity="center_horizontal|top"
             android:layout_span="3"
             android:text="TextView"
             android:textSize="@dimen/dp22"
@@ -34,26 +34,26 @@
 
         <TextView
             android:id="@+id/nb_vues"
+            android:layout_weight="0.33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_gravity="center_horizontal|top"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/like"
+            android:layout_weight="0.33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_gravity="center_horizontal|top"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/dislike"
+            android:layout_weight="0.33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="2"
-            android:layout_gravity="center_horizontal|top"
             android:text="TextView" />
     </TableRow>
 
@@ -61,27 +61,27 @@
 
         <TextView
             android:id="@+id/contenu"
-            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_gravity="center_horizontal|top"
             android:text="Large Text" />
     </TableRow>
 
     <TableRow><TextView
             android:id="@+id/auteur"
+            android:layout_weight="0.7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_gravity="center_horizontal|top"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/date"
+            android:layout_weight="0.3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_gravity="center_horizontal|top"
             android:text="TextView" />
 
     </TableRow>
