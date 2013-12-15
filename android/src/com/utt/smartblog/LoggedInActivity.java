@@ -1,5 +1,6 @@
 package com.utt.smartblog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -33,6 +34,7 @@ public class LoggedInActivity extends FragmentActivity {
 	
 	public Utilisateur user;
 	private Article selectedArticle = null;
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,5 +106,22 @@ public class LoggedInActivity extends FragmentActivity {
     public void setSelectedArticle(Article article){
     	this.selectedArticle = article;
     }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                // Image captured and saved to fileUri specified in the Intent
+                Toast.makeText(this, "Image saved to:\n" +
+                         data.getData(), Toast.LENGTH_LONG).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                // User cancelled the image capture
+            } else {
+                // Image capture failed, advise user
+            }
+        }
+        }
+    
+    
 
 }

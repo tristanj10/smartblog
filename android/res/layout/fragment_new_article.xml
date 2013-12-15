@@ -13,8 +13,14 @@
         android:ems="10"
         android:hint="Titre" >
 
-      <requestFocus />
-      </EditText>
+        <requestFocus />
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/prendre_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher" />
 
     <EditText
         android:id="@+id/contenuField"
@@ -23,9 +29,7 @@
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="Contenu"
-        android:inputType="textMultiLine" >
-
-    </EditText>
+        android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/articleButton"
