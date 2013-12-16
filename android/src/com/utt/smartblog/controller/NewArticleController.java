@@ -102,18 +102,16 @@ public class NewArticleController extends Fragment implements OnClickListener
 
 			    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
 			    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-
+			    //intent.putExtra("test", fileUri);
+			    
 			    // start the image capture Intent
 			    this.monActivity.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-			    
-			    
-			    
+			
 		}
-		
 		
 	}
     
-  
+    
     public boolean nouvelArticle(String titre, String contenu) {
 		// Envoi des données sur la base
 
@@ -186,7 +184,6 @@ public class NewArticleController extends Fragment implements OnClickListener
 	    } else {
 	        return null;
 	    }
-
 	    return mediaFile;
 	}
 

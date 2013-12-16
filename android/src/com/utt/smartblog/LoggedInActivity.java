@@ -1,5 +1,7 @@
 package com.utt.smartblog;
 
+import java.io.ByteArrayOutputStream;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -7,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -123,11 +126,12 @@ public class LoggedInActivity extends FragmentActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
-                Toast.makeText(this, "Image sauvée", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Image sauvée" + data.getData(), Toast.LENGTH_LONG).show();
                 
-                Uri selectedImage = data.getData();
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
+               /*   Uri selectedImage = (Uri) data.getData();
+                System.out.println(selectedImage.toString());
+                  String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                
                 Cursor cursor = getContentResolver().query(
                                    selectedImage, filePathColumn, null, null, null);
                 cursor.moveToFirst();
@@ -139,7 +143,7 @@ public class LoggedInActivity extends FragmentActivity {
 
                 Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
                 
-                this.photo.setImageBitmap(yourSelectedImage);
+                this.photo.setImageBitmap(yourSelectedImage);*/
             	
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
