@@ -59,7 +59,7 @@ if($_SESSION['token'] == $_POST['token'])
 	}
 	
 	/**
-	 * Vérification date de dernier article
+	 * Vérification date du dernier commentaire
 	 */
 	if(!$user->peutEcrireUnCommentaire($dbh))
 	{
