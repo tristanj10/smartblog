@@ -6,3 +6,4 @@ ajout photo commentaire -->Tristan
 design --> 2
 test unitaire --> Yvon
 bouton parcourir pour photo dans nouvel article --> tristan
+delai commentaire --> Yvon
