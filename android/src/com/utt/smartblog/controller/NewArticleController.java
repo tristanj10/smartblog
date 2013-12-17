@@ -55,6 +55,9 @@ public class NewArticleController extends Fragment implements OnClickListener
 	private LoggedInActivity monActivity = null;
 	private ImageButton prendrePhoto = null;
 	
+	private EditText titreField = null;
+	private EditText contenuField = null;
+	
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	 
@@ -63,6 +66,9 @@ public class NewArticleController extends Fragment implements OnClickListener
 	    articleButton = (Button)view.findViewById(R.id.articleButton);
 	    monActivity = (LoggedInActivity) this.getActivity();
 	    prendrePhoto = (ImageButton)view.findViewById(R.id.prendre_photo);
+	    
+	    titreField = (EditText) view.findViewById(R.id.titreField);
+	    contenuField = (EditText) view.findViewById(R.id.contenuField);
 	    
 	    this.user = ((LoggedInActivity)getActivity()).user;
 	    
@@ -136,6 +142,9 @@ public class NewArticleController extends Fragment implements OnClickListener
 			{
 				// Pas d'erreur
 				Toast.makeText(getActivity(), "C'est bon ! " + id + " " + token, Toast.LENGTH_LONG).show();
+				titreField.setText("");
+				contenuField.setText("");
+				
 				return true;
 				
 			} else 

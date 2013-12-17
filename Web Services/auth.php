@@ -64,9 +64,9 @@
     		else 
     		{ // Mauvaise authentification
     			$tentatives = intval($user->getNbTentatives());
-    			//$tentatives++; // Incrémentation tentatives
+    			$tentatives++; // Incrémentation tentatives
     			
-    			if($tentatives < 4)
+    			if($tentatives <= Utilisateur::NB_TENTATIVES)
     			{
     				$error = "Erreur de connexion";
     			}

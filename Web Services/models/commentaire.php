@@ -1,14 +1,15 @@
 <?php
 require_once('utilisateur.php');
+require_once('article.php');
 
-class Article
+class Commentaire
 {
 	private $id;
 	private $date;
 	private $image;
 	private $contenu;
-	private $id_article;
-	private $id_auteur;
+	private $article;
+	private $auteur;
 	
 	
 	public function __construct()
@@ -24,16 +25,6 @@ class Article
 	public function setId($id)
 	{
 		$this->id = $id;
-	}
-	
-	public function getTitre()
-	{
-		return $this->titre;
-	}
-	
-	public function setTitre($titre)
-	{
-		$this->titre = $titre;
 	}
 	
 	public function getDate()
@@ -66,34 +57,14 @@ class Article
 		$this->contenu = $contenu;
 	}
 	
-	public function getNbVues()
+	public function getArticle()
 	{
-		return $this->nb_vues;
+		return $this->article;
 	}
 	
-	public function setNbVues($nb_vues)
+	public function setArticle($article)
 	{
-		$this->nb_vues = $nb_vues;
-	}
-	
-	public function getLike()
-	{
-		return $this->like;
-	}
-	
-	public function setLike($like)
-	{
-		$this->like = $like;
-	}
-	
-	public function getDislike()
-	{
-		return $this->dislike;
-	}
-	
-	public function setDislike($dislike)
-	{
-		$this->dislike = $dislike;
+		$this->article = $article;
 	}
 	
 	public function getAuteur()
@@ -106,137 +77,37 @@ class Article
 		$this->auteur = $auteur;
 	}
 	
-	public function charger($dbh, $id = null)
-	{
-		if ($id == null)
-		{
-			$id = $this->id;
-		}
-	
-		try
-		{
-			$stmt = $dbh->prepare("SELECT a.*, u.id, u.nom, u.prenom, u.login FROM articles a, utilisateurs u WHERE a.id = ? AND a.id_auteur = u.id");
-			$stmt->bindValue(1, $id,PDO::PARAM_STR);
-			$stmt->execute();
-				
-			$row = $stmt->fetch();
-				
-			if($stmt->rowCount() == 1)
-			{
-				$this->setId($row['a.id']);
-				$this->setTitre($row['a.titre']);
-				$this->setDate($row['a.date']);
-				$this->setImage($row['a.image']);
-				$this->setContenu($row['a.contenu']);
-				$this->setNbVues($row['a.nb_vues']);
-				$this->setLike($row['a.like']);
-				$this->setDislike($row['a.dislike']);
-
-				$id_auteur = $row['id_auteur'];
-				
-				$this->auteur->setNom($row['u.nom']);
-				$this->auteur->setPrenom($row['u.prenom']);
-				$this->auteur->setLogin($row['u.login']);
-				
-				return true;
-			}
-				
-			return false;
-		}
-		catch(Exception $e)
-		{
-			return false;
-		}
-	
-	}
-	
-	public function existeDeja($dbh, $id)
-	{
-		
-		if($id == null)
-		{
-			return false;
-		}
-
-		try
-		{
-			$stmt = $dbh->prepare("SELECT * FROM articles where id = ?");
-			$stmt->bindValue(1, $id,PDO::PARAM_STR);
-			$stmt->execute();
-				
-			return ($stmt->rowCount() > 0);
-		}
-		catch(Exception $e)
-		{
-			return false;
-		}
-	
-	}
-	
 	public function sauvegarder($dbh)
 	{
-	
-		// Existe déjà ?
-		if($this->existeDeja($dbh, $this->getId()))
-		{
-			// UPDATE
-			try {
-				$stmt = $dbh->prepare("UPDATE articles SET titre = ?, date = ?, image = ?, contenu = ?, nb_vues = ?, like = ?, dislike = ?, id_auteur = ? WHERE id = ?");
-				$stmt->bindValue(1, $this->getTitre(), PDO::PARAM_STR);
-				$stmt->bindValue(2, $this->getDate());
-				$stmt->bindValue(3, $this->getImage(), PDO::PARAM_STR);
-				$stmt->bindValue(4, $this->getContenu(), PDO::PARAM_STR);
-				$stmt->bindValue(5, $this->getNbVues(), PDO::PARAM_INT);
-				$stmt->bindValue(6, $this->getLike(), PDO::PARAM_INT);
-				$stmt->bindValue(7, $this->getDislike(), PDO::PARAM_INT);
-				$stmt->bindValue(8, $this->getAuteur()->getId(), PDO::PARAM_INT);
-				$stmt->bindValue(9, $this->getId(), PDO::PARAM_INT);
-				$stmt->execute();
-				
-				$id =  $dbh->lastInsertId();
-			}
-			catch(Exception $e)
-			{
-				return 0;
-			}
+
+		$date = date("Y-m-d H:i:s");
+		// INSERT
+		try {
+			$stmt = $dbh->prepare("INSERT INTO commentaires(`date`,`image`,`contenu`, `id_article`,`id_auteur`) VALUES (?, ?, ?, ?, ?) ");
+			$stmt->bindValue(1, $date);
+			$stmt->bindValue(2, $this->getImage(), PDO::PARAM_STR);
+			$stmt->bindValue(3, $this->getContenu(), PDO::PARAM_STR);
+			$stmt->bindValue(4, $this->getArticle()->getId(), PDO::PARAM_INT);
+			$stmt->bindValue(5, $this->getAuteur()->getId(), PDO::PARAM_INT);
+			$stmt->execute();
+			
+			$id =  $dbh->lastInsertId();
 		}
-		else
+		catch(Exception $e)
 		{
-			$date = date("Y-m-d H:i:s");
-			// INSERT
-			try {
-				$stmt = $dbh->prepare("INSERT INTO articles(`titre`,`date`,`image`,`contenu`, `nb_vues`, `like`, `dislike`,`id_auteur`) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ");
-				$stmt->bindValue(1, $this->getTitre(), PDO::PARAM_STR);
-				$stmt->bindValue(2, $date);
-				$stmt->bindValue(3, $this->getImage(), PDO::PARAM_STR);
-				$stmt->bindValue(4, $this->getContenu(), PDO::PARAM_STR);
-				$stmt->bindValue(5, 0, PDO::PARAM_INT);
-				$stmt->bindValue(6, 0, PDO::PARAM_INT);
-				$stmt->bindValue(7, 0, PDO::PARAM_INT);
-				$stmt->bindValue(8, $this->getAuteur()->getId(), PDO::PARAM_INT);
-				$stmt->execute();
-				
-				$id =  $dbh->lastInsertId();
-			}
-			catch(Exception $e)
-			{
-				return 0;
-			}
+			return 0;
 		}
+
+		$this->setId($id);
 		return $id;
 	}
 	
-	/**
-	 * @todo : A FINIR
-	 * @param unknown $dbh
-	 * @return boolean
-	 */
-	
-	public static function lister($dbh)
+	public static function getCommentaires($dbh, $id_article)
 	{
 		try
 		{
-			$stmt = $dbh->prepare("SELECT a.*, u.nom, u.prenom, u.login FROM articles a, utilisateurs u WHERE a.id_auteur = u.id ORDER BY a.id DESC");
+			$stmt = $dbh->prepare("SELECT c.*, u.nom, u.prenom, u.login FROM commentaires c, utilisateurs u WHERE c.id_auteur = u.id AND c.id_article = ? ORDER BY c.id DESC");
+			$stmt->bindValue(1, $this->getArticle()->getId(), PDO::PARAM_INT);
 			$stmt->execute();
 		
 			$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -250,17 +121,17 @@ class Article
 		}
 	}
 	
-	public static function getDernierArticle($dbh, $id_user)
+	public static function getDateDernierCommentaire($dbh, $id_user)
 	{
 		try
 		{
-			$stmt = $dbh->prepare("SELECT * FROM articles a1 WHERE a1.id_auteur = ? AND a1.date = (SELECT MAX(a2.date) FROM articles a2 WHERE a1.id_auteur = a2.id_auteur)");
+			$stmt = $dbh->prepare("SELECT MAX(date) FROM commentaires WHERE id_auteur = ?");
 			$stmt->bindValue(1, $id_user,PDO::PARAM_STR);
 			$stmt->execute();
 				
 			$row = $stmt->fetch();
 				
-			return $row['date'];
+			return $row[0];
 		}
 		catch(Exception $e)
 		{

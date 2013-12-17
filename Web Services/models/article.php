@@ -226,14 +226,14 @@ class Article
 				return 0;
 			}
 		}
+		$this->setId($id);
 		return $id;
 	}
 	
-	/**
-	 * @todo : A FINIR
-	 * @param unknown $dbh
-	 * @return boolean
-	 */
+	public static function getCommentaires()
+	{
+		Commentaire::getCommentaires($dbh, $this->getId());	
+	}
 	
 	public static function lister($dbh)
 	{
@@ -253,17 +253,17 @@ class Article
 		}
 	}
 	
-	public static function getDernierArticle($dbh, $id_user)
+	public static function getDateDernierArticle($dbh, $id_user)
 	{
 		try
 		{
-			$stmt = $dbh->prepare("SELECT * FROM articles a1 WHERE a1.id_auteur = ? AND a1.date = (SELECT MAX(a2.date) FROM articles a2 WHERE a1.id_auteur = a2.id_auteur)");
+			$stmt = $dbh->prepare("SELECT MAX(date) FROM articles WHERE id_auteur = ?");
 			$stmt->bindValue(1, $id_user,PDO::PARAM_STR);
 			$stmt->execute();
 				
 			$row = $stmt->fetch();
 				
-			return $row['date'];
+			return $row[0];
 		}
 		catch(Exception $e)
 		{

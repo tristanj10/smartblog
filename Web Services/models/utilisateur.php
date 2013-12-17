@@ -10,6 +10,10 @@ class Utilisateur
 	private $date_tentative;
 	private $nb_tentatives;
 	
+	const DELAI_COMMENTAIRE = 15;
+	const DELAI_ARTICLE = 60;
+	const DELAI_TENTATIVE = 900;
+	const NB_TENTATIVES = 3;
 	
 	public function __construct() 
 	{
@@ -212,12 +216,12 @@ class Utilisateur
 	
 	public function estBloque()
 	{
-		return (intval($this->getNbTentatives()) > 3 && ((strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative())) < 900));
+		return (intval($this->getNbTentatives()) > self::NB_TENTATIVES && ((strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative())) < self::DELAI_TENTATIVE));
 	}
 	
 	public function peutEtreDebloque()
 	{
-		return (intval($this->getNbTentatives()) > 3 && ((strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative())) >= 900));
+		return (intval($this->getNbTentatives()) > self::NB_TENTATIVES && ((strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative())) >= self::DELAI_TENTATIVE));
 	}
 	
 	public function peutEcrireUnArticle($dbh, $id = null)
@@ -227,10 +231,23 @@ class Utilisateur
 			$id = $this->id;
 		}
 
-		$date = Article::getDernierArticle($dbh, $id);
+		$date = Article::getDateDernierArticle($dbh, $id);
 		
-		return ((strtotime(date("Y-m-d H:i:s"))-strtotime($date)) >= 60);
+		return ((strtotime(date("Y-m-d H:i:s"))-strtotime($date)) >= self::DELAI_ARTICLE);
 		
+	}
+	
+	public function peutEcrireUnCommentaire($dbh, $id = null)
+	{
+		if($id == null)
+		{
+			$id = $this->id;
+		}
+		
+		$date = Commentaire::getDateDernierCommentaire($dbh, $id_user);
+		
+
+		return ((strtotime(date("Y-m-d H:i:s"))-strtotime($date)) >= self::DELAI_COMMENTAIRE);
 	}
 	
 	
