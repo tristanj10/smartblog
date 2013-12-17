@@ -102,6 +102,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 
 			    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
 			    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+			    this.monActivity.fileURI = fileUri;
 			    //intent.putExtra("test", fileUri);
 			    
 			    // start the image capture Intent

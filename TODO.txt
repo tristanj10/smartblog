@@ -1,0 +1,8 @@
+Vider les champs apres la création (article, commentaire, ...) --> Yvon
+Edition article (si on a le temps)
+recherche (si on a le temps)
+ajout de commentaire --> Tristan
+ajout photo commentaire -->Tristan
+design --> 2
+test unitaire --> Yvon
+bouton parcourir pour photo dans nouvel article --> tristan

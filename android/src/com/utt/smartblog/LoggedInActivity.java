@@ -45,15 +45,13 @@ public class LoggedInActivity extends FragmentActivity {
 	private Article selectedArticle = null;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
+	public Uri fileURI;
 	
-	private ImageView photo = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logged_in);
-		
-		this.photo = (ImageView)findViewById(R.id.photo);
 		
 		//User vierge
 		user = new Utilisateur();
@@ -126,24 +124,15 @@ public class LoggedInActivity extends FragmentActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
-                Toast.makeText(this, "Image sauvée" + data.getData(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Image sauvée" + fileURI.toString(), Toast.LENGTH_LONG).show();
+                System.out.println(fileURI.toString());
+               
+                Bitmap bmp = BitmapFactory.decodeFile(fileURI.getPath());
+                ImageView tmp = new ImageView(this);
                 
-               /*   Uri selectedImage = (Uri) data.getData();
-                System.out.println(selectedImage.toString());
-                  String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                tmp = (ImageView)findViewById(R.id.photo);
+                tmp.setImageBitmap(bmp);
                 
-                Cursor cursor = getContentResolver().query(
-                                   selectedImage, filePathColumn, null, null, null);
-                cursor.moveToFirst();
-
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String filePath = cursor.getString(columnIndex);
-                cursor.close();
-
-
-                Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
-                
-                this.photo.setImageBitmap(yourSelectedImage);*/
             	
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
