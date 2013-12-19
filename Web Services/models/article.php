@@ -9,8 +9,6 @@ class Article
 	private $image;
 	private $contenu;
 	private $nb_vues;
-	private $like;
-	private $dislike;
 	private $auteur;
 	
 	
@@ -79,24 +77,71 @@ class Article
 		$this->nb_vues = $nb_vues;
 	}
 	
-	public function getLike()
+	public function getLikes()
 	{
-		return $this->like;
+		if(!$this->existeDeja($dbh, $this->getId()))
+			return false;
+		
+		try
+		{
+			$stmt = $dbh->prepare("SELECT count(*) as likes FROM likes WHERE id_article = ?");
+			$stmt->bindValue(1, $this->getId(),PDO::PARAM_STR);
+			$stmt->execute();
+				
+			$res = $stmt->fetch();
+			return $res['likes'];
+			
+		}
+		catch(Exception $e)
+		{
+			return false;
+		}
+		
 	}
 	
-	public function setLike($like)
+	public function aDejaLike($dbh, $id_user)
 	{
-		$this->like = $like;
+		if(!$this->existeDeja($dbh, $this->getId()))
+			return false;
+		
+		try
+		{
+			$stmt = $dbh->prepare("SELECT count(*) as like FROM likes WHERE id_article = ? AND id_utilisateur = ?");
+			$stmt->bindValue(1, $this->getId(),PDO::PARAM_STR);
+			$stmt->bindValue(1, $id_user,PDO::PARAM_STR);
+			$stmt->execute();
+		
+			$res = $stmt->fetch();
+			return $res['like'];
+				
+		}
+		catch(Exception $e)
+		{
+			return false;
+		}
 	}
 	
-	public function getDislike()
+	public function addLikes($dbh, $id_user)
 	{
-		return $this->dislike;
-	}
-	
-	public function setDislike($dislike)
-	{
-		$this->dislike = $dislike;
+		if(!$this->existeDeja($dbh, $this->getId())) 
+			return false;
+		
+		if(!$this->aDejaLike($dbh, $id_user))
+			return false;
+		
+		try {
+			$stmt = $dbh->prepare("INSERT INTO likes(`id_utilisateur`,`id_article`) VALUES (?, ?) ");
+			$stmt->bindValue(1, $id_user , PDO::PARAM_INT);
+			$stmt->bindValue(2, $this->getId(), PDO::PARAM_INT);
+			$stmt->execute();
+			
+		}
+		catch(Exception $e)
+		{
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public function getAuteur()
@@ -208,15 +253,13 @@ class Article
 			$date = date("Y-m-d H:i:s");
 			// INSERT
 			try {
-				$stmt = $dbh->prepare("INSERT INTO articles(`titre`,`date`,`image`,`contenu`, `nb_vues`, `like`, `dislike`,`id_auteur`) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ");
+				$stmt = $dbh->prepare("INSERT INTO articles(`titre`,`date`,`image`,`contenu`, `nb_vues`,`id_auteur`) VALUES (?, ?, ?, ?, ?, ?) ");
 				$stmt->bindValue(1, $this->getTitre(), PDO::PARAM_STR);
 				$stmt->bindValue(2, $date);
 				$stmt->bindValue(3, $this->getImage(), PDO::PARAM_STR);
 				$stmt->bindValue(4, $this->getContenu(), PDO::PARAM_STR);
 				$stmt->bindValue(5, 0, PDO::PARAM_INT);
-				$stmt->bindValue(6, 0, PDO::PARAM_INT);
-				$stmt->bindValue(7, 0, PDO::PARAM_INT);
-				$stmt->bindValue(8, $this->getAuteur()->getId(), PDO::PARAM_INT);
+				$stmt->bindValue(6, $this->getAuteur()->getId(), PDO::PARAM_INT);
 				$stmt->execute();
 				
 				$id =  $dbh->lastInsertId();

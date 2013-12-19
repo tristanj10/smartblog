@@ -9,8 +9,7 @@ public class Article
 	private String image;
 	private String contenu;
 	private int nb_vues;
-	private int like;
-	private int dislike;
+	private int likes;
 	private Utilisateur auteur;
 	
 	
@@ -57,17 +56,11 @@ public class Article
 	public void setNb_vues(int nb_vues) {
 		this.nb_vues = nb_vues;
 	}
-	public int getLike() {
-		return like;
+	public int getLikes() {
+		return likes;
 	}
-	public void setLike(int like) {
-		this.like = like;
-	}
-	public int getDislike() {
-		return dislike;
-	}
-	public void setDislike(int dislike) {
-		this.dislike = dislike;
+	public void setLike(int likes) {
+		this.likes = likes;
 	}
 
 	public Utilisateur getAuteur() {

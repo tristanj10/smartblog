@@ -82,7 +82,7 @@ public class ArticleAdapter extends BaseAdapter
 		holder.itemArticleTitre.setText(articles.get(position).getTitre());
 		holder.itemArticleDate.setText(articles.get(position).getDate());
 		holder.itemArticlePrenomNom.setText("De " + articles.get(position).getAuteur().getPrenom() + " " + articles.get(position).getAuteur().getNom());
-		holder.itemArticleNumBar.setText("Vu " + articles.get(position).getNb_vues() + " fois - " + articles.get(position).getLike() + " Likes - " + articles.get(position).getDislike() + " Dislikes");
+		holder.itemArticleNumBar.setText("Vu " + articles.get(position).getNb_vues() + " fois - " + articles.get(position).getLikes() + " Likes");
 		
 		return convertView;
 	}

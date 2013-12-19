@@ -28,7 +28,6 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	private TextView contenu;
 	private TextView nb_vues;
 	private TextView like;
-	private TextView dislike;
 	private TextView auteur;
 	private Button envoi_com;
 	private String contenu_com = null;
@@ -47,7 +46,6 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	    this.contenu =  (TextView)view.findViewById(R.id.contenu);
 	    this.nb_vues =  (TextView)view.findViewById(R.id.nb_vues);
 	    this.like =  (TextView)view.findViewById(R.id.like);
-	    this.dislike =  (TextView)view.findViewById(R.id.dislike);
 	    this.auteur =  (TextView)view.findViewById(R.id.auteur);
 	    this.image =  (ImageView)view.findViewById(R.id.image);
 	    this.envoi_com = (Button) view.findViewById(R.id.EnvoiCom);
@@ -57,8 +55,7 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	    this.date.setText(this.article.getDate());
 	    this.contenu.setText(this.article.getContenu());
 	    this.nb_vues.setText( String.valueOf(this.article.getNb_vues()));
-	    this.like.setText(String.valueOf(this.article.getLike()));
-	    this.dislike.setText(String.valueOf(this.article.getDislike()));
+	    this.like.setText(String.valueOf(this.article.getLikes()));
 	    this.auteur.setText((this.article.getAuteur().getNom() + this.article.getAuteur().getPrenom()));
 	    //this.image.setImageBitmap(this.article.getImage());
 	    

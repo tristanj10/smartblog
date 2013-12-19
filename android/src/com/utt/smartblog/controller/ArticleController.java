@@ -107,7 +107,7 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 				for(i = 0; i < articles.size(); i++)
 				{
 					System.out.println("Titre : " + articles.get(i).getTitre());
-					System.out.println("Titre : " + articles.get(i).getDate());
+					System.out.println("Date : " + articles.get(i).getDate());
 					System.out.println("Nom : " + articles.get(i).getAuteur().getNom());
 					System.out.println("Prénom : " + articles.get(i).getAuteur().getPrenom());
 					System.out.println("\n");

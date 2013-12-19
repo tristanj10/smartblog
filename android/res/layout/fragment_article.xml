@@ -48,13 +48,6 @@
             android:layout_column="1"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/dislike"
-            android:layout_weight="0.33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="2"
-            android:text="TextView" />
     </TableRow>
 
     <TableRow>
