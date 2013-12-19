@@ -77,6 +77,11 @@ class Article
 		$this->nb_vues = $nb_vues;
 	}
 	
+	
+	/**
+	 * Renvoie le nombre de likes
+	 * @return boolean|unknown
+	 */
 	public function getLikes()
 	{
 		if(!$this->existeDeja($dbh, $this->getId()))
@@ -99,6 +104,13 @@ class Article
 		
 	}
 	
+	
+	/**
+	 * Vérifie si un user a déjà like l'article
+	 * @param unknown $dbh
+	 * @param unknown $id_user
+	 * @return boolean|unknown
+	 */
 	public function aDejaLike($dbh, $id_user)
 	{
 		if(!$this->existeDeja($dbh, $this->getId()))
@@ -121,6 +133,12 @@ class Article
 		}
 	}
 	
+	/**
+	 * Incrémente le nombre de likes
+	 * @param unknown $dbh
+	 * @param unknown $id_user
+	 * @return boolean
+	 */
 	public function addLikes($dbh, $id_user)
 	{
 		if(!$this->existeDeja($dbh, $this->getId())) 
@@ -154,6 +172,12 @@ class Article
 		$this->auteur = $auteur;
 	}
 	
+	/**
+	 * Charge l'instance 
+	 * @param unknown $dbh
+	 * @param string $id
+	 * @return boolean
+	 */
 	public function charger($dbh, $id = null)
 	{
 		if ($id == null)
@@ -196,6 +220,12 @@ class Article
 	
 	}
 	
+	/**
+	 * Vérifie l'existence de l'article
+	 * @param unknown $dbh
+	 * @param unknown $id
+	 * @return boolean
+	 */
 	public function existeDeja($dbh, $id)
 	{
 		
@@ -219,6 +249,11 @@ class Article
 	
 	}
 	
+	/**
+	 * Enregistre/modifie l'article
+	 * @param unknown $dbh
+	 * @return number|unknown
+	 */
 	public function sauvegarder($dbh)
 	{
 	
@@ -269,11 +304,22 @@ class Article
 		return $id;
 	}
 	
-	public static function getCommentaires()
+
+	/**
+	 * Renvoie tous les commentaires de l'article
+	 * @param unknown $dbh
+	 * @return Ambigous <boolean, unknown>
+	 */
+	public function getCommentaires($dbh)
 	{
-		Commentaire::getCommentaires($dbh, $this->getId());	
+		return Commentaire::getCommentaires($dbh, $this->getId());	
 	}
 	
+	/**
+	 * Liste tous les articles
+	 * @param unknown $dbh
+	 * @return unknown|boolean
+	 */
 	public static function lister($dbh)
 	{
 		try
@@ -292,6 +338,12 @@ class Article
 		}
 	}
 	
+	/**
+	 * Retourne la date du dernier article d'un utilisateur
+	 * @param unknown $dbh
+	 * @param unknown $id_user
+	 * @return unknown|boolean
+	 */
 	public static function getDateDernierArticle($dbh, $id_user)
 	{
 		try
