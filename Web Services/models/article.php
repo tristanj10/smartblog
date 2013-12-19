@@ -177,8 +177,6 @@ class Article
 				$this->setImage($row['a.image']);
 				$this->setContenu($row['a.contenu']);
 				$this->setNbVues($row['a.nb_vues']);
-				$this->setLike($row['a.like']);
-				$this->setDislike($row['a.dislike']);
 
 				$id_auteur = $row['id_auteur'];
 				
@@ -229,16 +227,14 @@ class Article
 		{
 			// UPDATE
 			try {
-				$stmt = $dbh->prepare("UPDATE articles SET titre = ?, date = ?, image = ?, contenu = ?, nb_vues = ?, like = ?, dislike = ?, id_auteur = ? WHERE id = ?");
+				$stmt = $dbh->prepare("UPDATE articles SET titre = ?, date = ?, image = ?, contenu = ?, nb_vues = ?, id_auteur = ? WHERE id = ?");
 				$stmt->bindValue(1, $this->getTitre(), PDO::PARAM_STR);
 				$stmt->bindValue(2, $this->getDate());
 				$stmt->bindValue(3, $this->getImage(), PDO::PARAM_STR);
 				$stmt->bindValue(4, $this->getContenu(), PDO::PARAM_STR);
 				$stmt->bindValue(5, $this->getNbVues(), PDO::PARAM_INT);
-				$stmt->bindValue(6, $this->getLike(), PDO::PARAM_INT);
-				$stmt->bindValue(7, $this->getDislike(), PDO::PARAM_INT);
-				$stmt->bindValue(8, $this->getAuteur()->getId(), PDO::PARAM_INT);
-				$stmt->bindValue(9, $this->getId(), PDO::PARAM_INT);
+				$stmt->bindValue(6, $this->getAuteur()->getId(), PDO::PARAM_INT);
+				$stmt->bindValue(7, $this->getId(), PDO::PARAM_INT);
 				$stmt->execute();
 				
 				$id =  $dbh->lastInsertId();
