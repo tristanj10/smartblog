@@ -79,6 +79,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			//On stock les param renvoyé par le WebService
 			String token = json.getString("token");
 			String error = json.getString("error");
+			//String id = json.getString("id");
 
 			if (!token.isEmpty()) {
 				// Pas d'erreur, on ouvre l'activité LoggedIn
@@ -86,6 +87,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				Intent intent = new Intent(this, LoggedInActivity.class);
 				//on ajoute le token en extra (permet de le renvoyer le cas échéant)
 				intent.putExtra("token", token);
+				//intent.putExtra("id_user", id);
+				
 				//On démarre l'activité
 				startActivity(intent);
 			} else {

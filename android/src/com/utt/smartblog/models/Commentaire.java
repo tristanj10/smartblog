@@ -18,24 +18,27 @@ public class Commentaire {
 	private String contenu;
 	private int id_article;
 	private int id_auteur;
+	private String token;
 	
 	public Commentaire(){
 		
 	}
 	
-	public Commentaire(String contenu, int id_article, int id_auteur){
+	public Commentaire(String contenu, int id_article, String token){
 		this.setContenu(contenu);
 		this.setId_article(id_article);
-		this.setId_auteur(id_auteur);
+		//this.setId_auteur(id_auteur);
+		this.setToken(token);
 	}
 	
-	public Commentaire(int id, String date, String image, String contenu, int id_article, int id_auteur){
+	public Commentaire(int id, String date, String image, String contenu, int id_article, String token){
 		this.setId(id);
 		this.setDate(date);
 		this.setImage(image);
 		this.setContenu(contenu);
 		this.setId_article(id_article);
-		this.setId_auteur(id_auteur);
+		//this.setId_auteur(id_auteur);
+		this.setToken(token);
 	}
 	
 	public int getId() {
@@ -68,28 +71,36 @@ public class Commentaire {
 	public void setId_article(int id_article) {
 		this.id_article = id_article;
 	}
-	public int getId_auteur() {
+	/*public int getId_auteur() {
 		return id_auteur;
 	}
 	public void setId_auteur(int id_auteur) {
 		this.id_auteur = id_auteur;
+	}*/
+	
+	public String getToken() {
+		return this.token;
 	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
 	
 	public boolean saveCommentaire(){
 		
-		System.out.println("Commentaire : "+this.getContenu() + " " + this.getId_article() + " " + this.getId_auteur() + " sauvegardé");
+		System.out.println("Commentaire : "+this.getContenu() + " " + String.valueOf(this.getId_article()) + " " + this.getToken() + " sauvegardé");
 		
-		/*ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
     	
-		postParameters.add(new BasicNameValuePair("titre", titre));
-		postParameters.add(new BasicNameValuePair("contenu", contenu));
-		postParameters.add(new BasicNameValuePair("token", this.user.getToken()));
+		postParameters.add(new BasicNameValuePair("contenu", this.getContenu()));
+		postParameters.add(new BasicNameValuePair("id_article", String.valueOf(this.getId_article())));
+		postParameters.add(new BasicNameValuePair("token", this.getToken()));
 
 		// getting JSON string from URL
 		// JSONObject json =
 		// JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+user.getLogin()+"&password="+user.getPassword());
-		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/new_article.php", postParameters);
-		try {
+		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/new_com.php", postParameters);
+		/*try {
 			// Storing each json item in variable
 			String id = json.getString("id");
 			String error = json.getString("error");
@@ -103,19 +114,25 @@ public class Commentaire {
 			} else 
 			{
 				// Erreur(s)
+				System.out.println("Erreur : " + error);
 				
 			}
 
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
-		return false;*/
 		
+		return false;
 		
-		
-		
-		return true;
+	}*/
+	return true;
+	
+}
+
+	public int getId_auteur() {
+		return id_auteur;
 	}
-	
-	
+
+	public void setId_auteur(int id_auteur) {
+		this.id_auteur = id_auteur;
+	}
 }

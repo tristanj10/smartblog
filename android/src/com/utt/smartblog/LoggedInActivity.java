@@ -60,7 +60,8 @@ public class LoggedInActivity extends FragmentActivity {
 		{
 			// Passage du token
     	    user.setToken(this.getIntent().getExtras().getString("token"));
-    	    Toast.makeText(this, "Ca y est, on est co token : " + user.getToken(), Toast.LENGTH_LONG).show();//a suppr
+    	    //user.setId(Integer.parseInt(this.getIntent().getExtras().getString("id_user")));
+    	    Toast.makeText(this, "Ca y est, on est co token : " + user.getToken() + " ID = " + user.getId() , Toast.LENGTH_LONG).show();//a suppr
     	    
             showFragment(this.articleFragment);
             

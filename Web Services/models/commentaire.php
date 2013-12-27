@@ -83,6 +83,16 @@ class Commentaire
 		$date = date("Y-m-d H:i:s");
 		// INSERT
 		try {
+			
+		
+			/*$stmt = $dbh->prepare("INSERT INTO commentaires(`date`,`image`,`contenu`, `id_article`,`id_auteur`) VALUES (?, ?, ?, ?, ?) ");
+			$stmt->bindValue(1, $date);
+			$stmt->bindValue(2, $this->getImage(), PDO::PARAM_STR);
+			$stmt->bindValue(3, $this->getContenu(), PDO::PARAM_STR);
+			$stmt->bindValue(4, $this->getArticle()->getId(), PDO::PARAM_INT);
+			$stmt->bindValue(5, $this->getAuteur()->getId(), PDO::PARAM_INT);
+			$stmt->execute();*/
+			
 			$stmt = $dbh->prepare("INSERT INTO commentaires(`date`,`image`,`contenu`, `id_article`,`id_auteur`) VALUES (?, ?, ?, ?, ?) ");
 			$stmt->bindValue(1, $date);
 			$stmt->bindValue(2, $this->getImage(), PDO::PARAM_STR);
@@ -91,11 +101,12 @@ class Commentaire
 			$stmt->bindValue(5, $this->getAuteur()->getId(), PDO::PARAM_INT);
 			$stmt->execute();
 			
+			
 			$id =  $dbh->lastInsertId();
 		}
 		catch(Exception $e)
 		{
-			return 0;
+			return 1;
 		}
 
 		$this->setId($id);
@@ -106,14 +117,14 @@ class Commentaire
 	{
 		try
 		{
-			$stmt = $dbh->prepare("SELECT c.*, u.nom, u.prenom, u.login FROM commentaires c, utilisateurs u WHERE c.id_auteur = u.id AND c.id_article = ? ORDER BY c.id DESC");
-			$stmt->bindValue(1, $this->getArticle()->getId(), PDO::PARAM_INT);
-			$stmt->execute();
+			$stmt2 = $dbh->prepare("SELECT c.*, u.nom, u.prenom, u.login FROM commentaires c, utilisateurs u WHERE c.id_auteur = u.id AND c.id_article = ? ORDER BY c.id DESC");
+			$stmt2->bindValue(1, $id_article, PDO::PARAM_INT);
+			$stmt2->execute();
 		
-			$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$res2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 			
 		
-			return $res;
+			return $res2;
 		}
 		catch(Exception $e)
 		{
@@ -138,4 +149,6 @@ class Commentaire
 			return false;
 		}
 	}
+	
+	
 }

@@ -47,11 +47,13 @@ if($_SESSION['token'] == $_POST['token'])
 	/**
 	 * Vérification de l'id de l'article
 	 */
-	if(isset($_POST['id_article']) && is_int($_POST['id_article']) && $_POST['id_article'] != '')
+	if(isset($_POST['id_article']) && $_POST['id_article'] != '')
 	{
 		$id_article = intval($_POST['id_article']);
 		if(!$article->charger($dbh, $id_article))
 			$error .= '\r\n - article inexistant';
+		else
+			$article->setId($id_article);
 	}
 	else
 	{
@@ -80,7 +82,7 @@ if($_SESSION['token'] == $_POST['token'])
 		$commentaire->setId($commentaire->sauvegarder($dbh));
 	}
 	
-	$str='{"id":"'.$article->getId().'", "error":"'.$error.'", "token":"'.$_SESSION['token'].'"}';
+	$str='{"id":"'.$commentaire->getId().'", "error":"'.$error.'", "token":"'.$_SESSION['token'].'"}';
 	
 	echo $str;
 	

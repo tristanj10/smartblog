@@ -90,6 +90,7 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 				article.setContenu(object.getString("contenu"));
 				article.getAuteur().setNom(object.getString("nom"));
 				article.getAuteur().setPrenom(object.getString("prenom"));
+				article.setId(object.getInt("id"));
 				
 				articles.add(article);
 			}
