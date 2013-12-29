@@ -30,30 +30,40 @@ if($_SESSION['token'] == $_POST['token'])
 	}
 	
 	$commentaires = Commentaire::getCommentaires($dbh, $id_article);
-	$str = '{';
+	if($commentaires && count($commentaires) !=0){
+		$str = '{';
 
-	$i = 0;
-	foreach($commentaires as $a)
-	{
-		$str .= '"'.$i.'": { ';
-		foreach($a as $key => $value)
+		$i = 0;
+		foreach($commentaires as $a)
 		{
-			$str .= '"'.$key.'": "'.$value.'", ';
+			$str .= '"'.$i.'": { ';
+			foreach($a as $key => $value)
+			{
+				$str .= '"'.$key.'": "'.$value.'", ';
+			}
+			
+			// Suppression de la dernière virgule
+			$str = substr($str, 0, -2);
+			$str .= '}, ';
+			
+			$i++;
 		}
 		
 		// Suppression de la dernière virgule
 		$str = substr($str, 0, -2);
-		$str .= '}, ';
+
+		$str .= '}'; 
 		
-		$i++;
+		echo $str;
+		
+	}else{
+		/*$error .= '\r\n - erreur commentaires';
+		$str='{"token":"'.$token.'", "error":"'.$error.'"}';
+		echo $str;*/
+		echo "{}";
+		
 	}
-	
-	// Suppression de la dernière virgule
-	$str = substr($str, 0, -2);
 
-	$str .= '}'; 
 	
-
-	echo $str;
 
 }

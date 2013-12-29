@@ -1,6 +1,7 @@
 package com.utt.smartblog;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,6 +29,7 @@ import com.utt.smartblog.controller.LectureArticleController;
 import com.utt.smartblog.controller.NewArticleController;
 import com.utt.smartblog.models.Article;
 import com.utt.smartblog.models.Utilisateur;
+import com.utt.smartblog.network.UploadFiles;
 
 public class LoggedInActivity extends FragmentActivity {
 
@@ -45,7 +47,8 @@ public class LoggedInActivity extends FragmentActivity {
 	private Article selectedArticle = null;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
-	public Uri fileURI;
+	private static final int CHOISIR_PHOTO = 300;
+	public Uri fileURI = null;
 	
 	
 	@Override
@@ -156,8 +159,36 @@ public class LoggedInActivity extends FragmentActivity {
                     // Video capture failed, advise user
                 }
             }
+        }else if(requestCode == CHOISIR_PHOTO){
+        	if (resultCode == RESULT_OK) {
+                this.fileURI = data.getData();
+                String path = getPath(fileURI);
+                this.fileURI = Uri.parse(path);
+                
+                Bitmap bmp = BitmapFactory.decodeFile(path);
+                ImageView tmp = new ImageView(this);
+                
+                tmp = (ImageView)findViewById(R.id.photo);
+                tmp.setImageBitmap(bmp);
+                
+        		System.out.println(data.getData());
+                }
         }
         }
+    
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if (cursor != null) {
+            // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
+            // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } else
+            return null;
+    }
     
     
 

@@ -41,7 +41,14 @@ if($_SESSION['token'] == $_POST['token'])
 	 * Vérification image /!\
 	 * @todo: Insertion d'image Article
 	 */
-	
+	 if(isset($_POST['image']) && is_string($_POST['image']) && $_POST['image'] != '')
+	{
+		$image = htmlspecialchars($_POST['image']);
+	}
+	else
+	{
+		$error .= '\r\n - image : mauvais format';
+	}
 	/**
 	 * Vérification du contenu
 	 */
@@ -71,7 +78,7 @@ if($_SESSION['token'] == $_POST['token'])
 	if($error == '')
 	{
 		$article->setTitre($titre);
-		// Ne pas oublier d'ajouter l'image
+		$article->setImage($image);
 		$article->setContenu($contenu);
 		$article->setAuteur($user);
 		$article->setId($article->sauvegarder($dbh));

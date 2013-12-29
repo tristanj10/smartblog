@@ -1,6 +1,7 @@
 package com.utt.smartblog.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +42,7 @@ import com.utt.smartblog.models.ArticleAdapter;
 import com.utt.smartblog.models.Utilisateur;
 import com.utt.smartblog.network.CameraSaveFile;
 import com.utt.smartblog.network.JSONParser;
+import com.utt.smartblog.network.UploadFiles;
 
 
 public class NewArticleController extends Fragment implements OnClickListener
@@ -49,11 +51,13 @@ public class NewArticleController extends Fragment implements OnClickListener
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	public static final int MEDIA_TYPE_VIDEO = 2;
 	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
-	private Uri fileUri;
+	private static final int CHOISIR_PHOTO = 300;
+	private Uri fileUri = null;
 	private Button articleButton = null;
 	private Utilisateur user = null;
 	private LoggedInActivity monActivity = null;
 	private ImageButton prendrePhoto = null;
+	private ImageButton choisirPhoto = null;
 	
 	private EditText titreField = null;
 	private EditText contenuField = null;
@@ -66,6 +70,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 	    articleButton = (Button)view.findViewById(R.id.articleButton);
 	    monActivity = (LoggedInActivity) this.getActivity();
 	    prendrePhoto = (ImageButton)view.findViewById(R.id.prendre_photo);
+	    choisirPhoto = (ImageButton)view.findViewById(R.id.choisir_photo);
 	    
 	    titreField = (EditText) view.findViewById(R.id.titreField);
 	    contenuField = (EditText) view.findViewById(R.id.contenuField);
@@ -74,6 +79,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 	    
 	    articleButton.setOnClickListener(this);
 	    this.prendrePhoto.setOnClickListener(this);
+	    this.choisirPhoto.setOnClickListener(this);
 	    
 	    return view;
 	}
@@ -88,6 +94,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 		if(v == articleButton) 
 		{
 			
+			
 			EditText titre = (EditText) getView().findViewById(R.id.titreField);
 			EditText contenu = (EditText) getView().findViewById(R.id.contenuField);
 			
@@ -96,6 +103,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 			
 			if(nouvelArticle(strTitre, strContenu))
 			{
+				
 				monActivity.showFragment(monActivity.articleFragment);
 			}
 			
@@ -114,20 +122,40 @@ public class NewArticleController extends Fragment implements OnClickListener
 			    // start the image capture Intent
 			    this.monActivity.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 			
+		}else if(v == choisirPhoto){
+			
+				Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+				this.monActivity.startActivityForResult(intent, CHOISIR_PHOTO);
 		}
 		
 	}
     
     
     public boolean nouvelArticle(String titre, String contenu) {
-		// Envoi des données sur la base
+		
+    	if(this.monActivity.fileURI != null){
+    		
+	    	//Upload de l'image vers le serveur
+	        UploadFiles upload = new UploadFiles();
+	       
+	        try {
+				upload.upload(this.monActivity.fileURI.getPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Error");
+				e.printStackTrace();
+			}
+    	}
+    	
+    	// Envoi des données sur la base
 
     	ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
     	
 		postParameters.add(new BasicNameValuePair("titre", titre));
 		postParameters.add(new BasicNameValuePair("contenu", contenu));
+		postParameters.add(new BasicNameValuePair("image", this.monActivity.fileURI.getLastPathSegment().toString()));
 		postParameters.add(new BasicNameValuePair("token", this.user.getToken()));
-
+		System.out.println(this.monActivity.fileURI.getLastPathSegment().toString());
 		// getting JSON string from URL
 		// JSONObject json =
 		// JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+user.getLogin()+"&password="+user.getPassword());

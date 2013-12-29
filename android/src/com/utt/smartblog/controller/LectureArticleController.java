@@ -1,5 +1,9 @@
 package com.utt.smartblog.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -15,6 +19,9 @@ import com.utt.smartblog.models.Commentaire;
 import com.utt.smartblog.models.CommentaireAdapter;
 import com.utt.smartblog.network.JSONParser;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,6 +51,8 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	private String contenu_com = null;
 	private EditText editContenu = null;
 	private ListView lescoms = null;
+	private Bitmap bitmap = null;
+	private URL urlPhoto = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +80,18 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	    this.like.setText(String.valueOf(this.article.getLikes()));
 	    this.auteur.setText((this.article.getAuteur().getNom() + this.article.getAuteur().getPrenom()));
 	    //this.image.setImageBitmap(this.article.getImage());
+	    
+	    //Affichage de l'image
+	    try {
+	    	//this.urlPhoto = URL.class.getResource("http://10.0.2.2/uploads/" + this.article.getImage());
+			 bitmap = BitmapFactory.decodeStream((InputStream)new URL("http://10.0.2.2/uploads/" + this.article.getImage()).getContent());
+			 this.image.setImageBitmap(bitmap); 
+			 System.out.println("https://10.0.2.2/uploads/" + this.article.getImage());
+		} catch (MalformedURLException e) {
+			  e.printStackTrace();
+		} catch (IOException e) {
+			  e.printStackTrace();
+		}
 	    
 	    this.envoi_com.setOnClickListener(this);
 	    
@@ -132,10 +153,10 @@ public class LectureArticleController extends Fragment implements OnClickListene
 					// Vide
 					System.out.println("C'est vide");
 				}
+				
 
 			} catch (JSONException e) {
 				e.printStackTrace();
-				System.out.println("PUTAIN");
 			}
 	    
 	}
@@ -157,6 +178,22 @@ public class LectureArticleController extends Fragment implements OnClickListene
 		}
 		
 		return false;
+	}
+	
+	private Bitmap resize(Bitmap bm, int w, int h)
+	{
+		int width = bm.getWidth();
+		int height = bm.getHeight();
+		int newWidth = w;
+		int newHeight = h;
+		float scaleWidth = ((float) newWidth) / width;
+		float scaleHeight = ((float) newHeight) / height;
+ 
+		Matrix matrix = new Matrix();
+		matrix.postScale(scaleWidth, scaleHeight);
+		Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+ 
+		return resizedBitmap;
 	}
 	
 }
