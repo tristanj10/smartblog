@@ -90,7 +90,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 		// TODO Auto-generated method stub
     	
     	
-		// Envoi des données
+		// Envoi des donnï¿½es
 		if(v == articleButton) 
 		{
 			
@@ -147,7 +147,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 			}
     	}
     	
-    	// Envoi des données sur la base
+    	// Envoi des donnï¿½es sur la base
 
     	ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
     	
@@ -216,9 +216,9 @@ public class NewArticleController extends Fragment implements OnClickListener
 	    if (type == MEDIA_TYPE_IMAGE){
 	        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
 	        "IMG_"+ timeStamp + ".jpg");
-	    } else if(type == MEDIA_TYPE_VIDEO) {
-	        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-	        "VID_"+ timeStamp + ".mp4");
+	    //} else if(type == MEDIA_TYPE_VIDEO) {
+	       // mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+	        //"VID_"+ timeStamp + ".mp4");
 	    } else {
 	        return null;
 	    }
