@@ -90,7 +90,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 		// TODO Auto-generated method stub
     	
     	
-		// Envoi des donn�es
+		// Envoi des donnees
 		if(v == articleButton) 
 		{
 			
@@ -147,7 +147,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 			}
     	}
     	
-    	// Envoi des donn�es sur la base
+    	// Envoi des donnees sur la base
 
     	ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
     	
