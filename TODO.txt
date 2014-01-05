@@ -1,10 +1,11 @@
-Vider les champs apres la création (article, commentaire, ...) --> Yvon
+Vider les champs apres la creation (article, commentaire, ...) --> Yvon 
 Edition article (si on a le temps)
 recherche (si on a le temps)
 ajout de commentaire --> Tristan
 ajout photo commentaire -->Tristan
 design --> 2
-test unitaire --> Yvon
+test unitaire --> Yvon 
 bouton parcourir pour photo dans nouvel article --> tristan
-delai commentaire --> Yvon 
-Incrémenter LIKE, DISLIKE et VU
+delai commentaire --> Yvon  
+Incrementer LIKE et VU 
+DÃ©connexion de l'application 
