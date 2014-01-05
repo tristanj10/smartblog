@@ -20,6 +20,7 @@ if($_SESSION['token'] == $_POST['token'])
 	$user = unserialize($_SESSION['user']);
 
 	$articles = Article::lister($dbh);
+	
 	$str = '{';
 
 	$i = 0;

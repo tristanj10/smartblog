@@ -175,38 +175,40 @@ class Article
 	/**
 	 * Charge l'instance 
 	 * @param unknown $dbh
-	 * @param string $id
+	 * @param string $id de l'article
 	 * @return boolean
 	 */
 	public function charger($dbh, $id = null)
 	{
 		if ($id == null)
 		{
-			$id = $this->id;
+			$id = (string) $this->id;
 		}
 	
 		try
 		{
-			$stmt = $dbh->prepare("SELECT a.*, u.id, u.nom, u.prenom, u.login FROM articles a, utilisateurs u WHERE a.id = ? AND a.id_auteur = u.id");
+			$stmt = $dbh->prepare("SELECT a.*, u.nom, u.prenom, u.login FROM articles a, utilisateurs u WHERE a.id = ? AND a.id_auteur = u.id");
 			$stmt->bindValue(1, $id,PDO::PARAM_STR);
 			$stmt->execute();
 			
 			$row = $stmt->fetch();
 			
+			
 			if($stmt->rowCount() == 1)
 			{
-				$this->setId($row['a.id']);
-				$this->setTitre($row['a.titre']);
-				$this->setDate($row['a.date']);
-				$this->setImage($row['a.image']);
-				$this->setContenu($row['a.contenu']);
-				$this->setNbVues($row['a.nb_vues']);
+				$this->setId($row['id']);
+				$this->setTitre($row['titre']);
+				$this->setDate($row['date']);
+				$this->setImage($row['image']);
+				$this->setContenu($row['contenu']);
+				$this->setNbVues($row['nb_vues']);
 
 				$id_auteur = $row['id_auteur'];
 				
-				$this->auteur->setNom($row['u.nom']);
-				$this->auteur->setPrenom($row['u.prenom']);
-				$this->auteur->setLogin($row['u.login']);
+				$this->auteur->setId($id_auteur);
+				$this->auteur->setNom($row['nom']);
+				$this->auteur->setPrenom($row['prenom']);
+				$this->auteur->setLogin($row['login']);
 				
 				return true;
 			}
@@ -262,14 +264,13 @@ class Article
 		{
 			// UPDATE
 			try {
-				$stmt = $dbh->prepare("UPDATE articles SET titre = ?, date = ?, image = ?, contenu = ?, nb_vues = ?, id_auteur = ? WHERE id = ?");
+				$stmt = $dbh->prepare("UPDATE articles SET titre = ?, date = ?, image = ?, contenu = ?, nb_vues = ? WHERE id = ?");
 				$stmt->bindValue(1, $this->getTitre(), PDO::PARAM_STR);
 				$stmt->bindValue(2, $this->getDate());
 				$stmt->bindValue(3, $this->getImage(), PDO::PARAM_STR);
 				$stmt->bindValue(4, $this->getContenu(), PDO::PARAM_STR);
 				$stmt->bindValue(5, $this->getNbVues(), PDO::PARAM_INT);
-				$stmt->bindValue(6, $this->getAuteur()->getId(), PDO::PARAM_INT);
-				$stmt->bindValue(7, $this->getId(), PDO::PARAM_INT);
+				$stmt->bindValue(6, $this->getId(), PDO::PARAM_INT);
 				$stmt->execute();
 				
 				$id =  $dbh->lastInsertId();
@@ -328,7 +329,6 @@ class Article
 			$stmt->execute();
 		
 			$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			
 		
 			return $res;
 		}

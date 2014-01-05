@@ -53,6 +53,7 @@ public class BarreRechercheController extends Fragment implements OnClickListene
 		}
 		else if(v == this.buttonRetour)
 		{
+			//monActivity.articleFragment.chargerListe();
 			monActivity.showFragment(monActivity.articleFragment);
 		}
 		else if(v == this.buttonDeco)

@@ -1,4 +1,4 @@
-Vider les champs apres la creation (article, commentaire, ...) --> Yvon 
+﻿Vider les champs apres la creation (article, commentaire, ...) --> Yvon 
 Edition article (si on a le temps)
 recherche (si on a le temps)
 ajout de commentaire --> Tristan
@@ -7,5 +7,7 @@ design --> 2
 test unitaire --> Yvon 
 bouton parcourir pour photo dans nouvel article --> tristan
 delai commentaire --> Yvon  
-Incrementer LIKE et VU 
-Déconnexion de l'application 
+Incrementer LIKE -> Tristan
+Verifier que l'upload soit bien un jpg -> Tristan
+Incrementer VU -> Yvon
+Déconnexion de l'application -> Yvon

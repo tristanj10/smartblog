@@ -91,13 +91,18 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 				
 				article = new Article();
 				
-				// Prévoir plus de champs : Photo ? Début de contenu ?
+				// Chargement des articles
 				article.setTitre(object.getString("titre"));
 				article.setDate(object.getString("date"));
 				article.setContenu(object.getString("contenu"));
 				article.getAuteur().setNom(object.getString("nom"));
 				article.getAuteur().setPrenom(object.getString("prenom"));
 				article.setImage(object.getString("image"));
+				article.setNb_vues(Integer.parseInt(object.getString("nb_vues")));
+				
+				// TODO: Charger les LIKE
+				article.setLike(0);
+				
 				article.setId(object.getInt("id"));
 				
 				articles.add(article);

@@ -101,7 +101,6 @@ class Commentaire
 			$stmt->bindValue(5, $this->getAuteur()->getId(), PDO::PARAM_INT);
 			$stmt->execute();
 			
-			
 			$id =  $dbh->lastInsertId();
 		}
 		catch(Exception $e)

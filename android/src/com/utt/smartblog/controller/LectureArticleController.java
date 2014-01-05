@@ -98,6 +98,8 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	    chargerListeCom();
 	    System.out.println("Liste chargée.");
 	    
+	    incrementerVues();
+	    
 	    return view;
 	}
 
@@ -199,4 +201,41 @@ public class LectureArticleController extends Fragment implements OnClickListene
 		return resizedBitmap;
 	}
 	
+	/**
+	 * Incrémente le nombre de vus
+	 */
+	private void incrementerVues()
+	{
+		// Envoi des donnees sur le serveur
+    	ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+    	
+    	// post
+    	postParameters.add(new BasicNameValuePair("token", monActivity.user.getToken()));
+		postParameters.add(new BasicNameValuePair("id_article", String.valueOf(this.article.getId())));
+		
+
+		// Envoi de la requete post (donnees de l'article)
+		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/nbvues.php", postParameters);
+		try {
+			
+			// Recuperation de la reponse
+			String error = json.getString("error");
+			String nb = json.getString("nb");
+			
+			if (error.isEmpty()) 
+			{
+				// Pas d'erreur
+				this.nb_vues.setText(nb);
+			} else 
+			{
+				// Erreur(s)
+				
+			}
+
+		} 
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

@@ -140,7 +140,7 @@ public class Commentaire
 		// JSONObject json =
 		// JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+user.getLogin()+"&password="+user.getPassword());
 		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/new_com.php", postParameters);
-		/*try {
+		try {
 			// Storing each json item in variable
 			String id = json.getString("id");
 			String error = json.getString("error");
@@ -156,6 +156,8 @@ public class Commentaire
 				// Erreur(s)
 				System.out.println("Erreur : " + error);
 				
+				// Afficher les erreurs : les 15 secondes de délais entre chaque commentaire
+				
 			}
 
 		} catch (JSONException e) {
@@ -163,7 +165,7 @@ public class Commentaire
 		
 		return false;
 		
-	}*/
+	}
 	return true;
 	
 }
