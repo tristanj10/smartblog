@@ -18,6 +18,7 @@ if(empty($_SESSION['token']) || empty($_SESSION['user']))
 $error = '';
 
 $article = new Article();
+$image = "";
 
 if($_SESSION['token'] == $_POST['token'])
 {
@@ -38,17 +39,22 @@ if($_SESSION['token'] == $_POST['token'])
 	}
 	
 	/**
-	 * Vérification image /!\
+	 * Vérification image
 	 * @todo: Insertion d'image Article
 	 */
-	 if(isset($_POST['image']) && is_string($_POST['image']) && $_POST['image'] != '')
+	if(isset($_POST['image']))
 	{
-		$image = htmlspecialchars($_POST['image']);
+		if(is_string($_POST['image']) && $_POST['image'] != '')
+		{
+			$image = htmlspecialchars($_POST['image']);
+		}
+		else
+		{
+			$error .= '\r\n - image : mauvais format';
+		}
+		
 	}
-	else
-	{
-		$error .= '\r\n - image : mauvais format';
-	}
+	
 	/**
 	 * Vérification du contenu
 	 */

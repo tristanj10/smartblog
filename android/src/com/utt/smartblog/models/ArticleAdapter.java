@@ -11,13 +11,15 @@ import android.widget.TextView;
 
 import com.utt.smartblog.R;
 
-
+/**
+ * ArticleAdapter pour afficher la liste des articles
+ */
 public class ArticleAdapter extends BaseAdapter 
 {
 
-	List<Article> articles;
+	List<Article> articles; // Liste d'articles
 
-	LayoutInflater inflater;
+	LayoutInflater inflater; 
 
 	public ArticleAdapter(Context context,List<Article> articles) 
 	{
@@ -48,6 +50,8 @@ public class ArticleAdapter extends BaseAdapter
 	
 	private class ViewHolder
 	{
+		// items d'un article
+		
 		TextView itemArticleTitre;
 		TextView itemArticleDate;
 		TextView itemArticlePrenomNom;
@@ -67,6 +71,7 @@ public class ArticleAdapter extends BaseAdapter
 			holder = new ViewHolder();
 			convertView = inflater.inflate(R.layout.item_article, null);
 
+			// Attribution des items
 			holder.itemArticleTitre = (TextView)convertView.findViewById(R.id.itemArticleTitre);
 			holder.itemArticleDate = (TextView)convertView.findViewById(R.id.itemArticleDate);
 			holder.itemArticlePrenomNom = (TextView)convertView.findViewById(R.id.itemArticlePrenomNom);
@@ -79,6 +84,7 @@ public class ArticleAdapter extends BaseAdapter
 			holder = (ViewHolder) convertView.getTag();
 		}
 
+		// Texte des items
 		holder.itemArticleTitre.setText(articles.get(position).getTitre());
 		holder.itemArticleDate.setText(articles.get(position).getDate());
 		holder.itemArticlePrenomNom.setText("De " + articles.get(position).getAuteur().getPrenom() + " " + articles.get(position).getAuteur().getNom());

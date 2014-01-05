@@ -1,27 +1,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:layout_width="fill_parent"
-   android:layout_height="fill_parent" >
-    
-     <ImageButton
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageButton
         android:id="@+id/newArticleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="46dp"
+      	 android:layout_height="46dp"
         android:layout_marginLeft="1dp"
-        android:padding="4dip"
         android:onClick="nouvelArticleFragment"
+        android:padding="4dip"
         android:src="@android:drawable/ic_input_add" />
 
     <ImageButton
         android:id="@+id/listeArticleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
         android:layout_alignTop="@+id/newArticleButton"
         android:layout_marginLeft="1dp"
-        android:padding="4dip"
         android:layout_toRightOf="@+id/newArticleButton"
+        android:layout_weight="0.07"
         android:onClick="listeArticleFragment"
+        android:padding="4dip"
         android:src="@android:drawable/stat_notify_sync_noanim" />
-    
+
+    <!--
     <EditText
             android:id="@+id/rechercheField"
             android:layout_width="wrap_content"
@@ -32,5 +35,15 @@
             android:layout_toRightOf="@+id/listeArticleButton"
             android:layout_alignTop="@+id/newArticleButton"
             android:hint="Rechercher" />
+    -->
+
+    <ImageButton
+        android:id="@+id/decoButton"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_alignTop="@+id/newArticleButton"
+        android:layout_marginLeft="1dp"
+        android:layout_toRightOf="@+id/newArticleButton"
+        android:src="@android:drawable/ic_lock_power_off" />
 
 </LinearLayout>

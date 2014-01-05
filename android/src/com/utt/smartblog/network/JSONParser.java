@@ -33,6 +33,9 @@ import org.json.JSONObject;
 import android.os.StrictMode;
 import android.util.Log;
  
+/**
+ * JSONParser : parser de JSON pour les reponses du serveur
+ */
 public class JSONParser {
  
     static InputStream is = null;
@@ -111,7 +114,8 @@ public class JSONParser {
     
    
 	/**
-	 *  HttpClient avec la prise en compte de SSL
+	 *  HttpClient avec la prise en compte de SSL en local 
+	 *  A UTILISER UNIQUEMENT pour le certificat en local
 	 * @return 
 	 */
 	public static HttpClient getNewHttpClient() {

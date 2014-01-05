@@ -1,5 +1,8 @@
 package com.utt.smartblog.models;
 
+/**
+ * Classe Article
+ */
 public class Article 
 {
 
@@ -13,8 +16,9 @@ public class Article
 	private Utilisateur auteur;
 	
 	
-	
-	
+	/**
+	 * Getters et Setters
+	 */
 	public Article() {
 		this.auteur = new Utilisateur();
 	}

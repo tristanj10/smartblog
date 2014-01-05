@@ -190,9 +190,9 @@ class Article
 			$stmt = $dbh->prepare("SELECT a.*, u.id, u.nom, u.prenom, u.login FROM articles a, utilisateurs u WHERE a.id = ? AND a.id_auteur = u.id");
 			$stmt->bindValue(1, $id,PDO::PARAM_STR);
 			$stmt->execute();
-				
+			
 			$row = $stmt->fetch();
-				
+			
 			if($stmt->rowCount() == 1)
 			{
 				$this->setId($row['a.id']);

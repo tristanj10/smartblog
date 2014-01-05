@@ -25,7 +25,7 @@
                 android:name="com.utt.smartblog.controller.BarreRechercheController"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_barre_recherche" />
+                tools:layout="@layout/fragment_menu" />
 
             <FrameLayout
                 android:id="@+id/fragmentContenaire"

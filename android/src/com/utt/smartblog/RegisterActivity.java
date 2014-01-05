@@ -7,8 +7,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import backup._LoginActivity;
-
 import com.utt.smartblog.models.Utilisateur;
 import com.utt.smartblog.network.JSONParser;
 

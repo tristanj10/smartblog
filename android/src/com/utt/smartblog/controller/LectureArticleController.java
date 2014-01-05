@@ -167,6 +167,7 @@ public class LectureArticleController extends Fragment implements OnClickListene
 		if(v == this.envoi_com){
 			this.contenu_com = this.editContenu.getText().toString();
 			Envoi_com(this.contenu_com);
+	
 		}
 	}
 	
@@ -175,7 +176,9 @@ public class LectureArticleController extends Fragment implements OnClickListene
 		Commentaire monCom = new Commentaire(contenu, this.article.getId(), this.monActivity.user.getToken() );
 		if(monCom.saveCommentaire()){
 			System.out.println("Recharge la page");
+			
 		}
+		this.envoi_com.setText("");
 		
 		return false;
 	}

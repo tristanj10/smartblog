@@ -18,8 +18,9 @@ import javax.net.ssl.X509TrustManager;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 
 /**
+ * MySSLSocketFactory : permet d'accepter les certificats
  * Accepte tous les certificats
- * (!) A utiliser en dev, mais pas en prod (certificat invalide)
+ * (!) A utiliser en dev, mais pas en prod (certificat local)
  *
  */
 public class MySSLSocketFactory extends SSLSocketFactory {
@@ -27,7 +28,7 @@ public class MySSLSocketFactory extends SSLSocketFactory {
 
     public MySSLSocketFactory(KeyStore truststore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
         super(truststore);
-
+        
         TrustManager tm = new X509TrustManager() {
             public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             }

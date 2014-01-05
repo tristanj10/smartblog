@@ -31,13 +31,16 @@ import com.utt.smartblog.models.ArticleAdapter;
 import com.utt.smartblog.models.Utilisateur;
 import com.utt.smartblog.network.JSONParser;
 
-
+/**
+ * Fragment Article
+ */
 public class ArticleController extends Fragment implements OnClickListener, OnItemClickListener
 {
 
-	Utilisateur user = null;
-	ListView listView = null;
-	LoggedInActivity monActivity = null;
+	
+	Utilisateur user = null; // Utilisateur courant
+	ListView listView = null; // Liste d'articles
+	LoggedInActivity monActivity = null; // Activite LoggedIn
 	
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +65,9 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
     	
 	}
     
+    /**
+     * Méthode de chargement de la liste des articles
+     */
     public void chargerListe()
     {
     	ArrayList<Article> articles = new ArrayList<Article>();
@@ -69,13 +75,14 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
     	Integer  i = 0;
     	Article article = null;
 
+    	// Preparation de la requete POST (token)
 		postParameters.add(new BasicNameValuePair("token", this.user.getToken()));
 		
 		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/list_article.php", postParameters);
 		
+		// Recherche des articles
 		try {
-			
-			
+
 			// Parcours des articles
 			for(i = 0; i < json.length(); i++)
 			{
@@ -129,10 +136,13 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 		}
     }
 
-    //Méthode pour gérer les click sur les items de la listView
+    /**
+     * Méthode pour gérer les click sur les items de la listView
+     */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View  view, int position, long id) {
 		// TODO Auto-generated method stub
+		
 		//On récupère l'article Selectionné
 		Article  item = (Article) listView.getItemAtPosition(position);
 		

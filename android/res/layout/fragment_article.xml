@@ -111,10 +111,11 @@
         android:text="Envoyer" />
     </TableRow>
 
-    <TableRow>
+    <TableRow
+        android:layout_height="wrap_content">
     <ListView
         android:id="@+id/listCom"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
     </ListView>
     </TableRow>

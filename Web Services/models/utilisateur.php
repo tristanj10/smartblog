@@ -244,7 +244,7 @@ class Utilisateur
 			$id = $this->id;
 		}
 		
-		$date = Commentaire::getDateDernierCommentaire($dbh, $id_user);
+		$date = Commentaire::getDateDernierCommentaire($dbh, $id);
 		
 
 		return ((strtotime(date("Y-m-d H:i:s"))-strtotime($date)) >= self::DELAI_COMMENTAIRE);

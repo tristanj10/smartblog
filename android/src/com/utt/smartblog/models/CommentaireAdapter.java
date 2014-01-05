@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.utt.smartblog.R;
 
-
+/**
+ * CommentaireAdapter pour afficher la liste des commentaires
+ */
 public class CommentaireAdapter extends BaseAdapter 
 {
 
-	List<Commentaire> commentaires;
+	List<Commentaire> commentaires; // Liste de commentaires
 
 	LayoutInflater inflater;
 
@@ -48,6 +50,8 @@ public class CommentaireAdapter extends BaseAdapter
 	
 	private class ViewHolder
 	{
+		// Items d'un commentaire
+		
 		TextView itemCommentaireContenu;
 		TextView itemCommentaireDate;
 		TextView itemCommentairePrenomNom;
@@ -66,6 +70,8 @@ public class CommentaireAdapter extends BaseAdapter
 			holder = new ViewHolder();
 			convertView = inflater.inflate(R.layout.item_commentaire, null);
 
+			// Attribution des items
+			
 			holder.itemCommentaireContenu = (TextView)convertView.findViewById(R.id.itemCommentaireContenu);
 			holder.itemCommentaireDate = (TextView)convertView.findViewById(R.id.itemCommentaireDate);
 			holder.itemCommentairePrenomNom = (TextView)convertView.findViewById(R.id.itemCommentairePrenomNom);
@@ -77,6 +83,7 @@ public class CommentaireAdapter extends BaseAdapter
 			holder = (ViewHolder) convertView.getTag();
 		}
 
+		// Texte des items
 		holder.itemCommentaireContenu.setText(commentaires.get(position).getContenu());
 		holder.itemCommentaireDate.setText(commentaires.get(position).getDate());
 		holder.itemCommentairePrenomNom.setText("De " + commentaires.get(position).getId_auteur());

@@ -52,6 +52,7 @@ public class NewArticleController extends Fragment implements OnClickListener
 	public static final int MEDIA_TYPE_VIDEO = 2;
 	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 	private static final int CHOISIR_PHOTO = 300;
+	
 	private Uri fileUri = null;
 	private Button articleButton = null;
 	private Utilisateur user = null;
@@ -89,11 +90,9 @@ public class NewArticleController extends Fragment implements OnClickListener
 	{
 		// TODO Auto-generated method stub
     	
-    	
-		// Envoi des donnees
 		if(v == articleButton) 
 		{
-			
+			// Nouvel article
 			
 			EditText titre = (EditText) getView().findViewById(R.id.titreField);
 			EditText contenu = (EditText) getView().findViewById(R.id.contenuField);
@@ -103,65 +102,80 @@ public class NewArticleController extends Fragment implements OnClickListener
 			
 			if(nouvelArticle(strTitre, strContenu))
 			{
-				
+				// Retour au fragment article si article cree
 				monActivity.showFragment(monActivity.articleFragment);
 			}
 			
 			
 			
-		}else if(v == prendrePhoto){
+		}
+		else if(v == prendrePhoto)
+		{
 			
-			 	
-				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		 	// Prise de photo
+			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-			    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-			    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-			    this.monActivity.fileURI = fileUri;
-			    //intent.putExtra("test", fileUri);
-			    
-			    // start the image capture Intent
-			    this.monActivity.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+		    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+		    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+		    this.monActivity.fileURI = fileUri;
+		    
+		    // start the image capture Intent
+		    this.monActivity.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 			
-		}else if(v == choisirPhoto){
-			
-				Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-				this.monActivity.startActivityForResult(intent, CHOISIR_PHOTO);
+		}
+		else if(v == choisirPhoto)
+		{
+			// Parcours dans la galerie pour trouver une photo
+			Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+			this.monActivity.startActivityForResult(intent, CHOISIR_PHOTO);
 		}
 		
 	}
     
-    
-    public boolean nouvelArticle(String titre, String contenu) {
+    /**
+     * Creation d'un nouvel article
+     * @param titre
+     * @param contenu
+     * @return boolean si article cree ou non
+     */
+    public boolean nouvelArticle(String titre, String contenu)
+    {
 		
-    	if(this.monActivity.fileURI != null){
-    		
+    	if(this.monActivity.fileURI != null)
+    	{
 	    	//Upload de l'image vers le serveur
 	        UploadFiles upload = new UploadFiles();
 	       
 	        try {
 				upload.upload(this.monActivity.fileURI.getPath());
-			} catch (IOException e) {
+			} 
+	        catch (IOException e) 
+	        {
 				// TODO Auto-generated catch block
 				System.out.println("Error");
 				e.printStackTrace();
 			}
     	}
     	
-    	// Envoi des donnees sur la base
-
+    	// Envoi des donnees sur le serveur
     	ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
     	
+    	// post
 		postParameters.add(new BasicNameValuePair("titre", titre));
 		postParameters.add(new BasicNameValuePair("contenu", contenu));
-		postParameters.add(new BasicNameValuePair("image", this.monActivity.fileURI.getLastPathSegment().toString()));
+		if(this.monActivity.fileURI != null)
+		{
+			postParameters.add(new BasicNameValuePair("image", this.monActivity.fileURI.getLastPathSegment().toString()));
+			System.out.println(this.monActivity.fileURI.getLastPathSegment().toString());
+		}
 		postParameters.add(new BasicNameValuePair("token", this.user.getToken()));
-		System.out.println(this.monActivity.fileURI.getLastPathSegment().toString());
-		// getting JSON string from URL
-		// JSONObject json =
-		// JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+user.getLogin()+"&password="+user.getPassword());
+		
+
+		// Envoi de la requete post (donnees de l'article)
 		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/new_article.php", postParameters);
 		try {
-			// Storing each json item in variable
+			
+			// Recuperation de la reponse
 			String id = json.getString("id");
 			String error = json.getString("error");
 			String token = json.getString("token");
@@ -182,17 +196,29 @@ public class NewArticleController extends Fragment implements OnClickListener
 				
 			}
 
-		} catch (JSONException e) {
+		} 
+		catch (JSONException e)
+		{
 			e.printStackTrace();
 		}
 		return false;
 	}
     
+    /**
+     * Sauvegarde de la photo
+     * @param int type
+     * @return
+     */
     private static Uri getOutputMediaFileUri(int type){
 	      return Uri.fromFile(getOutputMediaFile(type));
 	}
 
-	/** Create a File for saving an image or video */
+
+    /**
+     * Creation d'un fichier pour la sauvegarde
+     * @param int type
+     * @return
+     */
 	private static File getOutputMediaFile(int type){
 	    // To be safe, you should check that the SDCard is mounted
 	    // using Environment.getExternalStorageState() before doing this.

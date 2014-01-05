@@ -2,6 +2,12 @@ package com.utt.smartblog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,13 +28,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-import backup._LoginController;
 
 import com.utt.smartblog.controller.ArticleController;
 import com.utt.smartblog.controller.LectureArticleController;
 import com.utt.smartblog.controller.NewArticleController;
 import com.utt.smartblog.models.Article;
 import com.utt.smartblog.models.Utilisateur;
+import com.utt.smartblog.network.JSONParser;
 import com.utt.smartblog.network.UploadFiles;
 
 public class LoggedInActivity extends FragmentActivity {
@@ -190,6 +196,42 @@ public class LoggedInActivity extends FragmentActivity {
             return null;
     }
     
-    
+    /**
+     * Deconnexion de l'utilisateur
+     */
+    public void deconnexion()
+    {
+    	
+    	// Envoi des donnees sur le serveur
+    	ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+    	
+		postParameters.add(new BasicNameValuePair("token", this.user.getToken()));
+    	
+		// Envoi de la requete post 
+		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/deco.php", postParameters);
+		
+		try {
+			
+			// Recuperation de la reponse
+			String reponse = json.getString("reponse");
+			
+			if (!reponse.isEmpty()) 
+			{
+				// Pas d'erreur
+				
+				// Fin de l'user et de l'activite
+				this.user = null;
+		    	finish();
+				
+			}
+
+		} 
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		
+    	
+    }
 
 }

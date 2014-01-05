@@ -11,7 +11,12 @@ import com.utt.smartblog.network.JSONParser;
 
 import android.widget.Toast;
 
-public class Commentaire {
+/**
+ * Classe Commentaire
+ */
+public class Commentaire 
+{
+	
 	private int id;
 	private String date;
 	private String image;
@@ -20,18 +25,39 @@ public class Commentaire {
 	private int id_auteur;
 	private String token;
 	
-	public Commentaire(){
+	/**
+	 * Constructeur 
+	 */
+	public Commentaire()
+	{
 		
 	}
 	
-	public Commentaire(String contenu, int id_article, String token){
+	/**
+	 * Constructeur avec parametres
+	 * @param contenu
+	 * @param id_article
+	 * @param token
+	 */
+	public Commentaire(String contenu, int id_article, String token)
+	{
 		this.setContenu(contenu);
 		this.setId_article(id_article);
 		//this.setId_auteur(id_auteur);
 		this.setToken(token);
 	}
 	
-	public Commentaire(int id, String date, String image, String contenu, int id_article, String token){
+	/**
+	 * Constructeur avec parametres
+	 * @param id
+	 * @param date
+	 * @param image
+	 * @param contenu
+	 * @param id_article
+	 * @param token
+	 */
+	public Commentaire(int id, String date, String image, String contenu, int id_article, String token)
+	{
 		this.setId(id);
 		this.setDate(date);
 		this.setImage(image);
@@ -41,6 +67,9 @@ public class Commentaire {
 		this.setToken(token);
 	}
 	
+	/**
+	 * Getters et Setters
+	 */
 	public int getId() {
 		return id;
 	}
@@ -78,6 +107,14 @@ public class Commentaire {
 		this.id_auteur = id_auteur;
 	}*/
 	
+	public int getId_auteur() {
+		return id_auteur;
+	}
+
+	public void setId_auteur(int id_auteur) {
+		this.id_auteur = id_auteur;
+	}
+	
 	public String getToken() {
 		return this.token;
 	}
@@ -85,7 +122,10 @@ public class Commentaire {
 		this.token = token;
 	}
 	
-	
+	/**
+	 * Enregistrement du commentaire
+	 * @return
+	 */
 	public boolean saveCommentaire(){
 		
 		System.out.println("Commentaire : "+this.getContenu() + " " + String.valueOf(this.getId_article()) + " " + this.getToken() + " sauvegardé");
@@ -128,11 +168,5 @@ public class Commentaire {
 	
 }
 
-	public int getId_auteur() {
-		return id_auteur;
-	}
 
-	public void setId_auteur(int id_auteur) {
-		this.id_auteur = id_auteur;
-	}
 }

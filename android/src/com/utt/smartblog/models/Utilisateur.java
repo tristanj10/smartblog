@@ -1,5 +1,8 @@
 package com.utt.smartblog.models;
 
+/**
+ * Classe Utilisateur
+ */
 public class Utilisateur 
 {
 
@@ -15,10 +18,17 @@ public class Utilisateur
 	
 	private String token;
 	
-	public Utilisateur(){
+	/**
+	 * Constructeur
+	 */
+	public Utilisateur()
+	{
 		
 	}
 	
+	/**
+	 * Getters et Setters
+	 */
 	public int getId() {
 		return id;
 	}
