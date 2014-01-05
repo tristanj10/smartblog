@@ -325,11 +325,12 @@ class Article
 	{
 		try
 		{
-			$stmt = $dbh->prepare("SELECT a.*, u.nom, u.prenom, u.login FROM articles a, utilisateurs u WHERE a.id_auteur = u.id ORDER BY a.id DESC");
+			$stmt = $dbh->prepare("SELECT a.*, u.nom, u.prenom, u.login, (SELECT count(*) FROM likes l WHERE a.id = l.id_article) as likes FROM articles a, utilisateurs u WHERE a.id_auteur = u.id  ORDER BY a.id DESC");
 			$stmt->execute();
 		
 			$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		
+			
 			return $res;
 		}
 		catch(Exception $e)
