@@ -2,6 +2,11 @@
 require_once('utilisateur.php');
 require_once('article.php');
 
+/**
+ * 
+ * Classe Commentaire
+ *
+ */
 class Commentaire
 {
 	private $id;
@@ -11,12 +16,17 @@ class Commentaire
 	private $article;
 	private $auteur;
 	
-	
+	/**
+	 * Constructeur
+	 */
 	public function __construct()
 	{
 		
 	}
 
+	/**
+	 * Getters et Setters
+	 */
 	public function getId()
 	{
 		return $this->id;
@@ -77,21 +87,17 @@ class Commentaire
 		$this->auteur = $auteur;
 	}
 	
+	/**
+	 * Enregistre le commentaire
+	 * @param unknown $dbh
+	 * @return id
+	 */
 	public function sauvegarder($dbh)
 	{
 
 		$date = date("Y-m-d H:i:s");
 		// INSERT
 		try {
-			
-		
-			/*$stmt = $dbh->prepare("INSERT INTO commentaires(`date`,`image`,`contenu`, `id_article`,`id_auteur`) VALUES (?, ?, ?, ?, ?) ");
-			$stmt->bindValue(1, $date);
-			$stmt->bindValue(2, $this->getImage(), PDO::PARAM_STR);
-			$stmt->bindValue(3, $this->getContenu(), PDO::PARAM_STR);
-			$stmt->bindValue(4, $this->getArticle()->getId(), PDO::PARAM_INT);
-			$stmt->bindValue(5, $this->getAuteur()->getId(), PDO::PARAM_INT);
-			$stmt->execute();*/
 			
 			$stmt = $dbh->prepare("INSERT INTO commentaires(`date`,`image`,`contenu`, `id_article`,`id_auteur`) VALUES (?, ?, ?, ?, ?) ");
 			$stmt->bindValue(1, $date);
@@ -112,6 +118,12 @@ class Commentaire
 		return $id;
 	}
 	
+	/**
+	 * Retourne la liste des commentaires d'un article
+	 * @param unknown $dbh
+	 * @param unknown $id_article
+	 * @return unknown|boolean commentaires ou false
+	 */
 	public static function getCommentaires($dbh, $id_article)
 	{
 		try
@@ -131,6 +143,12 @@ class Commentaire
 		}
 	}
 	
+	/**
+	 * Récupère la date du dernier commentaire d'un utilisateur
+	 * @param unknown $dbh
+	 * @param unknown $id_user
+	 * @return unknown|boolean la date ou false
+	 */
 	public static function getDateDernierCommentaire($dbh, $id_user)
 	{
 		try

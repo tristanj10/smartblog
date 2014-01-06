@@ -7,7 +7,6 @@ $password = '';
 try {
 	$dbh = new PDO($co, $user, $password);
 } catch (PDOException $e) {
-	//echo 'Connexion échouée : ';// . $e->getMessage();
 }
 
 if(!$dbh)

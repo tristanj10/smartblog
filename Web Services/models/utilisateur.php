@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * 
+ * Classe Utilisateur
+ *
+ */
 class Utilisateur
 {
 	private $id;
@@ -10,16 +14,23 @@ class Utilisateur
 	private $date_tentative;
 	private $nb_tentatives;
 	
-	const DELAI_COMMENTAIRE = 15;
-	const DELAI_ARTICLE = 60;
-	const DELAI_TENTATIVE = 900;
-	const NB_TENTATIVES = 3;
+	// Constantes
+	const DELAI_COMMENTAIRE = 15; // 15 secondes entre chaque commentaire
+	const DELAI_ARTICLE = 60; // 1 minute entre chaque article
+	const DELAI_TENTATIVE = 900; // 15 minutes après dépassement du nb de tentatives autorisées d'auth
+	const NB_TENTATIVES = 3; // Nombre de tentatives autorisées d'auth
 	
+	/**
+	 * Constructeur
+	 */
 	public function __construct() 
 	{
 		
 	}
 	
+	/**
+	 * Getters et Setters
+	 */
 	public function getId()
 	{
 		return $this->id;
@@ -98,7 +109,12 @@ class Utilisateur
 		$this->nb_tentatives = $nb;
 	}
 	
-	
+	/**
+	 * Charge l'instance
+	 * @param unknown $dbh
+	 * @param string $login
+	 * @return boolean true si existant, false sinon
+	 */
 	public function charger($dbh, $login = null)
 	{
 		if ($login == null) 
@@ -136,7 +152,13 @@ class Utilisateur
 		
 	}
 	
-	
+	/**
+	 * Authentification
+	 * @param unknown $dbh
+	 * @param String $login
+	 * @param String $password
+	 * @return boolean true si auth reussi, false sinon
+	 */
 	public function login($dbh, $login, $password)
 	{
 		
@@ -152,6 +174,11 @@ class Utilisateur
 		return false;
 	}
 	
+	/**
+	 * Sauvegarde de l'instance dans la base de données
+	 * @param unknown $dbh
+	 * @return boolean true si enregistrement ok, false sinon
+	 */
 	public function sauvegarder($dbh)
 	{
 		
@@ -192,6 +219,12 @@ class Utilisateur
 		return true;
 	}
 	
+	/**
+	 * Vérifie l'existence de l'utilisateur
+	 * @param unknown $dbh
+	 * @param string $login
+	 * @return boolean si existant, false sinon
+	 */
 	public function existeDeja($dbh, $login = null)
 	{
 		if ($login == null)
@@ -214,16 +247,32 @@ class Utilisateur
 		
 	}
 	
+	/**
+	 * Vérifie si compte bloqué
+	 * @return boolean true si bloque, false sinon
+	 */
 	public function estBloque()
 	{
+		// Nombre de tentatives max depassé, et délai non écoulé 
 		return (intval($this->getNbTentatives()) > self::NB_TENTATIVES && ((strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative())) < self::DELAI_TENTATIVE));
 	}
 	
+	/**
+	 * Vérifie si compte peut etre debloque
+	 * @return boolean true si peut etre debloque, false sinon
+	 */
 	public function peutEtreDebloque()
 	{
+		// délai écoulé
 		return (intval($this->getNbTentatives()) > self::NB_TENTATIVES && ((strtotime(date("Y-m-d H:i:s"))-strtotime($this->getDateTentative())) >= self::DELAI_TENTATIVE));
 	}
 	
+	/**
+	 * Vérifie si l'utilisateur peut écrire un article
+	 * @param unknown $dbh
+	 * @param string $id
+	 * @return boolean true si oui, false sinon
+	 */
 	public function peutEcrireUnArticle($dbh, $id = null)
 	{
 		if ($id == null)
@@ -237,6 +286,12 @@ class Utilisateur
 		
 	}
 	
+	/**
+	 * Vérifie si l'utilisateur peut écrire un commentaire
+	 * @param unknown $dbh
+	 * @param string $id
+	 * @return boolean true si oui, false sinon
+	 */
 	public function peutEcrireUnCommentaire($dbh, $id = null)
 	{
 		if($id == null)
