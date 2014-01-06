@@ -16,13 +16,15 @@ $error = '';
 $article = new Article();
 
 if($_SESSION['token'] == $_POST['token'])
-{//*/
+{
 	$user = unserialize($_SESSION['user']);
 
+	// Liste de commentaires
 	$articles = Article::lister($dbh);
 	
 	$str = '{';
 
+	// Liste d'articles
 	$i = 0;
 	foreach($articles as $a)
 	{

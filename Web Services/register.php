@@ -45,6 +45,7 @@
      */
     if(isset($_POST['password']) && is_string($_POST['password']) && strlen($_POST['password']) >= 8) 
     {
+    	// Filtres
     	$_POST['password'] = htmlspecialchars($_POST['password']);
     	$_POST['repeat'] = htmlspecialchars($_POST['repeat']);
     	if(isset($_POST['repeat']) && is_string($_POST['repeat'])) 

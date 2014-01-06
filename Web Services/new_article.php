@@ -7,8 +7,6 @@ require_once('./head/https.php');
 require_once('./models/article.php');
 require_once('./models/utilisateur.php');
 
-//print_r($_SESSION);
-
 
 if(empty($_SESSION['token']) || empty($_SESSION['user']))
 {
@@ -31,6 +29,7 @@ if($_SESSION['token'] == $_POST['token'])
 	 */
 	if(isset($_POST['titre']) && is_string($_POST['titre']) && $_POST['titre'] != '')
 	{
+		// Filtre
 		$titre = htmlspecialchars($_POST['titre']);
 	}
 	else
@@ -40,7 +39,6 @@ if($_SESSION['token'] == $_POST['token'])
 	
 	/**
 	 * Vérification image
-	 * @todo: Insertion d'image Article
 	 */
 	if(isset($_POST['image']))
 	{
@@ -60,6 +58,7 @@ if($_SESSION['token'] == $_POST['token'])
 	 */
 	if(isset($_POST['contenu']) && is_string($_POST['contenu']) && $_POST['contenu'] != '')
 	{
+		// Filtre
 		$contenu = htmlspecialchars($_POST['contenu']);
 	}
 	else

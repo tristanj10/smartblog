@@ -1,6 +1,11 @@
 <?php
 require_once('utilisateur.php');
 
+/**
+ * 
+ * Classe Article
+ *
+ */
 class Article
 {
 	private $id;
@@ -11,12 +16,17 @@ class Article
 	private $nb_vues;
 	private $auteur;
 	
-	
+	/**
+	 * Constructeur
+	 */
 	public function __construct()
 	{
 		$this->auteur = new Utilisateur();
 	}
 
+	/**
+	 * Getters et Setters
+	 */
 	public function getId()
 	{
 		return $this->id;
@@ -176,7 +186,7 @@ class Article
 	 * Charge l'instance 
 	 * @param unknown $dbh
 	 * @param string $id de l'article
-	 * @return boolean
+	 * @return boolean false si article non existant
 	 */
 	public function charger($dbh, $id = null)
 	{
@@ -187,6 +197,7 @@ class Article
 	
 		try
 		{
+			// SELECT de l'article + auteur + nb de likes
 			$stmt = $dbh->prepare("SELECT a.*, u.nom, u.prenom, u.login FROM articles a, utilisateurs u WHERE a.id = ? AND a.id_auteur = u.id");
 			$stmt->bindValue(1, $id,PDO::PARAM_STR);
 			$stmt->execute();
@@ -226,7 +237,7 @@ class Article
 	 * Vérifie l'existence de l'article
 	 * @param unknown $dbh
 	 * @param unknown $id
-	 * @return boolean
+	 * @return boolean true si article existant
 	 */
 	public function existeDeja($dbh, $id)
 	{

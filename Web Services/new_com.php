@@ -8,7 +8,6 @@ require_once('./models/article.php');
 require_once('./models/commentaire.php');
 require_once('./models/utilisateur.php');
 
-//print_r($_SESSION);
 
 
 if(empty($_SESSION['token']) || empty($_SESSION['user']))
@@ -25,18 +24,13 @@ if($_SESSION['token'] == $_POST['token'])
 {
 	$user = unserialize($_SESSION['user']);
 
-
-	
-	/**
-	 * Vérification image /!\
-	 * @todo: Insertion d'image Article
-	 */
 	
 	/**
 	 * Vérification du contenu
 	 */
 	if(isset($_POST['contenu']) && is_string($_POST['contenu']) && $_POST['contenu'] != '')
 	{
+		// Filtre
 		$contenu = htmlspecialchars($_POST['contenu']);
 	}
 	else
