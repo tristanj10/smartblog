@@ -23,6 +23,7 @@ public class Commentaire
 	private String contenu;
 	private int id_article;
 	private int id_auteur;
+	private String nom_auteur;
 	private String token;
 	
 	/**
@@ -169,6 +170,14 @@ public class Commentaire
 	return true;
 	
 }
+
+	public String getNom_auteur() {
+		return nom_auteur;
+	}
+
+	public void setNom_auteur(String nom_auteur) {
+		this.nom_auteur = nom_auteur;
+	}
 
 
 }

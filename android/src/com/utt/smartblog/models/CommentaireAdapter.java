@@ -86,7 +86,7 @@ public class CommentaireAdapter extends BaseAdapter
 		// Texte des items
 		holder.itemCommentaireContenu.setText(commentaires.get(position).getContenu());
 		holder.itemCommentaireDate.setText(commentaires.get(position).getDate());
-		holder.itemCommentairePrenomNom.setText("De " + commentaires.get(position).getId_auteur());
+		holder.itemCommentairePrenomNom.setText("De " + commentaires.get(position).getNom_auteur());
 		
 		return convertView;
 	}

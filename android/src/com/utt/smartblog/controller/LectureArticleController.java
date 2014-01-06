@@ -130,13 +130,10 @@ public class LectureArticleController extends Fragment implements OnClickListene
 					com.setContenu(object2.getString("contenu"));
 					com.setDate(object2.getString("date"));
 					com.setId(Integer.parseInt(object2.getString("id")));
+					com.setNom_auteur(object2.getString("nom") + " " + object2.getString("prenom"));
 					com.setImage(object2.getString("image"));
 					com.setId_auteur(Integer.parseInt(object2.getString("id_auteur")));
-					
 					commentaires.add(com);
-					System.out.println(object2.getString("contenu"));
-					//System.out.println(commentaires.get(i).getContenu());
-					//System.out.println(com.getContenu());
 				}
 				
 				
@@ -167,9 +164,14 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(v == this.envoi_com){
+			
 			this.contenu_com = this.editContenu.getText().toString();
 			Envoi_com(this.contenu_com);
-	
+			this.chargerListeCom();
+			this.editContenu.setText("");
+			
+			
+			
 		}
 	}
 	
@@ -180,7 +182,6 @@ public class LectureArticleController extends Fragment implements OnClickListene
 			System.out.println("Recharge la page");
 			
 		}
-		this.envoi_com.setText("");
 		
 		return false;
 	}
