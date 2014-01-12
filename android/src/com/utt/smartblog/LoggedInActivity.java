@@ -69,8 +69,6 @@ public class LoggedInActivity extends FragmentActivity {
 		{
 			// Passage du token
     	    user.setToken(this.getIntent().getExtras().getString("token"));
-    	    //user.setId(Integer.parseInt(this.getIntent().getExtras().getString("id_user")));
-    	    Toast.makeText(this, "Ca y est, on est co token : " + user.getToken() + " ID = " + user.getId() , Toast.LENGTH_LONG).show();//a suppr
     	    
             showFragment(this.articleFragment);
             
@@ -78,7 +76,6 @@ public class LoggedInActivity extends FragmentActivity {
 		else
 		{
 			// Erreur
-			System.out.println("Erreur");
 			finish();
 		}
 	
@@ -134,8 +131,6 @@ public class LoggedInActivity extends FragmentActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
-                Toast.makeText(this, "Image sauvée" + fileURI.toString(), Toast.LENGTH_LONG).show();
-                System.out.println(fileURI.toString());
                
                 Bitmap bmp = BitmapFactory.decodeFile(fileURI.getPath());
                 ImageView tmp = new ImageView(this);
@@ -145,13 +140,9 @@ public class LoggedInActivity extends FragmentActivity {
                 
             	
             } else if (resultCode == RESULT_CANCELED) {
-                // User cancelled the image capture
-            	Toast.makeText(this, "Image saved 2 to:\n" +
-                        data.getData(), Toast.LENGTH_LONG).show();
+            	
             } else {
-                // Image capture failed, advise user
-            	Toast.makeText(this, "Image saved 3 to:\n" +
-                        data.getData(), Toast.LENGTH_LONG).show();
+            	
             }
             
             if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {

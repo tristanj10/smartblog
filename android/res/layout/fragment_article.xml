@@ -53,6 +53,13 @@
             android:layout_column="1"
             android:text="TextView" />
 
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:src="@drawable/cool" />
+
     </TableRow>
 
     <TableRow>

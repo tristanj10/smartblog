@@ -92,7 +92,7 @@ class Article
 	 * Renvoie le nombre de likes
 	 * @return boolean|unknown
 	 */
-	public function getLikes()
+	public function getLikes($dbh)
 	{
 		if(!$this->existeDeja($dbh, $this->getId()))
 			return false;
@@ -123,18 +123,23 @@ class Article
 	 */
 	public function aDejaLike($dbh, $id_user)
 	{
-		if(!$this->existeDeja($dbh, $this->getId()))
+		if(!$this->existeDeja($dbh, $this->getId())){
 			return false;
+		}
 		
 		try
 		{
-			$stmt = $dbh->prepare("SELECT count(*) as like FROM likes WHERE id_article = ? AND id_utilisateur = ?");
-			$stmt->bindValue(1, $this->getId(),PDO::PARAM_STR);
-			$stmt->bindValue(1, $id_user,PDO::PARAM_STR);
+			$stmt = $dbh->prepare("SELECT count(*) FROM likes WHERE id_article = ? AND id_utilisateur = ?");
+			$stmt->bindValue(1, $this->getId(),PDO::PARAM_INT);
+			$stmt->bindValue(2, $id_user,PDO::PARAM_INT);
 			$stmt->execute();
 		
-			$res = $stmt->fetch();
-			return $res['like'];
+			$res = $stmt->fetchColumn();
+			if ($res == 0){
+				return true;
+			}else{
+				return false;
+			}
 				
 		}
 		catch(Exception $e)
@@ -151,11 +156,13 @@ class Article
 	 */
 	public function addLikes($dbh, $id_user)
 	{
-		if(!$this->existeDeja($dbh, $this->getId())) 
+		if(!$this->existeDeja($dbh, $this->getId())){ 
 			return false;
+			}
 		
-		if(!$this->aDejaLike($dbh, $id_user))
+		if(!$this->aDejaLike($dbh, $id_user)){
 			return false;
+			}
 		
 		try {
 			$stmt = $dbh->prepare("INSERT INTO likes(`id_utilisateur`,`id_article`) VALUES (?, ?) ");
@@ -373,4 +380,5 @@ class Article
 			return false;
 		}
 	}
+	
 }

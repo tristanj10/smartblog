@@ -30,6 +30,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	private ListView lescoms = null;
 	private Bitmap bitmap = null;
 	private URL urlPhoto = null;
+	private ImageButton UpLike = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,12 +74,13 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	    this.envoi_com = (Button) view.findViewById(R.id.EnvoiCom);
 	    this.editContenu = (EditText) view.findViewById(R.id.Commentaire);
 	    this.lescoms = (ListView) view.findViewById(R.id.listCom);
+	    this.UpLike = (ImageButton) view.findViewById(R.id.imageButton1);
 	    
 	    this.titre.setText(this.article.getTitre());
 	    this.date.setText(this.article.getDate());
 	    this.contenu.setText(this.article.getContenu());
-	    this.nb_vues.setText( String.valueOf(this.article.getNb_vues()));
-	    this.like.setText(String.valueOf(this.article.getLikes()));
+	    this.nb_vues.setText("Vu "+ String.valueOf(this.article.getNb_vues()) + "fois");
+	    this.like.setText(String.valueOf(this.article.getLikes()) + " likes");
 	    this.auteur.setText((this.article.getAuteur().getNom() + this.article.getAuteur().getPrenom()));
 	    //this.image.setImageBitmap(this.article.getImage());
 	    
@@ -94,6 +97,7 @@ public class LectureArticleController extends Fragment implements OnClickListene
 		}
 	    
 	    this.envoi_com.setOnClickListener(this);
+	    this.UpLike.setOnClickListener(this);
 	    
 	    chargerListeCom();
 	    System.out.println("Liste chargée.");
@@ -140,8 +144,6 @@ public class LectureArticleController extends Fragment implements OnClickListene
 				
 				if (!commentaires.isEmpty()) 
 				{
-					// Pas d'erreur
-					Toast.makeText(getActivity(), "C'est bon ! ", Toast.LENGTH_LONG).show();
 					
 					CommentaireAdapter adapter2 = new CommentaireAdapter(getActivity(), commentaires);
 					lescoms.setAdapter(adapter2);
@@ -166,20 +168,62 @@ public class LectureArticleController extends Fragment implements OnClickListene
 		if(v == this.envoi_com){
 			
 			this.contenu_com = this.editContenu.getText().toString();
-			Envoi_com(this.contenu_com);
+			if (Envoi_com(this.contenu_com)){
+				
+			}else{
+				Toast.makeText(this.monActivity, "Un délai de 15 secondes entre chaque commentaire est nécessaire", Toast.LENGTH_SHORT);
+			}
 			this.chargerListeCom();
 			this.editContenu.setText("");
 			
 			
 			
+		}else if(v == this.UpLike){
+			incrementerLike();
 		}
 	}
 	
+	private void incrementerLike() {
+		// TODO Auto-generated method stub
+		
+		System.out.println("On passe par la");
+		// Envoi des donnees sur le serveur
+    	ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+    	
+    	// post
+    	postParameters.add(new BasicNameValuePair("token", monActivity.user.getToken()));
+		postParameters.add(new BasicNameValuePair("id_article", String.valueOf(this.article.getId())));
+		
+
+		// Envoi de la requete post (donnees de l'article)
+		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/nblikes.php", postParameters);
+		try {
+			
+			// Recuperation de la reponse
+			String error = json.getString("error");
+			String nb = json.getString("nb");
+			
+			if (error.isEmpty()) 
+			{
+				// Pas d'erreur
+				this.like.setText(nb + " likes");
+			} else 
+			{
+				// Erreur(s)
+				
+			}
+
+		} 
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	public boolean Envoi_com(String contenu){
 		
 		Commentaire monCom = new Commentaire(contenu, this.article.getId(), this.monActivity.user.getToken() );
 		if(monCom.saveCommentaire()){
-			System.out.println("Recharge la page");
 			
 		}
 		
@@ -226,7 +270,7 @@ public class LectureArticleController extends Fragment implements OnClickListene
 			if (error.isEmpty()) 
 			{
 				// Pas d'erreur
-				this.nb_vues.setText(nb);
+				this.nb_vues.setText("vu " + nb + " fois");
 			} else 
 			{
 				// Erreur(s)

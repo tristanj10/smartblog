@@ -1,44 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/articleBackButton"
+                <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scrollView1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="fill_horizontal" >
+        
+<GridLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:columnCount="1" >
 
     <EditText
         android:id="@+id/titreField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
         android:layout_marginBottom="10dp"
+        android:layout_weight="1"
         android:ems="10"
-        android:hint="Titre" >
-
-        <requestFocus />
-    </EditText>
-
-    <ImageButton
-        android:id="@+id/prendre_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" />
-    
-     <ImageButton
-        android:id="@+id/choisir_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" />
-
-    <ImageView
-        android:id="@+id/photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" />
+        android:hint="Titre" />
 
     <EditText
         android:id="@+id/contenuField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
         android:layout_marginBottom="10dp"
+        android:layout_row="3"
+        android:layout_weight="1"
         android:ems="10"
         android:hint="Contenu"
         android:inputType="textMultiLine" />
@@ -47,7 +36,41 @@
         android:id="@+id/articleButton"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:layout_marginBottom="20dp"
+        android:layout_weight="1"
         android:text="Envoyer" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="2"
+        android:layout_weight="1"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageButton
+        android:id="@+id/prendre_photo"
+        android:layout_width="60dp"
+        android:layout_height="56dp"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="1"
+        android:layout_weight="1"
+        android:src="@drawable/apn" />
+
+    <ImageButton
+        android:id="@+id/choisir_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_row="1"
+        android:layout_weight="1"
+        android:src="@drawable/galerie" />
+
+</GridLayout>
+    </ScrollView>
+

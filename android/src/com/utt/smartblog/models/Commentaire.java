@@ -156,9 +156,8 @@ public class Commentaire
 			{
 				// Erreur(s)
 				System.out.println("Erreur : " + error);
-				
 				// Afficher les erreurs : les 15 secondes de délais entre chaque commentaire
-				
+				return false;
 			}
 
 		} catch (JSONException e) {
@@ -167,7 +166,7 @@ public class Commentaire
 		return false;
 		
 	}
-	return true;
+	//return true;
 	
 }
 

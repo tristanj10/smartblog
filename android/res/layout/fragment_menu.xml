@@ -22,7 +22,7 @@
         android:layout_weight="0.07"
         android:onClick="listeArticleFragment"
         android:padding="4dip"
-        android:src="@android:drawable/stat_notify_sync_noanim" />
+        android:src="@drawable/accueil" />
 
     <!--
     <EditText

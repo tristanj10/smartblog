@@ -110,8 +110,6 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 			
 			if (!articles.isEmpty()) 
 			{
-				// Pas d'erreur
-				Toast.makeText(getActivity(), "C'est bon ! ", Toast.LENGTH_LONG).show();
 				
 				/*
 				 * Test
@@ -153,7 +151,6 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 		this.monActivity.setSelectedArticle(item);
 		
 		//On lance le fragment de lecture de l'article selectionné.
-		Toast.makeText(getActivity(), item.getTitre(), Toast.LENGTH_LONG).show();//a suppr
 		this.monActivity.showFragment(this.monActivity.lectureArticleFragment);
 	}
 	

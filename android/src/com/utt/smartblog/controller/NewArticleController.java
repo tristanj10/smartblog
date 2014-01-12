@@ -183,7 +183,6 @@ public class NewArticleController extends Fragment implements OnClickListener
 			if (!id.isEmpty()) 
 			{
 				// Pas d'erreur
-				Toast.makeText(getActivity(), "C'est bon ! " + id + " " + token, Toast.LENGTH_LONG).show();
 				titreField.setText("");
 				contenuField.setText("");
 				
