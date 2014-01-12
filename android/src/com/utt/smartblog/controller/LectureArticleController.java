@@ -168,11 +168,8 @@ public class LectureArticleController extends Fragment implements OnClickListene
 		if(v == this.envoi_com){
 			
 			this.contenu_com = this.editContenu.getText().toString();
-			if (Envoi_com(this.contenu_com)){
-				
-			}else{
-				Toast.makeText(this.monActivity, "Un délai de 15 secondes entre chaque commentaire est nécessaire", Toast.LENGTH_SHORT);
-			}
+			Envoi_com(this.contenu_com);
+
 			this.chargerListeCom();
 			this.editContenu.setText("");
 			
@@ -220,14 +217,20 @@ public class LectureArticleController extends Fragment implements OnClickListene
 		}
 	}
 
-	public boolean Envoi_com(String contenu){
+	public void Envoi_com(String contenu)
+	{
 		
 		Commentaire monCom = new Commentaire(contenu, this.article.getId(), this.monActivity.user.getToken() );
-		if(monCom.saveCommentaire()){
+		if(monCom.saveCommentaire())
+		{
 			
+		} 
+		else
+		{
+			Toast.makeText(this.monActivity, "Un délai de 15 secondes entre chaque commentaire est nécessaire", Toast.LENGTH_SHORT).show();;
 		}
 		
-		return false;
+		
 	}
 	
 	private Bitmap resize(Bitmap bm, int w, int h)

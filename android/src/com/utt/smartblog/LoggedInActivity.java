@@ -173,6 +173,11 @@ public class LoggedInActivity extends FragmentActivity {
         }
         }
     
+    /**
+     * Retourn le path
+     * @param uri
+     * @return
+     */
     public String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
         Cursor cursor = managedQuery(uri, projection, null, null, null);
