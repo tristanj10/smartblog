@@ -9,16 +9,7 @@
     android:orientation="vertical"
     tools:context=".LoggedInActivity" >
 
-    <!--
-        <Button
-            android:id="@+id/newArticleButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:onClick="nouvelArticleFragment" />
-    -->
-
+   			<!-- Fragment menu -->
 
             <fragment
                 android:id="@+id/barre_recherche"
@@ -27,6 +18,7 @@
                 android:layout_height="wrap_content"
                 tools:layout="@layout/fragment_menu" />
 
+             <!-- Fragment contenaire -->
             <FrameLayout
                 android:id="@+id/fragmentContenaire"
                 android:layout_width="match_parent"

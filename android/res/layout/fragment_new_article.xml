@@ -10,6 +10,7 @@
     android:layout_weight="1"
     android:columnCount="1" >
 
+     <!-- Titre  -->
     <EditText
         android:id="@+id/titreField"
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
         android:ems="10"
         android:hint="Titre" />
 
+     <!-- Contenu  -->
     <EditText
         android:id="@+id/contenuField"
         android:layout_width="match_parent"
@@ -32,6 +34,7 @@
         android:hint="Contenu"
         android:inputType="textMultiLine" />
 
+     <!-- Bouton d'envoi  -->
     <Button
         android:id="@+id/articleButton"
         android:layout_width="260dp"
@@ -41,6 +44,7 @@
         android:layout_weight="1"
         android:text="Envoyer" />
 
+     <!-- Photo  -->
     <ImageView
         android:id="@+id/photo"
         android:layout_width="wrap_content"
@@ -51,6 +55,7 @@
         android:layout_weight="1"
         android:src="@drawable/ic_launcher" />
 
+     <!-- Prise de photo  -->
     <ImageButton
         android:id="@+id/prendre_photo"
         android:layout_width="60dp"
@@ -61,6 +66,7 @@
         android:layout_weight="1"
         android:src="@drawable/apn" />
 
+     <!-- Parcourir  -->
     <ImageButton
         android:id="@+id/choisir_photo"
         android:layout_width="wrap_content"

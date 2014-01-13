@@ -4,16 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+     <!-- Contenu  -->
     <TextView
 	android:id="@+id/itemCommentaireContenu"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"/>
 
+     <!-- Date  -->
 	<TextView
 	android:id="@+id/itemCommentaireDate"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"/>
 	
+	 <!-- Prénom et nom  -->
 	<TextView
 	android:id="@+id/itemCommentairePrenomNom"
 	android:layout_width="fill_parent"

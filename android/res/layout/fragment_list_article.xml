@@ -3,6 +3,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+     <!-- Liste d'articles  -->
     <ListView
         android:id="@+id/listArticles"
         android:layout_width="wrap_content"

@@ -8,9 +8,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
      >
+     
 
+    <!-- Image -->
     <TableRow>
-
+	
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
@@ -21,8 +23,10 @@
             android:src="@drawable/ic_launcher" />
     </TableRow>
 
+     <!-- Titre  -->
     <TableRow>
 
+       
         <TextView
             android:id="@+id/titre"
             android:layout_width="wrap_content"
@@ -35,6 +39,7 @@
             android:textStyle="bold" />
     </TableRow>
 
+     <!-- Nombre de vues et likes  -->
     <TableRow>
 
         <TextView
@@ -62,6 +67,7 @@
 
     </TableRow>
 
+     <!-- Contenu  -->
     <TableRow>
 
         <TextView
@@ -73,7 +79,9 @@
             android:text="Large Text" />
     </TableRow>
 
-    <TableRow><TextView
+     <!-- Auteur, date  -->
+    <TableRow>
+        <TextView
             android:id="@+id/auteur"
             android:layout_weight="0.7"
             android:layout_width="wrap_content"
@@ -90,6 +98,7 @@
             android:text="TextView" />
 
     </TableRow>
+    
 	<TableRow>
     <TextView
         android:id="@+id/textView1"
@@ -98,6 +107,7 @@
         android:text="Commentaire" />
 	</TableRow>
 	
+	 <!-- Commentaire  -->
     <TableRow>
     <EditText
         android:id="@+id/Commentaire"
@@ -110,6 +120,7 @@
     </EditText>
     </TableRow>
 
+     <!-- Envoi de commentaire  -->
     <TableRow>
     <Button
         android:id="@+id/EnvoiCom"
@@ -118,6 +129,7 @@
         android:text="Envoyer" />
     </TableRow>
 
+     <!-- Liste des commentaires -->
     <TableRow
         android:layout_height="wrap_content">
     <ListView
