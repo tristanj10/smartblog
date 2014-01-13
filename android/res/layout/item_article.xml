@@ -4,21 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+     <!-- Titre  -->
     <TextView
 	android:id="@+id/itemArticleTitre"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"/>
 
+     <!-- Date  -->
 	<TextView
 	android:id="@+id/itemArticleDate"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"/>
 	
+	 <!-- Prénom & nom  -->
 	<TextView
 	android:id="@+id/itemArticlePrenomNom"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"/>
 	
+	 <!-- Barre contenant : likes et nb vues  -->
 	<TextView
 	android:id="@+id/itemArticleNumBar"
 	android:layout_width="fill_parent"

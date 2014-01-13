@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+     <!-- Nouvel article  -->
     <ImageButton
         android:id="@+id/newArticleButton"
         android:layout_width="46dp"
@@ -12,6 +13,7 @@
         android:padding="4dip"
         android:src="@android:drawable/ic_input_add" />
 
+     <!-- Liste d'articles / Menu principal  -->
     <ImageButton
         android:id="@+id/listeArticleButton"
         android:layout_width="46dp"
@@ -24,19 +26,8 @@
         android:padding="4dip"
         android:src="@drawable/accueil" />
 
-    <!--
-    <EditText
-            android:id="@+id/rechercheField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:layout_toRightOf="@+id/listeArticleButton"
-            android:layout_alignTop="@+id/newArticleButton"
-            android:hint="Rechercher" />
-    -->
 
+     <!-- Déconnexion  -->
     <ImageButton
         android:id="@+id/decoButton"
         android:layout_width="46dp"
