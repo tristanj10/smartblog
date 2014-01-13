@@ -63,8 +63,11 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	    View view = inflater.inflate(R.layout.fragment_article, container, false);
 	   
 	    this.monActivity = (LoggedInActivity) this.getActivity();
+	    
+	    //On renseigne l'article selectionné
 	    this.article = this.monActivity.getSelectedArticle();
 	    
+	    //On initialise tous les éléments graphiques
 	    this.titre =  (TextView)view.findViewById(R.id.titre);
 	    this.date =  (TextView)view.findViewById(R.id.date);
 	    this.contenu =  (TextView)view.findViewById(R.id.contenu);
@@ -77,32 +80,33 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	    this.lescoms = (ListView) view.findViewById(R.id.listCom);
 	    this.UpLike = (ImageButton) view.findViewById(R.id.imageButton1);
 	    
+	    //On affiche les éléments correspondant à l'article sélectionné
 	    this.titre.setText(StringEscapeUtils.unescapeHtml4(this.article.getTitre()));
 	    this.date.setText(StringEscapeUtils.unescapeHtml4(this.article.getDate()));
 	    this.contenu.setText(StringEscapeUtils.unescapeHtml4(this.article.getContenu()));
 	    this.nb_vues.setText("Vu "+ String.valueOf(this.article.getNb_vues()) + "fois");
 	    this.like.setText(String.valueOf(this.article.getLikes()) + " likes");
 	    this.auteur.setText((this.article.getAuteur().getNom() + this.article.getAuteur().getPrenom()));
-	    //this.image.setImageBitmap(this.article.getImage());
 	    
 	    //Affichage de l'image
 	    try {
-	    	//this.urlPhoto = URL.class.getResource("http://10.0.2.2/uploads/" + this.article.getImage());
+	    	//On charge l'image de l'article qui est stockée sur le serveur
 			 bitmap = BitmapFactory.decodeStream((InputStream)new URL("http://10.0.2.2/uploads/" + this.article.getImage()).getContent());
 			 this.image.setImageBitmap(bitmap); 
-			 System.out.println("https://10.0.2.2/uploads/" + this.article.getImage());
 		} catch (MalformedURLException e) {
 			  e.printStackTrace();
 		} catch (IOException e) {
 			  e.printStackTrace();
 		}
 	    
+	    //Les listeners
 	    this.envoi_com.setOnClickListener(this);
 	    this.UpLike.setOnClickListener(this);
 	    
+	    //On charge les commentaires liés à l'article
 	    chargerListeCom();
-	    System.out.println("Liste chargée.");
 	    
+	    //On incrémente le nb de vue (même si l'utilisateur à déja vu l'article)
 	    incrementerVues();
 	    
 	    return view;
@@ -129,7 +133,7 @@ public class LectureArticleController extends Fragment implements OnClickListene
 				{
 					// Article 
 					JSONObject object2 = jsonC.getJSONObject(i.toString());
-					
+					//On créer un nouveau com et on charge ses données
 					com = new Commentaire();
 					
 					com.setContenu(object2.getString("contenu"));
@@ -145,15 +149,13 @@ public class LectureArticleController extends Fragment implements OnClickListene
 				
 				if (!commentaires.isEmpty()) 
 				{
-					
+					//On charge l'adaptater
 					CommentaireAdapter adapter2 = new CommentaireAdapter(getActivity(), commentaires);
 					lescoms.setAdapter(adapter2);
-					//lescoms.setOnItemClickListener(this);
 				}
 				else 
 				{
-					// Vide
-					System.out.println("C'est vide");
+					// Vide, pas de commentaire
 				}
 				
 
@@ -166,16 +168,20 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		
+		//On sauvegarde le new com
 		if(v == this.envoi_com){
 			
 			this.contenu_com = this.editContenu.getText().toString();
+			//On envoi le contenu du com
 			Envoi_com(this.contenu_com);
-
+			//On recharge la liste des coms pour afficher le nouveau
 			this.chargerListeCom();
+			//On vide l'éditText
 			this.editContenu.setText("");
 			
 			
-			
+		//On incrémente le nb de like (si l'utilisateur n'a pas déja liké)
 		}else if(v == this.UpLike){
 			incrementerLike();
 		}
@@ -184,7 +190,6 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	private void incrementerLike() {
 		// TODO Auto-generated method stub
 		
-		System.out.println("On passe par la");
 		// Envoi des donnees sur le serveur
     	ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
     	
@@ -218,22 +223,25 @@ public class LectureArticleController extends Fragment implements OnClickListene
 		}
 	}
 
+	
 	public void Envoi_com(String contenu)
 	{
 		
 		Commentaire monCom = new Commentaire(contenu, this.article.getId(), this.monActivity.user.getToken() );
 		if(monCom.saveCommentaire())
 		{
-			
+			//Commentaire sauver
 		} 
 		else
 		{
+			//On indique à l'user qu'un délai de 15 sec est nécessaire entre chaque envoi de com
 			Toast.makeText(this.monActivity, "Un délai de 15 secondes entre chaque commentaire est nécessaire", Toast.LENGTH_SHORT).show();;
 		}
 		
 		
 	}
 	
+	//Redimensionne l'image pour l'adpater à l'écran
 	private Bitmap resize(Bitmap bm, int w, int h)
 	{
 		int width = bm.getWidth();

@@ -96,10 +96,12 @@ public class LoggedInActivity extends FragmentActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+		//Sauvegarde le fragment actif
 		outState.putString(KEY_FRAGMENT, mFragment != null ? mFragment : "");
 		super.onSaveInstanceState(outState);
 	}
     
+	//Affiche le fragment en paramètre
     public void showFragment(final Fragment fragment) {
 		if (fragment == null)
 			return;
@@ -118,10 +120,12 @@ public class LoggedInActivity extends FragmentActivity {
         ft.commit();
     }
     
+    //Return l'article selectionné
     public Article getSelectedArticle(){
     	return this.selectedArticle;
     }
     
+    //Renseigne l'article selectionné
     public void setSelectedArticle(Article article){
     	this.selectedArticle = article;
     }
@@ -130,7 +134,7 @@ public class LoggedInActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                // Image captured and saved to fileUri specified in the Intent
+                // Capture la photo et la sauvegarde dans l'uri renseigné dans l'Intent
                
                 Bitmap bmp = BitmapFactory.decodeFile(fileURI.getPath());
                 ImageView tmp = new ImageView(this);
@@ -145,17 +149,17 @@ public class LoggedInActivity extends FragmentActivity {
             	
             }
             
+            //Gere le cas où l'on prendrai une video. (Ce qui n'est pas possible dans la version actuelle de l'appli)--> Ne fait rien
             if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
                 if (resultCode == RESULT_OK) {
-                    // Video captured and saved to fileUri specified in the Intent
-                    Toast.makeText(this, "Video saved to:\n" +
-                             data.getData(), Toast.LENGTH_LONG).show();
+                   
                 } else if (resultCode == RESULT_CANCELED) {
-                    // User cancelled the video capture
+                    
                 } else {
-                    // Video capture failed, advise user
+                   
                 }
             }
+            //Cas où l'on choisi un fichier déjà existant
         }else if(requestCode == CHOISIR_PHOTO){
         	if (resultCode == RESULT_OK) {
                 this.fileURI = data.getData();
@@ -182,8 +186,6 @@ public class LoggedInActivity extends FragmentActivity {
         String[] projection = { MediaStore.Images.Media.DATA };
         Cursor cursor = managedQuery(uri, projection, null, null, null);
         if (cursor != null) {
-            // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
-            // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
             int column_index = cursor
                     .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();

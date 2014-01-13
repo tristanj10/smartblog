@@ -47,6 +47,7 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 	 
 	    View view = inflater.inflate(R.layout.fragment_list_article, container, false);
 	   
+	    //Initialisation des éléments graphiques
 	    listView = (ListView)view.findViewById(R.id.listArticles);
 	    monActivity = (LoggedInActivity) this.getActivity();
 	    
@@ -129,7 +130,7 @@ public class ArticleController extends Fragment implements OnClickListener, OnIt
 			}
 			else 
 			{
-				// Vide
+				// Vide, pas d'article
 			}
 
 		} catch (JSONException e) {

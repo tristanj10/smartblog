@@ -44,7 +44,6 @@ public class Commentaire
 	{
 		this.setContenu(contenu);
 		this.setId_article(id_article);
-		//this.setId_auteur(id_auteur);
 		this.setToken(token);
 	}
 	
@@ -64,7 +63,6 @@ public class Commentaire
 		this.setImage(image);
 		this.setContenu(contenu);
 		this.setId_article(id_article);
-		//this.setId_auteur(id_auteur);
 		this.setToken(token);
 	}
 	
@@ -101,12 +99,6 @@ public class Commentaire
 	public void setId_article(int id_article) {
 		this.id_article = id_article;
 	}
-	/*public int getId_auteur() {
-		return id_auteur;
-	}
-	public void setId_auteur(int id_auteur) {
-		this.id_auteur = id_auteur;
-	}*/
 	
 	public int getId_auteur() {
 		return id_auteur;
@@ -129,17 +121,12 @@ public class Commentaire
 	 */
 	public boolean saveCommentaire(){
 		
-		System.out.println("Commentaire : "+this.getContenu() + " " + String.valueOf(this.getId_article()) + " " + this.getToken() + " sauvegardé");
-		
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
     	
 		postParameters.add(new BasicNameValuePair("contenu", this.getContenu()));
 		postParameters.add(new BasicNameValuePair("id_article", String.valueOf(this.getId_article())));
 		postParameters.add(new BasicNameValuePair("token", this.getToken()));
 
-		// getting JSON string from URL
-		// JSONObject json =
-		// JSONParser.getJSONFromUrl("https://10.0.2.2/auth.php?login="+user.getLogin()+"&password="+user.getPassword());
 		JSONObject json = JSONParser.getJSONFromUrl("https://10.0.2.2/new_com.php", postParameters);
 		try {
 			// Storing each json item in variable
@@ -154,9 +141,6 @@ public class Commentaire
 				
 			} else 
 			{
-				// Erreur(s)
-				System.out.println("Erreur : " + error);
-				// Afficher les erreurs : les 15 secondes de délais entre chaque commentaire
 				return false;
 			}
 
@@ -166,7 +150,6 @@ public class Commentaire
 		return false;
 		
 	}
-	//return true;
 	
 }
 

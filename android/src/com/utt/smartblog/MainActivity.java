@@ -25,7 +25,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
-//La gestion des évènements se fait par les Layouts dans le XML (Click Bouton)
 	
 	private Utilisateur user;
 
@@ -85,7 +84,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				Intent intent = new Intent(this, LoggedInActivity.class);
 				//on ajoute le token en extra (permet de le renvoyer le cas échéant)
 				intent.putExtra("token", token);
-				//intent.putExtra("id_user", id);
 				
 				//On démarre l'activité
 				startActivity(intent);

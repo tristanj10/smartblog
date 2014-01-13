@@ -68,16 +68,17 @@ public class NewArticleController extends Fragment implements OnClickListener
 	 
 	    View view = inflater.inflate(R.layout.fragment_new_article, container, false);
 	    
+	    //On initialise les éléments graphiques
 	    articleButton = (Button)view.findViewById(R.id.articleButton);
 	    monActivity = (LoggedInActivity) this.getActivity();
 	    prendrePhoto = (ImageButton)view.findViewById(R.id.prendre_photo);
 	    choisirPhoto = (ImageButton)view.findViewById(R.id.choisir_photo);
-	    
 	    titreField = (EditText) view.findViewById(R.id.titreField);
 	    contenuField = (EditText) view.findViewById(R.id.contenuField);
 	    
 	    this.user = ((LoggedInActivity)getActivity()).user;
 	    
+	    //Les listeners
 	    articleButton.setOnClickListener(this);
 	    this.prendrePhoto.setOnClickListener(this);
 	    this.choisirPhoto.setOnClickListener(this);
@@ -119,7 +120,6 @@ public class NewArticleController extends Fragment implements OnClickListener
 		    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 		    this.monActivity.fileURI = fileUri;
 		    
-		    // start the image capture Intent
 		    this.monActivity.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 			
 		}
@@ -152,7 +152,6 @@ public class NewArticleController extends Fragment implements OnClickListener
 	        catch (IOException e) 
 	        {
 				// TODO Auto-generated catch block
-				System.out.println("Error");
 				e.printStackTrace();
 			}
     	}
@@ -214,36 +213,30 @@ public class NewArticleController extends Fragment implements OnClickListener
 
 
     /**
-     * Creation d'un fichier pour la sauvegarde
+     * Creation d'un fichier pour la sauvegarde de la photo
      * @param int type
      * @return
      */
 	private static File getOutputMediaFile(int type){
-	    // To be safe, you should check that the SDCard is mounted
-	    // using Environment.getExternalStorageState() before doing this.
+	    
 
 	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 	              Environment.DIRECTORY_PICTURES), "MyCameraApp");
-	    // This location works best if you want the created images to be shared
-	    // between applications and persist after your app has been uninstalled.
+	    
 
-	    // Create the storage directory if it does not exist
+	    // Créer un répertoire s'il n'existe pas
 	    if (! mediaStorageDir.exists()){
 	        if (! mediaStorageDir.mkdirs()){
-	            Log.d("MyCameraApp", "failed to create directory");
 	            return null;
 	        }
 	    }
 
-	    // Create a media file name
+	    // Create un nom de fichier
 	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 	    File mediaFile;
 	    if (type == MEDIA_TYPE_IMAGE){
 	        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
 	        "IMG_"+ timeStamp + ".jpg");
-	    //} else if(type == MEDIA_TYPE_VIDEO) {
-	       // mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-	        //"VID_"+ timeStamp + ".mp4");
 	    } else {
 	        return null;
 	    }

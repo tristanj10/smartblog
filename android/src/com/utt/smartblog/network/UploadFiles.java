@@ -27,8 +27,6 @@ public class UploadFiles {
         String twoHyphens = "--";
         String boundary = "*****";
         
-        System.out.println("TEST");
-
         int bytesRead, bytesAvailable, bufferSize;
         byte[] buffer;
         int maxBufferSize = 1 * 1024 * 1024;

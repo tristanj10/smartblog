@@ -73,7 +73,6 @@ public class CommentaireAdapter extends BaseAdapter
 			convertView = inflater.inflate(R.layout.item_commentaire, null);
 
 			// Attribution des items
-			
 			holder.itemCommentaireContenu = (TextView)convertView.findViewById(R.id.itemCommentaireContenu);
 			holder.itemCommentaireDate = (TextView)convertView.findViewById(R.id.itemCommentaireDate);
 			holder.itemCommentairePrenomNom = (TextView)convertView.findViewById(R.id.itemCommentairePrenomNom);

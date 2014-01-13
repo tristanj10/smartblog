@@ -30,12 +30,15 @@ public class BarreRechercheController extends Fragment implements OnClickListene
 		 
 		    View view = inflater.inflate(R.layout.fragment_menu, container, false);
 		    
+		    //Initialisation des éléments graphiques
 		    this.buttonNouvelArticle = (ImageButton) view.findViewById(R.id.newArticleButton);
             this.buttonRetour = (ImageButton) view.findViewById(R.id.listeArticleButton);
             this.buttonDeco = (ImageButton) view.findViewById(R.id.decoButton);
             
+            //Activity du fragment
             this.monActivity = (LoggedInActivity) this.getActivity();
 		    
+            //Les Listener
             this.buttonNouvelArticle.setOnClickListener(this);
             this.buttonRetour.setOnClickListener(this);
 		    this.buttonDeco.setOnClickListener(this);
@@ -47,15 +50,18 @@ public class BarreRechercheController extends Fragment implements OnClickListene
 	public void onClick(View v) 
 	{
 		// TODO Auto-generated method stub
+		//On ouvre le fragment pour créer un nouvel article
 		if(v == this.buttonNouvelArticle) 
 		{
 			monActivity.showFragment(monActivity.newArticleFragment); 
 		}
+		//On ouvre le fragment qui affiche tous les articles
 		else if(v == this.buttonRetour)
 		{
 			//monActivity.articleFragment.chargerListe();
 			monActivity.showFragment(monActivity.articleFragment);
 		}
+		//On se déco de l'appli
 		else if(v == this.buttonDeco)
 		{
 			monActivity.deconnexion();
