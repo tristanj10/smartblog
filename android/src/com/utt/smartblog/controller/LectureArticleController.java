@@ -86,7 +86,7 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	    this.contenu.setText(StringEscapeUtils.unescapeHtml4(this.article.getContenu()));
 	    this.nb_vues.setText("Vu "+ String.valueOf(this.article.getNb_vues()) + "fois");
 	    this.like.setText(String.valueOf(this.article.getLikes()) + " likes");
-	    this.auteur.setText((this.article.getAuteur().getNom() + this.article.getAuteur().getPrenom()));
+	    this.auteur.setText((this.article.getAuteur().getPrenom() + " " + this.article.getAuteur().getNom()));
 	    
 	    //Affichage de l'image
 	    try {

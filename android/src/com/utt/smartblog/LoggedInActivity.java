@@ -172,7 +172,6 @@ public class LoggedInActivity extends FragmentActivity {
                 tmp = (ImageView)findViewById(R.id.photo);
                 tmp.setImageBitmap(bmp);
                 
-        		System.out.println(data.getData());
                 }
         }
         }

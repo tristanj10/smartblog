@@ -58,14 +58,10 @@ public class JSONParser {
         	HttpClient httpClient = getNewHttpClient();  
             HttpPost httpPost = new HttpPost(url);
  
-            // Pour le test
-            System.out.println(httpPost.getURI().toString());
-            
             
             
             if(!postParameters.isEmpty())  
             {
-                System.out.println("SEND : " + postParameters.toString());
             	httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
             }
             	
@@ -92,8 +88,7 @@ public class JSONParser {
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
                 
-                // Pour le test seulement
-                System.out.println("RETURN : " + line);
+
             }
             is.close();
             json = sb.toString();
