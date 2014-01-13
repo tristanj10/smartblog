@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -76,9 +77,9 @@ public class LectureArticleController extends Fragment implements OnClickListene
 	    this.lescoms = (ListView) view.findViewById(R.id.listCom);
 	    this.UpLike = (ImageButton) view.findViewById(R.id.imageButton1);
 	    
-	    this.titre.setText(this.article.getTitre());
-	    this.date.setText(this.article.getDate());
-	    this.contenu.setText(this.article.getContenu());
+	    this.titre.setText(StringEscapeUtils.unescapeHtml4(this.article.getTitre()));
+	    this.date.setText(StringEscapeUtils.unescapeHtml4(this.article.getDate()));
+	    this.contenu.setText(StringEscapeUtils.unescapeHtml4(this.article.getContenu()));
 	    this.nb_vues.setText("Vu "+ String.valueOf(this.article.getNb_vues()) + "fois");
 	    this.like.setText(String.valueOf(this.article.getLikes()) + " likes");
 	    this.auteur.setText((this.article.getAuteur().getNom() + this.article.getAuteur().getPrenom()));

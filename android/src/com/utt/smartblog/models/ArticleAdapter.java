@@ -2,6 +2,8 @@ package com.utt.smartblog.models;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,9 +87,9 @@ public class ArticleAdapter extends BaseAdapter
 		}
 
 		// Texte des items
-		holder.itemArticleTitre.setText(articles.get(position).getTitre());
-		holder.itemArticleDate.setText(articles.get(position).getDate());
-		holder.itemArticlePrenomNom.setText("De " + articles.get(position).getAuteur().getPrenom() + " " + articles.get(position).getAuteur().getNom());
+		holder.itemArticleTitre.setText(StringEscapeUtils.unescapeHtml4(articles.get(position).getTitre()));
+		holder.itemArticleDate.setText(StringEscapeUtils.unescapeHtml4(articles.get(position).getDate()));
+		holder.itemArticlePrenomNom.setText("De " + StringEscapeUtils.unescapeHtml4(articles.get(position).getAuteur().getPrenom()) + " " + StringEscapeUtils.unescapeHtml4(articles.get(position).getAuteur().getNom()));
 		holder.itemArticleNumBar.setText("Vu " + articles.get(position).getNb_vues() + " fois - " + articles.get(position).getLikes() + " Likes");
 		
 		return convertView;

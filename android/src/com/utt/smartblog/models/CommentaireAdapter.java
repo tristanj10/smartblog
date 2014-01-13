@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import com.utt.smartblog.R;
 
 /**
@@ -84,9 +86,9 @@ public class CommentaireAdapter extends BaseAdapter
 		}
 
 		// Texte des items
-		holder.itemCommentaireContenu.setText(commentaires.get(position).getContenu());
-		holder.itemCommentaireDate.setText(commentaires.get(position).getDate());
-		holder.itemCommentairePrenomNom.setText("De " + commentaires.get(position).getNom_auteur());
+		holder.itemCommentaireContenu.setText(StringEscapeUtils.unescapeHtml4(commentaires.get(position).getContenu()));
+		holder.itemCommentaireDate.setText(StringEscapeUtils.unescapeHtml4(commentaires.get(position).getDate()));
+		holder.itemCommentairePrenomNom.setText("De " + StringEscapeUtils.unescapeHtml4(commentaires.get(position).getNom_auteur()));
 		
 		return convertView;
 	}
