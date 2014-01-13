@@ -4,8 +4,8 @@
     <string name="app_name">SmartBlog</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_register">RegisterActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_logged_in">LoggedInActivity</string>
+    <string name="title_activity_register">Nouveau compte</string>
+    <string name="title_activity_login">Authentification</string>
+    <string name="title_activity_logged_in">SmartBlog</string>
 
 </resources>

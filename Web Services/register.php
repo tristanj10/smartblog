@@ -21,7 +21,7 @@
      */
     if(isset($_POST['nom']) && is_string($_POST['nom']) && !preg_match("/[^A-Za-z- ]+/", $_POST['nom']) && $_POST['nom'] != '') 
     { 
-    	$nom = $_POST['nom'];
+    	$nom = htmlspecialchars($_POST['nom']);
     } 
     else 
     {
@@ -33,7 +33,7 @@
      */
     if(isset($_POST['prenom']) && is_string($_POST['prenom']) && !preg_match("/[^A-Za-z- ]+/", $_POST['prenom']) && $_POST['prenom'] != '') 
     {
-    	$prenom = $_POST['prenom'];
+    	$prenom = htmlspecialchars($_POST['prenom']);
     } 
     else 
     {
